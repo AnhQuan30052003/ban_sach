@@ -1,3 +1,5 @@
+-- In SQL Server --
+
 create database quanlybansach
 use quanlybansach
 
