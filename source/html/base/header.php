@@ -1,11 +1,14 @@
 <?php
   function head(string $namePage = "Document") {
-    echo "<head>";
-    echo "<meta charset='UTF-8'>";
-    echo "<meta name='viewport' content='width=device-width, initial-scale=1.0'>";
-    echo "<link rel='stylesheet' href=''>";
-    echo "<script scr=''></script>";
-    echo "<title>$namePage</title>";
-    echo "</head>";
+    echo "
+      <head>
+        <meta charset='UTF-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <link rel='stylesheet' href='../../../assets/styles/main.css'>
+        <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'>
+        <script scr=''></script>
+        <title>$namePage</title>
+      </head>
+    ";
   }
 ?>
