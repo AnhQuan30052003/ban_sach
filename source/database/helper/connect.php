@@ -4,7 +4,7 @@
   $host = "localhost";
   $user = "root";
   $password = "";
-  $database = "ban_sach";
+  $database = "quanlybansach";
 
   # Kết nối
   function connect() {
