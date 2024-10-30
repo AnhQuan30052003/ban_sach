@@ -1,5 +1,5 @@
 <?php
-  $loaiSach = isset($_GET["loai-sach"]) ? $_GET["loai-sach"] : "";
+  $loaiSach = isset($_GET["loai-sach"]) ? $_GET["loai-sach"] : "0000";
   $tacGia = isset($_GET["tac-gia"]) ? $_GET["tac-gia"] : "";
 
   function build_user_login() {
@@ -55,7 +55,7 @@
 ?>
 
 <style>
-  .mod-tim-kiem {
+  .mod-header {
     padding: 5px 0;
     position: fixed;
     top: 0;
@@ -67,7 +67,8 @@
   #search {
     border-radius: 4px;
   }
-  .mod-tim-kiem,
+
+  .mod-header,
   #search {
     background-color: #f95030;
   }
@@ -165,14 +166,19 @@
         outline: none;
         padding: 3px 5px;
       }
+
+      .description {
+        color: white;
+        margin-left: 10px;
+      }
     }
   }
 </style>
 
-<section class='mod-tim-kiem'>
+<section class='mod-header'>
   <div class="container">
     <div class="logo">
-      <a href="http://localhost/ban_sach/source/html/type/user/index.php">
+      <a href="http://localhost/ban_sach/source/html/user/index.php">
         <i class="fa-solid fa-book-open" style='color: white; font-size: 80px;'></i>
       </a>
     </div>
@@ -191,6 +197,7 @@
         <div style='margin-top: 5px;'>
           <?php build_group_box("loai-sach", $loaiSach, "select * from loai_sach"); ?>
           <?php build_group_box("tac-gia", $tacGia, "select distinct tacGia, tacGia from sach"); ?>
+          <span id='description' class='description'></span>
         </div>
       </form>
     </div>

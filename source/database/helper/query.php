@@ -30,8 +30,4 @@
   function run($data, $func) {
     if (!is_bool($data)) $func();
   }
-
-  function lenData(array $array) {
-    return count($array) / 2;
-  }
 ?>

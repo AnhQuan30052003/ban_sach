@@ -1,22 +1,46 @@
 <?php
+  function handle_sql() {
+    global $tim, $loaiSach, $tacGia;
+
+    $sql = "
+      select maSach, tenSach, ls.maLS, tenLS, moTa, giaTien, soLuong, tacGia, hinhAnh
+      from sach s join loai_sach ls on s.maLS = ls.maLS
+    ";
+
+    if (strlen($tim) > 0) {
+      $sql .= " where tenSach like '%$tim%' or tenLS like '%$tim%' or moTa like '%$tim%' or tacGia like '%$tim%'";
+      return $sql;
+    }
+
+    if (($loaiSach == "" && $tacGia == "") || ($loaiSach != "" && $tacGia != "")) {
+      $sql .= " where tacGia = '$tacGia' and ls.malS = '$loaiSach'";
+      return $sql;
+    }
+
+    $sql .= " where " . ($loaiSach == "" ? "tacGia = '$tacGia'" : "ls.maLS = '$loaiSach'");
+    return $sql;
+  }
+
   $tim = isset($_GET["txtTimKiem"]) ? $_GET["txtTimKiem"] : "";
-  $toanTuKetNoi = $loaiSach == "" || $tacGia == "" ? "or" : "and";
-
-  $sql = "
-    select maSach, tenSach, ls.maLS, tenLS, moTa, giaTien, soLuong, tacGia, hinhAnh
-    from sach s join loai_sach ls on s.maLS = ls.maLS
-  ";
-
-  if (strlen($tim) > 0) $sql .= " where tenSach like '%$tim%' or tenLS like '%$tim%' or moTa like '%$tim%' or tacGia like '%$tim%'";
-  else if ($toanTuKetNoi == "or") $sql .= " where " . ($loaiSach == "" ? "tacGia = '$tacGia'" : "ls.maLS = '$loaiSach'");
-  else $sql .= "where tacGia = '$tacGia' and ls.maLS = '$loaiSach'";
-
+  
+  if (!isset($_GET["page"])) $_GET["page"] = 1;
+  $productsPerPage = 10;
+  $offset = ($_GET["page"] - 1) * $productsPerPage;
+  
+  $sql = handle_sql();
+  $sql .= " limit $offset, $productsPerPage";
   $result = get_data_query($sql);
 
   function build_data() {
-    global $result;
+    global $result, $sql;
+    if (is_bool($result)) {
+      number_products_found(0);
+      return;
+    }
 
-    if (is_bool($result)) return;
+    $sqlTemp = cutString($sql, "limit");
+    $productsFound = count(get_data_query($sqlTemp));
+    number_products_found($productsFound);
 
     $soLuong = 1;
     foreach ($result as $line) {
@@ -59,7 +83,8 @@
 
       tr {
         width: 100%;
-        height: 250px;
+        /* height: 250px; */
+        height: 200px;
         margin: 5px 0;
         display: flex;
         align-items: stretch;
@@ -88,6 +113,13 @@
             justify-content: center;
             gap: 5px;
 
+            p {
+              width: 392px;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+            
             .bold {
               font-weight: bold;
             }

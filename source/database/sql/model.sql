@@ -23,7 +23,9 @@ create table khach_hang (
 	maKH varchar(4) primary key,
 	tenKH nvarchar(100),
 	email varchar(100),
+	sdt varchar(10),
 	matKhau varchar(50),
+	diaChi nvarchar(200),
 )
 
 create table sach_yeu_thich (

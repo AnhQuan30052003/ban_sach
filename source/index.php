@@ -9,7 +9,7 @@
 <body>
   <script>
     // Đường dẫn đến page home
-    const link = "./html/type/user/index.php";
+    const link = "./html/user/index.php";
     window.location.href = link;
   </script>
 </body>
