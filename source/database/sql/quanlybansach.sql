@@ -27,7 +27,7 @@ INSERT INTO `loai_sach` (`maLS`, `tenLS`) VALUES
 ('0000', 'Sách giáo dục'),
 ('0001', 'Tiểu thuyết'),
 ('0002', 'Ngôn tình'  ),
-('0003', 'Tra thám'   ),
+('0003', 'Trinh thám'   ),
 ('0004', 'Tham khảo'  ),
 ('0005', 'Khoa học'   ),
 ('0006', 'Tôn giáo'   ),

@@ -28,7 +28,7 @@
     // Hiển thị khi user chưa đăng nhập
     else echo "
       <span class='user-login-false'></span>
-      <span class='user-login-false' style='font-weight: bold;'>
+      <span class='user-login-false' style='font-weight: bold; margin-bottom: 10px;'>
         <a href=''>Đăng ký</a> | 
         <a href=''>Đăng nhập</a>
       </span>
@@ -56,7 +56,16 @@
 
 <style>
   .mod-tim-kiem {
-    padding: 3px 0;
+    padding: 5px 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+  }
+
+  .group-box,
+  .frame-search,
+  #search {
+    border-radius: 4px;
   }
   .mod-tim-kiem,
   #search {
@@ -84,7 +93,6 @@
       color: white;
       display: flex;
       justify-content: space-between;
-      margin-bottom: 5px;
 
       .option {
         a {
@@ -109,7 +117,7 @@
         a {
           border: none;
           outline: none;
-          padding: 5px 0;
+          /* padding: 5px 0; */
           font-size: 18px;
           width: 100px;
           background-color: transparent;
@@ -126,9 +134,10 @@
     form {
       .frame-search {
         padding: 3px 5px;
+        margin-bottom: 10px;
         background-color: white;
         display: flex;
-        gap: 3px;
+        gap: 3px;        
 
         input {
           border: none;
@@ -154,6 +163,7 @@
 
       .group-box {
         outline: none;
+        padding: 3px 5px;
       }
     }
   }
@@ -174,7 +184,7 @@
       <!-- Khung tìm kiếm -->
       <form action="" method='get' id='form-search'>
         <div class='frame-search'>
-          <input type="text" id='search-text' name='txtTimKiem' placeholder="Tìm gì đó...">
+          <input type="text" id='search-text' name='txtTimKiem' placeholder="Tìm gì đó..." value='<?php if (isset($_GET["txtTimKiem"])) echo $_GET["txtTimKiem"]; ?>'>
           <button id="search"><i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
 
