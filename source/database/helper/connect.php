@@ -5,6 +5,20 @@
   $user = "root";
   $password = "";
   $database = "quanlybansach";
+  
+  $userId = "";
+  if (isset($_SESSION["userId"])) {
+    $userId = $_SESSION["userId"];
+  }
+  else {
+    $linkDefault = "http://localhost/ban_sach/source/html/user/index.php";
+    $url = get_url_page();
+
+    if ($url != $linkDefault) {
+      echo "<script>window.location.href = '$linkDefault'</script>";
+    }
+  }
+
 
   # Kết nối
   function connect() {

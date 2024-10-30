@@ -20,9 +20,17 @@
     return $text;
   }
 
-  # Hiẻn thị thông tin về số lượng kết quả tìm thấy
+  # Hiển thị thông tin về số lượng kết quả tìm thấy
   function number_products_found(int $number) {
     $text = $number == 0 ? "* Không tìm thấy sản phẩm nào !" : "* Tìm thấy $number sản phẩm";
     echo "<script>document.querySelector('#description').innerHTML = '$text';</script>";
   }
+
+  # Loại trang cho user
+  function type_page() {
+    $url = get_url_page();
+
+    if (strpos($url, "index.php")) return "index";
+    return "favorite";
+  }  
 ?>

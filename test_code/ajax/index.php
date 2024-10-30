@@ -29,6 +29,7 @@
         xhr.open('POST', 'handle.php', true);
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         xhr.send('id=' + id);
+        console.log(id);
       });
     });
   </script>

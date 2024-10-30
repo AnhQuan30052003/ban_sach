@@ -1,36 +1,61 @@
 <?php
+  $typePage = type_page();
+
   $loaiSach = isset($_GET["loai-sach"]) ? $_GET["loai-sach"] : "0000";
   $tacGia = isset($_GET["tac-gia"]) ? $_GET["tac-gia"] : "";
 
-  function build_user_login() {
-    // Hiển thị khi user đăng nhập
-    if ($_SESSION["userId"] != "") {
-      echo "
-      <span class='user-login-true' style='font-weight: bold;'>
-        <i class='fa-solid fa-user'></i>
-        <span style='margin: 0 10px;'>Nguyễn Anh Quân</span>
-      </span>
-        
-      <!-- Tuỳ chọn  -->
-      <span class='user-login-true option'>
-        <a class='favorite' title='Yêu thích' href=''>
+  function build_home_or_favorite() {
+    global $typePage;
+
+    if ($typePage == "index") {
+      return "
+        <a class='favorite' style='' title='Yêu thích'
+          href='http://localhost/ban_sach/source/html/user/favorite.php'
+          onclick='save_link_index(true)'
+        >
           <i class='fa-regular fa-heart'></i>
         </a>
-        <a class='pass' title='Đổi mật khẩu' href=''>
-          <i class='fa-solid fa-key'></i>
-        </a>
-        <a class='logout' title='Đăng xuất' href=''>
-          <i class='fa-solid fa-right-from-bracket'></i>
-        </a>
-      </span>
       ";
     }
+    else {
+      return "
+        <a class='favorite' title='Page home' href='#'
+          onclick='save_link_index(false);'
+        >
+          <i class='fa-solid fa-house'></i>
+        </a>
+      ";
+    }    
+  }
+
+  function build_user_login() {
+    // Hiển thị khi user đăng nhập
+    if (isset($_SESSION["userId"])) {
+      echo "
+        <span class='user-login-true' style='font-weight: bold;'>
+          <i class='fa-solid fa-user'></i>
+          <span style='margin: 0 10px;'>Nguyễn Anh Quân</span>
+        </span>
+        
+        <!-- Tuỳ chọn  -->
+        <span class='user-login-true option'>
+          " . build_home_or_favorite() . "
+          <a class='pass' title='Đổi mật khẩu' href='http://localhost/ban_sach/source/html/system/change_password.php'>
+            <i class='fa-solid fa-key'></i>
+          </a>
+          <a class='logout' title='Đăng xuất' href=''>
+            <i class='fa-solid fa-right-from-bracket'></i>
+          </a>
+        </span>
+    ";
+    }
+
     // Hiển thị khi user chưa đăng nhập
     else echo "
       <span class='user-login-false'></span>
       <span class='user-login-false' style='font-weight: bold; margin-bottom: 10px;'>
-        <a href=''>Đăng ký</a> | 
-        <a href=''>Đăng nhập</a>
+        <a href='http://localhost/ban_sach/source/html/system/register.php'>Đăng ký</a> | 
+        <a href='http://localhost/ban_sach/source/html/system/login.php'>Đăng nhập</a>
       </span>
     ";
   }
@@ -190,11 +215,14 @@
       <!-- Khung tìm kiếm -->
       <form action="" method='get' id='form-search'>
         <div class='frame-search'>
-          <input type="text" id='search-text' name='txtTimKiem' placeholder="Tìm gì đó..." value='<?php if (isset($_GET["txtTimKiem"])) echo $_GET["txtTimKiem"]; ?>'>
+          <input type="text" id='search-text' name='txtTimKiem'
+            placeholder="<?php echo ($typePage == "index"  ? "Tìm gì đó..." : "Tìm sản phẩm yêu thích..."); ?>"
+            value='<?php if (isset($_GET["txtTimKiem"])) echo $_GET["txtTimKiem"]; ?>'
+          >
           <button id="search"><i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
 
-        <div style='margin-top: 5px;'>
+        <div style='margin-top: 5px; <?php echo ($typePage == "index" ? "display: block;" : "display: none;"); ?>'>
           <?php build_group_box("loai-sach", $loaiSach, "select * from loai_sach"); ?>
           <?php build_group_box("tac-gia", $tacGia, "select distinct tacGia, tacGia from sach"); ?>
           <span id='description' class='description'></span>

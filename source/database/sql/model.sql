@@ -29,7 +29,6 @@ create table khach_hang (
 )
 
 create table sach_yeu_thich (
-	maSYT varchar(4) primary key,
 	maKH varchar(4) foreign key references khach_hang(maKH),
 	maSach varchar(4) foreign key references sach(maSach),
 )

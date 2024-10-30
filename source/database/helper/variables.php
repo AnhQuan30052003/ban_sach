@@ -1,3 +1,3 @@
 <?php
-  $_SESSION["userId"] = "";
+  $_SESSION["userId"] = "0001";
 ?>

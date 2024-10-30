@@ -13,7 +13,7 @@
 
 <body>
   <?php include_once $pathComponents . "/mod-header.php"; ?>
-  <?php include_once $pathComponents . "/mod_san_pham.php"; ?>
+  <?php include_once $pathComponents . "/mod_products.php"; ?>
 
   <?php
     include_once $pathComponents . "/mod-paginate.php";
@@ -25,6 +25,7 @@
 
   <?php include_once $pathComponents . "/mod-footer.php"; ?>
 
-  <script src='../../assets/javascripts/mod_tim_kiem.js'></script>
+  <script src='../../assets/javascripts/mod_header.js'></script>
+  <script src='../../assets/javascripts/mod_products.js'></script>
 </body>
 </html>

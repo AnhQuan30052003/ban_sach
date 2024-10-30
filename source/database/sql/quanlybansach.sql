@@ -253,11 +253,16 @@ INSERT INTO `sach` (`maSach`, `tenSach`, `maLS`, `moTa`, `giaTien`, `soLuong`, `
 
 
 -- --------------------------------------------------------
+-- `maSYT` varchar(4) NOT NULL,
 CREATE TABLE `sach_yeu_thich` (
-  `maSYT` varchar(4) NOT NULL,
   `maKH` varchar(4),
   `maSach` varchar(4)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+
+INSERT INTO `sach_yeu_thich` VALUES
+('0001', '0000'),
+('0001', '0008');
 
 
 ALTER TABLE `khach_hang`
@@ -271,9 +276,9 @@ ALTER TABLE `sach`
   ADD KEY `maLS` (`maLS`);
 
 ALTER TABLE `sach_yeu_thich`
-  ADD PRIMARY KEY (`maSYT`),
   ADD KEY `maKH` (`maKH`),
-  ADD KEY `maSach` (`maSach`);
+  ADD KEY `maSach` (`maSach`),
+  ADD PRIMARY KEY (`maKH`, `maSach`);
 
 ALTER TABLE `sach`
   ADD CONSTRAINT `sach_ibfk_1` FOREIGN KEY (`maLS`) REFERENCES `loai_sach` (`maLS`);
