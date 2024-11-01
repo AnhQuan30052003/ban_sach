@@ -7,6 +7,6 @@
 ?>
 
 <body>
-  
+  <h1>This is page home of user</h1>
 </body>
 </html>
