@@ -1,0 +1,18 @@
+.container {
+  width: 1200px;
+  padding: 3px;
+  margin: 0 auto;
+}
+
+.border {
+  border: solid 1px;
+}
+
+input[type="submit"],
+button {
+  cursor: pointer;
+}
+
+body {
+  position: relative;
+}
