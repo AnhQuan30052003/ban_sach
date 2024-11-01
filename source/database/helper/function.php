@@ -32,5 +32,10 @@
 
     if (strpos($url, "index.php")) return "index";
     return "favorite";
-  }  
+  }
+
+  function check_password(string $passNormal, string $md5Pass) {
+    if (md5($passNormal) == $md5Pass) return true;
+    return false;
+  }
 ?>
