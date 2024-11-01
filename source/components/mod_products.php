@@ -71,17 +71,20 @@
     foreach ($resultTemp as $line) {
       $array[] = $line[0];
     }
-
     $soLuong = 1;
     foreach ($result as $line) {
       if ($soLuong == 1) echo "<tr>";
       $tym = ""; 
       if (in_array($line[0], $array)) $tym = "style='color: red;'";
-
+      $show = rand(0,1) ? "style= 'display: block'; " : "style= 'display: none'; ";
       echo "
         <td>
           <div class='image'>
             <img src='$line[8]' alt='' style='width: 100%; height: 100%; object-fit: cover;'>
+            <div class= 'image-item__favor' $show >
+              <i class= 'fa-solid fa-check'></i>
+              <span>Yêu thích</span>
+            </div>
           </div>
 
           <div class='info'>
@@ -144,6 +147,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            position: relative;
           }
 
           .info {
@@ -190,6 +194,30 @@
           }
         }
       }
+    }
+    .image-item__favor{
+      font-size: 12px;
+      font-weight: bold;
+      position: absolute;
+      top: 0;
+      left: -5px;
+      display: flex;
+      gap: 5px;
+      justify-content: center;
+      align-items: center;
+      background-color: var(--primary-color);
+      color: var(--white-color);
+      padding: 3px;
+      border-radius: 0 2px 2px 0
+    }
+    .image-item__favor::before{
+      content: "";
+      position: absolute;
+      border-top: 5px solid var(--primary-color);
+      border-left: 6px solid transparent;
+      top: 100%;
+      left: 0;
+      filter: brightness(60%);
     }
   }
 </style>

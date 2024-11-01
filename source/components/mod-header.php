@@ -85,6 +85,7 @@
     position: fixed;
     top: 0;
     width: 100%;
+    z-index: 9999;
   }
 
   .group-box,
@@ -93,7 +94,9 @@
     border-radius: 4px;
   }
 
-  .mod-header,
+  .mod-header {
+    background-color: var(--primary-color)
+  }
   #search {
     background-color: #f95030;
   }
