@@ -32,6 +32,10 @@ ul, a {
   margin-top: 20px;
 }
 
+.mt-10 {
+  margin-top: 10px;
+}
+
 .last-mb-none {
   margin-bottom: 0 !important;
 }

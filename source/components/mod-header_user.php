@@ -1,6 +1,6 @@
 <?php
   $typePage = type_page();
-
+  // filter
   $loaiSach = isset($_GET["loai-sach"]) ? $_GET["loai-sach"] : "0000";
   $tacGia = isset($_GET["tac-gia"]) ? $_GET["tac-gia"] : "";
 
