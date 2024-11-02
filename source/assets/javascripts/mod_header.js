@@ -10,14 +10,11 @@ function no_search() {
 }
 no_search();
 
-function save_link_index(get) {
-  if (get) {
-    let link = window.location.href;
-    localStorage.setItem("linkIndex", link);
-  }
-  else {
-    let link = localStorage.getItem("linkIndex");
-    if (link == null) link = "http://localhost/ban_sach/source/html/user/index.php";
+function logout() {
+  if (confirm("Bạn chắc chắn đăng xuất ?")) {
+    let link = "../../database/helper/active_logout.php";
     window.location.href = link;
-  }
+  } 
 }
+
+localStorage.setItem("userId", "true");

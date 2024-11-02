@@ -1,3 +1,5 @@
 <?php
-  $_SESSION["userId"] = "0001";
+  session_start();
+  // $_SESSION["userId"] = "0001";
+  // $_SESSION = []
 ?>

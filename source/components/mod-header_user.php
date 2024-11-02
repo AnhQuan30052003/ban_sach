@@ -8,20 +8,19 @@
     global $typePage;
 
     if ($typePage == "index") {
+      save_or_to_index(true);
+
       return "
-        <a class='favorite' style='' title='Yêu thích'
-          href='http://localhost/ban_sach/source/html/user/favorite.php'
-          onclick='save_link_index(true)'
-        >
+        <a class='favorite' title='Yêu thích' href='favorite.php'>
           <i class='fa-regular fa-heart'></i>
         </a>
       ";
     }
     else {
+      $index = save_or_to_index(false);
+
       return "
-        <a class='favorite' title='Page home' href='#'
-          onclick='save_link_index(false);'
-        >
+        <a class='favorite' title='Page home' href='$index'>
           <i class='fa-solid fa-house'></i>
         </a>
       ";
@@ -29,8 +28,9 @@
   }
 
   function build_user_login() {
+    global $userId;
     // Hiển thị khi user đăng nhập
-    if (isset($_SESSION["userId"])) {
+    if ($userId != null) {
       echo "
         <span class='user-login-true' style='font-weight: bold;'>
           <i class='fa-solid fa-user'></i>
@@ -40,10 +40,10 @@
         <!-- Tuỳ chọn  -->
         <span class='user-login-true option'>
           " . build_home_or_favorite() . "
-          <a class='pass' title='Đổi mật khẩu' href='http://localhost/ban_sach/source/html/system/change_password.php'>
+          <a class='pass' title='Đổi mật khẩu' href='../system/change_password.php'>
             <i class='fa-solid fa-key'></i>
           </a>
-          <a class='logout' title='Đăng xuất' href=''>
+          <a class='logout' title='Đăng xuất' href='#' onclick='logout()'>
             <i class='fa-solid fa-right-from-bracket'></i>
           </a>
         </span>
@@ -206,7 +206,7 @@
 <section class='mod-header'>
   <div class="container">
     <div class="logo">
-      <a href="http://localhost/ban_sach/source/html/user/index.php">
+      <a href="index.php">
         <i class="fa-solid fa-book-open" style='color: white; font-size: 80px;'></i>
       </a>
     </div>

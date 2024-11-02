@@ -12,7 +12,7 @@
 <?php head("My Favorite"); ?>
 
 <body>
-  <?php include_once $pathComponents . "/mod-header.php"; ?>
+  <?php include_once $pathComponents . "/mod-header_user.php"; ?>
   <?php include_once $pathComponents . "/mod_products.php"; ?>
 
   <?php
@@ -23,7 +23,7 @@
     show_number_page($result, $productsPerPage);
   ?>
 
-  <?php include_once $pathComponents . "/mod-footer.php"; ?>
+  <?php include_once $pathComponents . "/mod-footer_user.php"; ?>
 
   <script src='../../assets/javascripts/mod_header.js'></script>
   <script src='../../assets/javascripts/mod_products.js'></script>

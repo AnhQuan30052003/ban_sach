@@ -1,11 +1,11 @@
 <?php
   # Lấy url
-  function get_url_page() {
+  function get_url_page(bool $justLink = true) {
     $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
     $domainName = $_SERVER['HTTP_HOST'];
     $uri = $_SERVER['REQUEST_URI'];
 
-    $uri = cutString($uri, "&page");
+    if ($justLink) $uri = cutString($uri, "&page");
     $fullUrl = $protocol . $domainName . $uri;
     
     return $fullUrl;
@@ -37,5 +37,11 @@
   function check_password(string $passNormal, string $md5Pass) {
     if (md5($passNormal) == $md5Pass) return true;
     return false;
+  }
+
+  # Lưu trang index
+  function save_or_to_index(bool $save) {
+    if ($save) $_SESSION["index"] = get_url_page(false);
+    else return $_SESSION["index"];
   }
 ?>
