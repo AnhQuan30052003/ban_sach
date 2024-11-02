@@ -122,6 +122,7 @@
 <style>
   .mod-san-pham {
     margin-top: <?php echo ($typePage == "index" ? "130px" : "100px"); ?>;
+    min-height: 525px;
 
     .table-products {
       width: 100%;
