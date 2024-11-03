@@ -12,20 +12,23 @@
 <?php head("Book Shop"); ?>
 
 <body>
-  <?php include_once $pathComponents . "/mod-header_user.php"; ?>
+  <?php include_once $pathComponents . "/mod_login.php"; ?>
+  <?php include_once $pathComponents . "/mod_register.php"; ?>
+  <?php include_once $pathComponents . "/mod_header_user.php"; ?>
   <?php include_once $pathComponents . "/mod_products.php"; ?>
 
   <?php
-    include_once $pathComponents . "/mod-paginate.php";
+    include_once $pathComponents . "/mod_paginate.php";
     
     $sql = cutString($sql, "limit");
     $result = quick_query($sql);
     show_number_page($result, $productsPerPage);
   ?>
 
-  <?php include_once $pathComponents . "/mod-footer_user.php"; ?>
+  <?php include_once $pathComponents . "/mod_footer_user.php"; ?>
 
   <script src='../../assets/javascripts/mod_header.js'></script>
   <script src='../../assets/javascripts/mod_products.js'></script>
+  <script src='../../assets/javascripts/mod_login_or_register.js'></script>
 </body>
 </html>
