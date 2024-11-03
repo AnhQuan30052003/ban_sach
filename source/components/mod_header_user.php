@@ -37,10 +37,10 @@
           <span style='margin: 0 10px;'>Nguyễn Anh Quân</span>
         </span>
         
-        <!-- Tuỳ chọn  -->
+        <!-- Tuỳ chọn  -->s
         <span class='user-login-true option'>
           " . build_home_or_favorite() . "
-          <a class='pass' title='Đổi mật khẩu' href='../system/change_password.php'>
+          <a class='pass' title='Đổi mật khẩu' href='#'>
             <i class='fa-solid fa-key'></i>
           </a>
           <a class='logout' title='Đăng xuất' href='#' onclick='logout()'>
@@ -51,13 +51,15 @@
     }
 
     // Hiển thị khi user chưa đăng nhập
-    else echo "
-      <span class='user-login-false'></span>
-      <span class='user-login-false' style='font-weight: bold; margin-bottom: 10px;'>
-        <a href='http://localhost/ban_sach/source/html/system/register.php'>Đăng ký</a> | 
-        <a href='http://localhost/ban_sach/source/html/system/login.php'>Đăng nhập</a>
-      </span>
-    ";
+    else {
+      echo "
+        <span class='user-login-false'></span>
+        <span class='user-login-false' style='font-weight: bold; margin-bottom: 10px;'>
+          <span onclick='show_or_hidden(2);'>Đăng ký</span> | 
+          <span onclick='show_or_hidden(1);'>Đăng nhập</span>
+        </span>
+      ";
+    }
   }
 
   function build_group_box($name, $typeCur, $sql) {
@@ -85,7 +87,7 @@
     position: fixed;
     top: 0;
     width: 100%;
-    z-index: 9999;
+    z-index: 1;
   }
 
   .group-box,
@@ -143,7 +145,7 @@
 
       .user-login-false {
         justify-self: end;
-        a {
+        span {
           border: none;
           outline: none;
           /* padding: 5px 0; */
@@ -151,11 +153,11 @@
           width: 100px;
           background-color: transparent;
           color: white;
-          text-decoration: none;
         }
 
-        a:hover {
+        span:hover {
           text-decoration: underline;
+          cursor: pointer;
         }
       }
     }
