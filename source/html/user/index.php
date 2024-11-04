@@ -33,9 +33,6 @@
   <script src='../../assets/javascripts/mod_login_or_register.js'></script>
 
   <?php if (strlen($errorLogin) > 0) echo "<script>show_or_hidden(1);</script>"; ?> 
+  <?php if (strlen($errorRegister) > 0) echo "<script>show_or_hidden(2);</script>"; ?> 
 </body>
 </html>
-
-<?php
-  // if (strlen($errorRegister) > 0) echo "<script>show_or_hidden(2);</script>";
-?> 

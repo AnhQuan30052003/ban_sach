@@ -10,7 +10,7 @@
   $sql = "select * from khach_hang where (tenKH = '$_username' or email = '$_username') and matKhau = '$_password'";
   $result = get_data_query($sql);
 
-  function check_login() {
+  function check_register() {
     global $result, $errorRegister, $userId, $infoUser;
     if (count($result) == 0) {
       $errorRegister = "Tài khoản hoặc mật khẩu không chính xác !";
@@ -26,7 +26,7 @@
     }
   }
 
-  if (isset($_REQUEST["btn-login"])) check_login();
+  if (isset($_REQUEST["btn-login"])) check_register();
 ?>
 
 <style>

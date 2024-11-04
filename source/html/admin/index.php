@@ -3,6 +3,7 @@
   $pathComponents = $pathExit . "components";
 
   include_once "../../database/helper/db.php";
+  include_once $pathComponents . "/head.php";
 ?> 
 
 <!DOCTYPE html>
