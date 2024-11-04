@@ -76,7 +76,7 @@
       if ($soLuong == 1) echo "<tr>";
       $tym = ""; 
       if (in_array($line[0], $array)) $tym = "style='color: red;'";
-      $show = rand(0,1) ? "style= 'display: block'; " : "style= 'display: none'; ";
+      $show = rand(0,1) ? "style= 'display: block;' " : "style= 'display: none;' ";
       echo "
         <td>
           <div class='image'>

@@ -14,6 +14,7 @@
 <body>
   <?php include_once $pathComponents . "/mod_login.php"; ?>
   <?php include_once $pathComponents . "/mod_register.php"; ?>
+
   <?php include_once $pathComponents . "/mod_header_user.php"; ?>
   <?php include_once $pathComponents . "/mod_products.php"; ?>
 
@@ -30,5 +31,11 @@
   <script src='../../assets/javascripts/mod_header.js'></script>
   <script src='../../assets/javascripts/mod_products.js'></script>
   <script src='../../assets/javascripts/mod_login_or_register.js'></script>
+
+  <?php if (strlen($errorLogin) > 0) echo "<script>show_or_hidden(1);</script>"; ?> 
 </body>
 </html>
+
+<?php
+  // if (strlen($errorRegister) > 0) echo "<script>show_or_hidden(2);</script>";
+?> 
