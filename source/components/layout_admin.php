@@ -147,9 +147,9 @@
                     <div class="nav-item ">
                         <a href="#" class="nav-link dropdown-toggle " data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Quản lý</a>
                         <div class="dropdown-menu ">
-                            <a href="/" class="dropdown-item">Sản phẩm</a>
-                            <a href="" class="dropdown-item">Khách hàng</a>
-                            <a onclick="return alert('Chức năng đang trong quá trình hoàn thiện')" href="#" class="dropdown-item">Đơn hàng</a>
+                            <a href="../product/index.php" class="dropdown-item">Sản phẩm</a>
+                            <a href="../customer/index.php" class="dropdown-item">Khách hàng</a>
+                            <!-- <a onclick="return alert('Chức năng đang trong quá trình hoàn thiện')" href="#" class="dropdown-item">Đơn hàng</a> -->
                         </div>
                     </div>
                 </div>
@@ -192,8 +192,9 @@
                 </div>
             </nav>
             <!-- Navbar End -->
-
-            <!-- body() -->
+            <?php
+                include_once $body;
+            ?>
 
             <!-- Footer Start -->
             <div class="ad-footer">
