@@ -39,11 +39,11 @@
     width: var(--width);
     height: 200vh;
     background-color: black;
-    opacity: 0.7;
+    opacity: 0.5;
   }
 
   .login-container {
-    overflow: hdiden;
+    overflow: hidden;
     position: fixed;
     top: 50%;
     left: 50%;

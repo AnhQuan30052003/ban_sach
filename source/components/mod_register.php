@@ -139,10 +139,9 @@
   <div class="register-footer">
     <div>
       <p>
-        <span>Bạn chưa có tài khoản?</span>
+        <span>Bạn đã có tài khoản?</span>
         <a href="#" onclick="show_or_hidden(2); show_or_hidden(1);">Đăng nhập</a>
       </p>
-      <p><a href="#">Quên mật khẩu</a></p>
     </div>
   </div>
 </div>
