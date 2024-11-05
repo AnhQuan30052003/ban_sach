@@ -10,7 +10,7 @@
   $username = ($userId == "0000" ? "admin" : $infoUser["email"]);
 
   function check_change_password() {
-    global $result, $errorChangePassword, $userId, $_password_old, $_password_new, $linkBack, $infoUser;
+    global $errorChangePassword, $userId, $_password_old, $_password_new, $linkBack, $infoUser;
 
     if ($_password_old != $infoUser["matKhau"]) {
       $errorChangePassword = "Mật khẩu cũ không chính xác !";
@@ -133,7 +133,7 @@
   }
 </style>
 
-<div class="login-container" id='div-login'>
+<div class="login-container" id='div-change-password'>
   <div class='cancel' onclick="show_or_hidden(1);">X</div>
   <div class="login-header">
     <!-- <img class="header-logo" src="" alt=""> -->

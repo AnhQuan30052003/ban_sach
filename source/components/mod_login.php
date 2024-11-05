@@ -169,7 +169,7 @@
         <span>Bạn chưa có tài khoản?</span>
         <a href="#" onclick="show_or_hidden(1); show_or_hidden(2);">Đăng ký</a>
       </p>
-      <p><a href="#">Quên mật khẩu</a></p>
+      <p><a href="../system/forgotten_password.php">Quên mật khẩu</a></p>
     </div>
   </div>
 </div>
