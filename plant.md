@@ -23,7 +23,7 @@
 ---
 ## [System]
 ### Page:
-  - Change pasword: ❌
+  - Change password: ❌
   - Forgotten password: ❌
 
 --- 
@@ -36,6 +36,6 @@
   - Header ✅
   - Footer ✅
   - Login ✅
-  - Register ❌
+  - Register ✅
   - Products ✅
   - Paginate ✅

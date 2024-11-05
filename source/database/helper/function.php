@@ -69,6 +69,7 @@
     if (strlen($userId) == 0) return;
 
     $url = get_url_page(false);
+    if (strpos($url, "system")) return;
 
     # Là admin
     if ($userId == "0000") {

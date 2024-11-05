@@ -28,7 +28,7 @@
     }
   }
 
-  if (isset($_REQUEST["btn-login"])) check_login();
+  if (isset($_REQUEST["btn-login"]) && $userId == "") check_login();
 ?>
 
 <style>
