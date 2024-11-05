@@ -121,6 +121,16 @@
     cursor: pointer;
     padding: 5px;
   }
+
+  .frame-eyes {
+    position: absolute;
+    top: 15px;
+    right: -35px;
+
+    :hover {
+      cursor: pointer;
+    }
+  }
 </style>
 
 <div class="login-container" id='div-login' style='display: none;'>
@@ -137,8 +147,11 @@
         <input type="text" id="username" name="username" placeholder="Email" required value='<?php if (isset($_REQUEST["username"])) echo $_REQUEST["username"]; ?>'>
       </div>
 
-      <div class="form-group">
-        <input type="password" id="password" name="password" placeholder="Mật khẩu" required value='<?php if (isset($_REQUEST["password"])) echo $_REQUEST["password"]; ?>' >
+      <div class="form-group" style='position: relative;'>
+        <input type="password" name="password" placeholder="Mật khẩu" required value='<?php if (isset($_REQUEST["password"])) echo $_REQUEST["password"]; ?>' >
+        <span class='frame-eyes'>
+          <i class="fa-solid fa-eye-slash"></i>
+        </span>
       </div>
 
       <div class="save-pass" style='display: flex; gap: 10px; align-items: center;'>

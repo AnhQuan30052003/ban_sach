@@ -121,6 +121,16 @@
     cursor: pointer;
     padding: 5px;
   }
+
+  .frame-eyes {
+    position: absolute;
+    top: 15px;
+    right: -35px;
+
+    :hover {
+      cursor: pointer;
+    }
+  }
 </style>
 
 <div class="login-container" id='div-login'>
@@ -137,12 +147,18 @@
         <input type="text" id="username" name="username" disabled value='<?php echo $username; ?>'>
       </div>
 
-      <div class="form-group">
+      <div class="form-group" style='position: relative;'>
         <input type="password" id="password-old" name="password-old" placeholder="Nhập mật khẩu cũ" required value='<?php if (isset($_REQUEST["password-old"])) echo $_REQUEST["password-old"]; ?>' >
+        <span class='frame-eyes'>
+          <i class="fa-solid fa-eye-slash"></i>
+        </span>
       </div>
 
-      <div class="form-group">
+      <div class="form-group"  style='position: relative;'>
         <input type="password" id="password-new" name="password-new" placeholder="Nhập mật khẩu mới" required value='<?php if (isset($_REQUEST["password-new"])) echo $_REQUEST["password-new"]; ?>' >
+        <span class='frame-eyes'>
+          <i class="fa-solid fa-eye-slash"></i>
+        </span>
       </div>
 
       <button type="submit" class="btn" name='btn-change-password'>Đổi</button>

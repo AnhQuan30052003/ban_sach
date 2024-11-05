@@ -126,8 +126,11 @@
         <input type="email" id="email" name="email" placeholder="Email" required value='<?php if (isset($_REQUEST["email"])) echo $_REQUEST["email"]; ?>'>
       </div>
       
-      <div class="form-group">
-        <input type="password" id="password" name="password" placeholder="Mật khẩu" required value='<?php if (isset($_REQUEST["password"])) echo $_REQUEST["password"]; ?>'>
+      <div class="form-group" style='position: relative;'>
+        <input type="password" name="password" placeholder="Mật khẩu" required value='<?php if (isset($_REQUEST["password"])) echo $_REQUEST["password"]; ?>'>
+        <span class='frame-eyes'>
+          <i class="fa-solid fa-eye-slash"></i>
+        </span>
       </div>
 
       <div class="form-group">

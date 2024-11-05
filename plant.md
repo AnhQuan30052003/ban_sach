@@ -23,7 +23,7 @@
 ---
 ## [System]
 ### Page:
-  - Change password: ❌
+  - Change password: ✅
   - Forgotten password: ❌
 
 --- 
