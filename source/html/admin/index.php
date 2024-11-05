@@ -9,11 +9,9 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php head("Change Password"); ?>
+<?php head("Admin"); ?>
 
 <body>
-  <?php include_once $pathComponents . "/mod_change_password.php"; ?>
 
-  <script src='../../assets/javascripts/mod_handle_eyes_password.js'></script>
 </body>
 </html>

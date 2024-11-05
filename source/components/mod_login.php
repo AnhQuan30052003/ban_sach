@@ -1,23 +1,34 @@
 <?php
-  $username = isset($_REQUEST["username"]) ? $_REQUEST["username"] : "";
-  $password = isset($_REQUEST["password"]) ? $_REQUEST["password"] : "";
+  $_username = isset($_REQUEST["username"]) ? $_REQUEST["username"] : "";
+  $_password = isset($_REQUEST["password"]) ? $_REQUEST["password"] : "";
 
-  trim($username);
-  trim($password);
-  $error = "";
+  trim($_username);
+  trim($_password);
+  $errorLogin = "";
 
   # Nếu userName & password hợp lệ thì truy vấn
-  $sql = "select * from khach_hang where (tenKH = '$username' or email = '$username') and matKhau = '$password'";
+  $sql = "select * from khach_hang where (tenKH = '$_username' or email = '$_username') and matKhau = '$_password'";
   $result = get_data_query($sql);
 
   function check_login() {
-    global $result;
+    global $result, $errorLogin, $userId, $infoUser;
     if (count($result) == 0) {
-  
+      $errorLogin = "Tài khoản hoặc mật khẩu không chính xác !";
+      return;
+    }
+
+    $userId = $result[0]["maKH"];
+    get_data_user($userId);
+
+    echo "<script>alert('Đăng nhập thành công');</script>";
+
+    if ($userId == "0000") {
+      $link = "../admin/index.php";
+      echo "<script>window.location.href = '$link';</script>";
     }
   }
 
-  check_login();
+  if (isset($_REQUEST["btn-login"]) && $userId == "") check_login();
 ?>
 
 <style>
@@ -110,24 +121,37 @@
     cursor: pointer;
     padding: 5px;
   }
+
+  .frame-eyes {
+    position: absolute;
+    top: 15px;
+    right: -35px;
+
+    :hover {
+      cursor: pointer;
+    }
+  }
 </style>
 
-<div class="login-container" id='div-login' style='display: block;'>
+<div class="login-container" id='div-login' style='display: none;'>
   <div class='cancel' onclick="show_or_hidden(1);">X</div>
   <div class="login-header">
     <!-- <img class="header-logo" src="" alt=""> -->
-    <h2>Đăng nhập vào Sách</h2>
-    <p style='color: red;'> <?php echo $error; ?></p>
+    <h2>ĐĂNG NHẬP</h2>
+    <p style='color: red;'> <?php echo $errorLogin; ?></p>
   </div>
 
   <div class="login-form">
     <form action="" method="POST">
       <div class="form-group">
-        <input type="text" id="username" name="username" placeholder="Email" required>
+        <input type="text" id="username" name="username" placeholder="Email" required value='<?php if (isset($_REQUEST["username"])) echo $_REQUEST["username"]; ?>'>
       </div>
 
-      <div class="form-group">
-        <input type="password" id="password" name="password" placeholder="Mật khẩu" required>
+      <div class="form-group" style='position: relative;'>
+        <input type="password" name="password" placeholder="Mật khẩu" required value='<?php if (isset($_REQUEST["password"])) echo $_REQUEST["password"]; ?>' >
+        <span class='frame-eyes'>
+          <i class="fa-solid fa-eye-slash"></i>
+        </span>
       </div>
 
       <div class="save-pass" style='display: flex; gap: 10px; align-items: center;'>
@@ -135,7 +159,7 @@
         <span>Ghi nhớ đăng nhập</span>
       </div>
 
-      <button type="submit" class="btn">Đăng nhập</button>
+      <button type="submit" class="btn" name='btn-login'>Đăng nhập</button>
     </form>
   </div>
 
@@ -145,7 +169,7 @@
         <span>Bạn chưa có tài khoản?</span>
         <a href="#" onclick="show_or_hidden(1); show_or_hidden(2);">Đăng ký</a>
       </p>
-      <p><a href="#">Quên mật khẩu</a></p>
+      <p><a href="../system/forgotten_password.php">Quên mật khẩu</a></p>
     </div>
   </div>
 </div>

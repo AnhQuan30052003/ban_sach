@@ -44,4 +44,66 @@
     if ($save) $_SESSION["index"] = get_url_page(false);
     else return $_SESSION["index"];
   }
+
+  # Lấy dữ liệu của user
+  function get_data_user($userId) {
+    global $infoUser;
+
+    $sql = "select * from khach_hang where maKH = '$userId'";
+    $result = get_data_query($sql);
+
+    $_SESSION["userId"] = $userId;
+
+    $infoUser["userId"] = $userId;
+    $infoUser["tenKH"] = $result[0]["tenKH"];
+    $infoUser["email"] = $result[0]["email"];
+    $infoUser["sdt"] = $result[0]["sdt"];
+    $infoUser["matKhau"] = $result[0]["matKhau"];
+    $infoUser["diaChi"] = $result[0]["diaChi"];
+  }
+
+  # Xử lý đăng nhập ràng buộc trang
+  function login_to_link() {
+    global $userId;
+
+    if (strlen($userId) == 0) return;
+
+    $url = get_url_page(false);
+    if (strpos($url, "system")) return;
+
+    # Là admin
+    if ($userId == "0000") {
+      if (!strpos($url, "admin")) {
+        $link = "../admin/index.php";
+        echo "<script>window.location.href = '$link'</script>";
+      }
+    }
+    # Là người dùng khác
+    else {
+      if (!strpos($url, "user")) {
+        $link = "../user/index.php";
+        echo "<script>window.location.href = '$link'</script>";
+      }
+    }
+  }
+
+  # Lấy mã khách hàng mới nhất
+  function get_id_user() {
+    $sql = "select maKH from khach_hang";
+    $result = get_data_query($sql);
+    $result = $result[count($result) - 1];
+
+    $id = $result["maKH"];
+    $id = (int) $id + 1;
+    $id = (string) $id;
+    $strId = "";
+
+    $len0 = 4 - strlen($id);
+    for ($i = 1; $i <= $len0; $i++) {
+      $strId .= "0";
+    }
+    $strId .= $id;
+
+    return $strId;
+  }
 ?>

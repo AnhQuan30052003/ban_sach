@@ -5,11 +5,6 @@
   $user = "root";
   $password = "";
   $database = "quanlybansach";
-  
-  $userId = null;
-  if (isset($_SESSION["userId"])) {
-    $userId = $_SESSION["userId"];
-  }
 
   # Kết nối
   function connect() {

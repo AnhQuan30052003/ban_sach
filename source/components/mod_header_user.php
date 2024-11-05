@@ -28,19 +28,21 @@
   }
 
   function build_user_login() {
-    global $userId;
+    global $userId, $infoUser;
     // Hiển thị khi user đăng nhập
     if ($userId != null) {
+      $name = $infoUser["tenKH"];
+
       echo "
         <span class='user-login-true' style='font-weight: bold;'>
           <i class='fa-solid fa-user'></i>
-          <span style='margin: 0 10px;'>Nguyễn Anh Quân</span>
+          <span style='margin: 0 10px;'>$name</span>
         </span>
         
-        <!-- Tuỳ chọn  -->s
+        <!-- Tuỳ chọn  -->
         <span class='user-login-true option'>
           " . build_home_or_favorite() . "
-          <a class='pass' title='Đổi mật khẩu' href='#'>
+          <a class='pass' title='Đổi mật khẩu' href='../system/change_password.php'>
             <i class='fa-solid fa-key'></i>
           </a>
           <a class='logout' title='Đăng xuất' href='#' onclick='logout()'>
