@@ -3,7 +3,7 @@
   $_password = isset($_REQUEST["password"]) ? $_REQUEST["password"] : "";
 
   trim($_username);
-  trim($password);
+  trim($_password);
   $errorLogin = "";
 
   # Nếu userName & password hợp lệ thì truy vấn
@@ -17,12 +17,14 @@
       return;
     }
 
-    $_SESSION["userId"] = $userId = $result[0]["maKH"];
+    $userId = $result[0]["maKH"];
     get_data_user($userId);
+
+    echo "<script>alert('Đăng nhập thành công');</script>";
 
     if ($userId == "0000") {
       $link = "../admin/index.php";
-      echo "<script>window.location.href = '$link'</script>";
+      echo "<script>window.location.href = '$link';</script>";
     }
   }
 

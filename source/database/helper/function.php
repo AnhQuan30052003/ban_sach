@@ -52,6 +52,8 @@
     $sql = "select * from khach_hang where maKH = '$userId'";
     $result = get_data_query($sql);
 
+    $_SESSION["userId"] = $userId;
+
     $infoUser["userId"] = $userId;
     $infoUser["tenKH"] = $result[0]["tenKH"];
     $infoUser["email"] = $result[0]["email"];
@@ -82,5 +84,25 @@
         echo "<script>window.location.href = '$link'</script>";
       }
     }
+  }
+
+  # Lấy mã khách hàng mới nhất
+  function get_id_user() {
+    $sql = "select maKH from khach_hang";
+    $result = get_data_query($sql);
+    $result = $result[count($result) - 1];
+
+    $id = $result["maKH"];
+    $id = (int) $id + 1;
+    $id = (string) $id;
+    $strId = "";
+
+    $len0 = 4 - strlen($id);
+    for ($i = 1; $i <= $len0; $i++) {
+      $strId .= "0";
+    }
+    $strId .= $id;
+
+    return $strId;
   }
 ?>

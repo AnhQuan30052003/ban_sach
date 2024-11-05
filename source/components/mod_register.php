@@ -1,32 +1,34 @@
 <?php
-  $_username = isset($_REQUEST["username"]) ? $_REQUEST["username"] : "";
+  $_tenKH = isset($_REQUEST["tenKH"]) ? $_REQUEST["tenKH"] : "";
+  $_sdt = isset($_REQUEST["sdt"]) ? $_REQUEST["sdt"] : "";
+  $_email = isset($_REQUEST["email"]) ? $_REQUEST["email"] : "";
   $_password = isset($_REQUEST["password"]) ? $_REQUEST["password"] : "";
+  $_diaChi = isset($_REQUEST["diaChi"]) ? $_REQUEST["diaChi"] : "";
 
   trim($_username);
-  trim($password);
+  trim($_sdt);
+  trim($_email);
+  trim($_password);
+  trim($_diaChi);
   $errorRegister = "";
 
-  # Nếu userName & password hợp lệ thì truy vấn
-  $sql = "select * from khach_hang where (tenKH = '$_username' or email = '$_username') and matKhau = '$_password'";
-  $result = get_data_query($sql);
-
   function check_register() {
-    global $result, $errorRegister, $userId, $infoUser;
-    if (count($result) == 0) {
-      $errorRegister = "Tài khoản hoặc mật khẩu không chính xác !";
+    global $errorRegister, $userId, $_maKH, $_tenKH, $_email, $_sdt, $_password, $_diaChi;
+
+    $_maKH = get_id_user();
+    $sql = "insert into `khach_hang` values ('$_maKH', '$_tenKH', '$_email', '$_sdt', '$_password', '$_diaChi');";
+    $result = quick_query($sql);
+    
+    if (!$result) {
+      $errorRegister = "Thông tin đăng ký không đúng định dạng !";
       return;
     }
 
-    $_SESSION["userId"] = $userId = $result[0]["maKH"];
+    $userId = $_maKH;
     get_data_user($userId);
-
-    if ($userId == "0000") {
-      $link = "../admin/index.php";
-      echo "<script>window.location.href = '$link'</script>";
-    }
   }
 
-  if (isset($_REQUEST["btn-login"])) check_register();
+  if (isset($_REQUEST["btn-register"])) check_register();
 ?>
 
 <style>
@@ -132,7 +134,7 @@
         <input type="text" id="diaChi" name="diaChi" placeholder="Địa chỉ" required value='<?php if (isset($_REQUEST["diaChi"])) echo $_REQUEST["diaChi"]; ?>'>
       </div>
 
-      <button type="submit" class="btn">Đăng ký</button>
+      <button type="submit" class="btn" name='btn-register'>Đăng ký</button>
     </form>
   </div>
 
