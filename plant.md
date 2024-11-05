@@ -3,7 +3,7 @@
   unfinish: ❌
 -->
 
-# KẾ HOẠCH XÂY DỰNG PHẦN MỀMs
+# KẾ HOẠCH XÂY DỰNG PHẦN MỀM
 --- 
 ## [Admin]
 ### Page:
