@@ -11,7 +11,7 @@
 
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet"> -->
 
     <style>
         * {
@@ -136,6 +136,14 @@
     </style>
 </head>
 
+<?php
+    // include_once $pathComponents . "/mod_paginate.php";
+    
+    // $sql = cutString($sql, "limit");
+    // $result = quick_query($sql);
+    // show_number_page($result, $productsPerPage);
+  ?>
+
 <body>
     <div class="ad-container">
         <div class="sidebar">
@@ -148,6 +156,7 @@
                         <a href="#" class="nav-link dropdown-toggle " data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Quản lý</a>
                         <div class="dropdown-menu ">
                             <a href="../product/index.php" class="dropdown-item">Sản phẩm</a>
+                            <a href="../customer/index.php" class="dropdown-item">Loại sản phẩm</a>
                             <a href="../customer/index.php" class="dropdown-item">Khách hàng</a>
                             <!-- <a onclick="return alert('Chức năng đang trong quá trình hoàn thiện')" href="#" class="dropdown-item">Đơn hàng</a> -->
                         </div>
@@ -170,25 +179,14 @@
                                 <span></span>
                             </a>
                         </li>
-                        <!-- <li class="nav-item">
-                            <a class="nav-link" onclick="return confirm('Bạn có muốn đăng xuất?')" href="/Home_63131920/Logout">
+
+                        <li class="nav-item">
+                            <a class="nav-link" onclick="return confirm('Bạn có muốn đăng xuất?')" href="">
                                 <i class="fa fa-sign-out-alt"></i>
                                 <span>Đăng xuất</span>
                             </a>
-                        </li> -->
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="~/Home_63131920/Login">
-                                <i class="fa fa-sign-in-alt"></i>
-                                <span>Đăng nhập</span>
-                            </a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="~/Home_63131920/Register">
-                                <span>Đăng ký</span>
-                            </a>
-                        </li>
                 </div>
             </nav>
             <!-- Navbar End -->
