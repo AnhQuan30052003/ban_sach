@@ -41,8 +41,8 @@
 
   $tim = isset($_GET["txtTimKiem"]) ? $_GET["txtTimKiem"] : "";
   
-  if (!isset($_GET["page"])) $_GET["page"] = 1;
   $productsPerPage = 10;
+  if (!isset($_GET["page"])) $_GET["page"] = 1;
   $offset = ($_GET["page"] - 1) * $productsPerPage;
   
   if ($typePage == "index") $sql = handle_sql_index();
@@ -52,7 +52,7 @@
   $result = get_data_query($sql);
 
   function build_data() {
-    global $result, $sql, $typePage, $userId;
+    global $result, $sql, $userId;
     if (is_bool($result)) {
       number_products_found(0);
       return;

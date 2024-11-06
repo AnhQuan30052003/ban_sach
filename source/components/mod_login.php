@@ -20,7 +20,12 @@
     $userId = $result[0]["maKH"];
     get_data_user($userId);
 
-    echo "<script>alert('Đăng nhập thành công');</script>";
+    echo "
+    <script>
+      localStorage.setItem('userId', '$userId');
+        alert('Đăng nhập thành công');
+      </script>
+    ";
 
     if ($userId == "0000") {
       $link = "../admin/index.php";
