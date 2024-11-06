@@ -6,10 +6,17 @@
     global $conn;
     connect();
     $result = mysqli_query($conn, $sql);
-    mysqli_close($conn);
+    
+    if (!$result) {
+        $error = mysqli_error($conn); 
+        mysqli_close($conn);
+        return "Lỗi truy vấn: " . $error;
+    }
 
+    mysqli_close($conn);
     return $result;
-  }
+}
+
 
   # Lấy dữ liệu sau khi kết nối
   function get_data_query(string $sql) {

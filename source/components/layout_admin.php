@@ -13,6 +13,13 @@
 <?php head("Page Admin"); ?>
 
 <style>
+    :root{
+        --primary-color: #f95030;
+        --primary-color-rgb: rgba(238, 75 , 43);
+        --white-color: #fff;
+        --black-color: #000;
+        --text-color: #949494;
+    }
     * {
         margin: 0;
         padding: 0;
@@ -30,7 +37,7 @@
         top: 0;
         bottom: 0;
         left: 0;
-        background-color: rgb(243, 246, 249);
+        background-color: #f3f6f9;
         height: 100vh;
         width: 190px;
     }
@@ -61,7 +68,7 @@
     }
 
     .content .navbar {
-        background-color: rgb(243, 246, 249);
+        background-color: #f3f6f9;
         position: sticky;
         display: flex;
         padding: 0 24px;
@@ -133,6 +140,56 @@
 
     .row .row-item {
         color: #757575;
+    }
+
+    .btn {
+        display: inline-block;
+        font-weight: 400;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        font-size: 16px;
+        line-height: 1.5;
+        padding: 6px 12px;
+        border-radius: 4px;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .btn.btn-success {
+        color: #fff;
+        background-color: #28a745;
+        border-color: #28a745;
+    }
+    .btn-success:hover {
+        color: #fff;
+        background-color: #218838;
+        border-color: #1e7e34;
+    }
+
+    .btn.btn-danger{
+        color: #fff;
+        background-color: #dc3545;
+        border-color: #dc3545;
+    }
+
+
+    .btn-danger:hover {
+        color: #fff;
+        background-color: #c82333;
+        border-color: #bd2130;
+    }
+
+    .btn.btn-add {
+        color: #000;
+        border: 2px solid var(--primary-color);
+    }
+    section {
+        padding: 24px;
+    }
+    h3 {
+        padding: 10px 0;
+        text-align: center;
     }
 </style>
 
