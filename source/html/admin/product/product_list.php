@@ -78,6 +78,6 @@
 <section>
     <h1>This is page list product</h1>
     <form action="product_list.php" method="post" >
-        <?php build_body() ?>
+        <?php ?>
     </form>
 </section>
