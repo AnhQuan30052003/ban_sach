@@ -1,17 +1,17 @@
-<?php
-  $pathExit = "../../";
-  $pathComponents = $pathExit . "components";
-
-  include_once "../../database/helper/db.php";
-  include_once $pathComponents . "/head.php";
-?> 
-
 <!DOCTYPE html>
 <html lang="en">
 
-<?php head("Admin"); ?>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loading...</title>
+</head>
 
 <body>
-
+  <script>
+    // Đường dẫn đến product index
+    const link = "./product/index.php";
+    window.location.href = link;
+  </script>
 </body>
 </html>

@@ -10,11 +10,13 @@ function no_search() {
 }
 no_search();
 
-function logout() {
+function logout(stringExits = 2) {
   if (confirm("Bạn chắc chắn đăng xuất ?")) {
-    let link = "../../database/helper/active_logout.php";
+    localStorage.setItem("userId", "");
+    if (stringExits == 2) stringExits = "../../";
+    else stringExits = "../../../";
+
+    let link = stringExits +  "database/helper/active_logout.php";
     window.location.href = link;
   } 
 }
-
-localStorage.setItem("userId", "true");
