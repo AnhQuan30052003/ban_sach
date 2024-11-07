@@ -35,32 +35,39 @@
 
 <?php
 
-// truy van loai san pham cho comboBox
+    // truy van loai san pham cho comboBox
+    $sql_ls = "SELECT s.maLS, l.tenLS FROM sach AS s JOIN loai_sach AS l ON s.maLS = l.maLS group by s.maLS";
+    $res = get_data_query($sql_ls);
 
-$sql_ls = "SELECT s.maLS, l.tenLS FROM sach AS s JOIN loai_sach AS l ON s.maLS = l.maLS group by s.maLS";
-$res = get_data_query($sql_ls);
+    // truy van maSP lon nhat
+    $sql_max_id = "SELECT maSach FROM `sach` ORDER BY maSach DESC LIMIT 1";
+    $res_max_id = get_data_query($sql_max_id);
 
-if (isset($_POST['submit'])) {
-    $productId = $_POST["productId"] ?? "";
-    $productName = $_POST["productName"] ?? "";
-    $categoryId = $_POST["category"] ?? "";
-    $author = $_POST["author"] ?? "";
-    $quantity = $_POST["quantity"] ?? 0;
-    $productDes = $_POST["productDes"] ?? "";
-    $price = $_POST["price"] ?? 0;
-    $img = $_POST["productImg"] ?? "";
-
-    // truy van them sp
-    $sql = "INSERT INTO `sach` (maSach, tenSach, maLS, moTa, giaTien, soLuong, tacGia, hinhAnh)
-        VALUES ('$productId', '$productName', '$categoryId', '$productDes', $price, $quantity, '$author', '$img')";
-
-    $result = quick_query($sql);
-
-    if ($result) {
-        echo "<script>alert('Thêm sản phẩm thành công')</script>";
-    } else {
-        echo "<script>alert('Thêm sản phẩm thất bại' . $result)</script>";
+    if($res_max_id){
+        $max_id = $res_max_id[0];
     }
+    $productId =  "0". ($max_id['maSach'] + 1);
+    
+    if (isset($_POST['submit'])) {
+        $productName = $_POST["productName"] ?? "";
+        $categoryId = $_POST["category"] ?? "";
+        $author = $_POST["author"] ?? "";
+        $quantity = $_POST["quantity"] ?? 0;
+        $productDes = $_POST["productDes"] ?? "";
+        $price = $_POST["price"] ?? 0;
+        $img = $_POST["productImg"] ?? "";
+
+        // truy van them sp
+        $sql = "INSERT INTO `sach` (maSach, tenSach, maLS, moTa, giaTien, soLuong, tacGia, hinhAnh)
+            VALUES ('$productId', '$productName', '$categoryId', '$productDes', $price, $quantity, '$author', '$img')";
+
+        $result = quick_query($sql);
+
+        if ($result) {
+            echo "<script>alert('Thêm sản phẩm thành công')</script>";
+        } else {
+            echo "<script>alert('Thêm sản phẩm thất bại' . $result)</script>";
+        }
 }
 ?>
 <section>
@@ -69,7 +76,7 @@ if (isset($_POST['submit'])) {
     <form action="?action=create" method="post" class="form-container">
         <div>
             <label for="productId" class="form-label">Mã sản phẩm</label>
-            <input required type="text" id="productId" name="productId" class="form-input">
+            <input disabled type="text" id="productId" value="<?php echo $productId ?>" name="productId" class="form-input">
         </div>
 
         <div>
