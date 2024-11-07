@@ -184,6 +184,12 @@
         color: #000;
         border: 2px solid var(--primary-color);
     }
+
+    .btn.btn-add:hover{
+        background-color: var(--primary-color);
+        outline: none;
+        color: var(--white-color);
+    }
     section {
         padding: 24px;
     }
