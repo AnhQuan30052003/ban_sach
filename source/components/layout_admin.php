@@ -203,7 +203,7 @@
     <div class="ad-container">
         <div class="sidebar">
             <nav class="navbar">
-                <a href="index.html" class="navbar-brand">
+                <a href="./index.php" class="navbar-brand">
                     <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>ADMIN</h3>
                 </a>
                 <div class="navbar-nav ">
