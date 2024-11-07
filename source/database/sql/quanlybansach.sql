@@ -15,7 +15,8 @@ CREATE TABLE `khach_hang` (
 
 INSERT INTO `khach_hang`  VALUES
 ('0000', 'admin'          , 'quan.na.63cntt@ntu.edu.vn' , ''          , 'admin'         , ''                                ),
-('0001', 'Nguyễn Anh Quân', 'anhquan300503@gmail.com'   , '0398090114', 'nguyenanhquan' , 'KTX K7 Trường Đại học Nha Trang' );
+('0001', 'Nguyễn Anh Quân', 'anhquan300503@gmail.com'   , '0398090114', 'nguyenanhquan' , 'KTX K7 Trường Đại học Nha Trang' ),
+('0002', 'Nguyễn Tiến Đạt', 'dat@gmail.com'             , '0398090111', 'nguyentiendat' , 'Nha Trang'                       );
 
 
 
