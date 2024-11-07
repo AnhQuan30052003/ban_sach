@@ -114,8 +114,9 @@
     background-color: white;
     }
 </style>
+
 <section style='min-height: 600px;'>
-    <h3 >QUẢN LÝ SẢN PHẨM</h3><hr>
+    <h3 >QUẢN LÝ SÁCH</h3><hr>
     <div class="wrap-search-add">
         <a class="btn btn-add" href="?action=create">Tạo mới</a>
         <input class="input" name="name_search" type="search" placeholder="Nhập tên sản phẩm để tìm kiếm" >

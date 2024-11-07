@@ -262,7 +262,7 @@
                             &copy; <a href="#">Ecommerce website</a>, All Right Reserved.
                         </div>
                         <div class="row-item">
-                            Designed By <a href="#">Tien Dat</a>
+                            Designed By <a href="#">Tiến Quân</a>
                         </div>
                     </div>
                 </div>

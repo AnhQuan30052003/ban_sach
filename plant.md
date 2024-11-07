@@ -8,8 +8,8 @@
 ## [Admin]
 ### Page:
   - Index ❌
-  - Customer ❌
-  - Product ❌
+  - Book ❌
+  - Book Type ❌
 
 ### Module:
   - Customer_Create: ❌
