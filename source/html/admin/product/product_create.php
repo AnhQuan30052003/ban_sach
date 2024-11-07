@@ -50,15 +50,6 @@ if (isset($_POST['submit'])) {
     $price = $_POST["price"] ?? 0;
     $img = $_POST["productImg"] ?? "";
 
-    echo "Mã sản phẩm: $productId<br>";
-    echo "Tên sản phẩm: $productName<br>";
-    echo "Phân loại: $categoryId<br>";
-    echo "Tác giả: $author<br>";
-    echo "Số lượng: $quantity<br>";
-    echo "Giá: $price<br>";
-    echo "Mô tả: $productDes<br>";
-    echo "Hình ảnh: $img<br>";
-
     // truy van them sp
     $sql = "INSERT INTO `sach` (maSach, tenSach, maLS, moTa, giaTien, soLuong, tacGia, hinhAnh)
         VALUES ('$productId', '$productName', '$categoryId', '$productDes', $price, $quantity, '$author', '$img')";
@@ -78,12 +69,12 @@ if (isset($_POST['submit'])) {
     <form action="?action=create" method="post" class="form-container">
         <div>
             <label for="productId" class="form-label">Mã sản phẩm</label>
-            <input type="text" name="productId" class="form-input">
+            <input required type="text" id="productId" name="productId" class="form-input">
         </div>
 
         <div>
             <label for="productName" class="form-label">Tên sản phẩm</label>
-            <input type="text" name="productName" class="form-input">
+            <input required type="text" name="productName" class="form-input">
         </div>
 
         <div>
@@ -99,17 +90,17 @@ if (isset($_POST['submit'])) {
 
         <div>
             <label for="author" class="form-label">Tác giả</label>
-            <input type="text" name="author" id="" class="form-input">
+            <input required type="text" name="author" id="" class="form-input">
         </div>
 
         <div>
             <label for="quantity" class="form-label">Số lượng</label>
-            <input type="number" min="1" value="1" name="quantity" class="form-input">
+            <input required type="number" min="1" value="1" name="quantity" class="form-input">
         </div>
 
         <div>
             <label for="price" class="form-label">Giá</label>
-            <input type="number" min="0" name="price" class="form-input">
+            <input required type="number" min="0" name="price" class="form-input">
         </div>
 
         <div>
@@ -123,16 +114,16 @@ if (isset($_POST['submit'])) {
 
         <!-- <div>
             <label for="" class="form-label" >Hình ảnh</label>
-            <input type="file" name="" id="" accept="image/*" required >
+            <input required type="file" name="" id="" accept="image/*" required >
         </div> -->
         <div>
             <label for="" class="form-label">Hình ảnh</label>
-            <input type="text" name="productImg" id="" class="form-input" required>
+            <input required type="text" name="productImg" id="" class="form-input" required>
         </div>
 
         <div style="margin-top: 10px">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" name="submit" value="Thêm" class="btn btn-success" />
+                <input required type="submit" name="submit" value="Thêm" class="btn btn-success" />
             </div>
         </div>
     </form>

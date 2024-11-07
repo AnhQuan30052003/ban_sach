@@ -13,7 +13,7 @@
         return "Lỗi truy vấn: " . $error;
     }
 
-    mysqli_close($conn);
+    // mysqli_close($conn);
     return $result;
 }
 
