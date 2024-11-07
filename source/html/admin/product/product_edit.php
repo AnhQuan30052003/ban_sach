@@ -85,6 +85,7 @@
         }
     }
 ?>
+
 <section>
     <h3>CẬP NHẬT SẢN PHẨM</h3>
     <hr>
@@ -129,9 +130,7 @@
         <div>
             <label for="description" class="form-label">Mô tả</label>
             <div class="editor-container">
-                <textarea rows="5" name="productDes" id="">
-                    <?php echo $product['moTa'] ?>
-                </textarea>
+                <textarea rows="5" name="productDes" id=""><?php echo $product['moTa'] ?></textarea>
             </div>
         </div>
 
