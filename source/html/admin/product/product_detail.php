@@ -120,8 +120,8 @@
                 </table>
 
                 <div class="btn-group" style="margin-top: 10px">
-                    <a class='btn btn-success m-2 del-btn' href='?action=edit&productId=$row[0]'>Chỉnh sửa</a> 
-                    <a href="index.php"  class="btn btn-back">
+                    <a class='btn btn-success m-2 del-btn' href="<?php echo "?action=edit&productId=$productId" ?>" >Chỉnh sửa</a> 
+                    <a onclick="window.history.back()"  class="btn btn-back">
                         <i class="fa-solid fa-arrow-left"></i>
                         <span >Quay lại</span>
                     </a>
