@@ -6,12 +6,8 @@
 	$sql = "
 		SELECT s.maSach, s.tenSach, s.tacGia, s.soLuong, s.giaTien , l.tenLS
 		FROM sach AS s JOIN loai_sach AS l ON s.maLS = l.maLS
+		GROUP BY s.maSach, s.tenSach, s.tacGia, s.soLuong, s.giaTien , l.tenLS LIMIT $offset, $productsPerPage
 	";
-
-	$getSql = $_POST["sql"] ?? "";
-	if ($getSql != "") $sql .= $getSql;
-
-	$sql .= " GROUP BY s.maSach, s.tenSach, s.tacGia, s.soLuong, s.giaTien , l.tenLS LIMIT $offset, $productsPerPage";
 
     $res = get_data_query($sql);
 
@@ -125,11 +121,11 @@
     <h3 >QUẢN LÝ SÁCH</h3><hr>
     <div class="wrap-search-add">
         <a class="btn btn-add" href="?action=create">Tạo mới</a>
-        <input class="input" name="name_search" type="search" id='search' placeholder="Nhập mã/tên sách để tìm kiếm" >
+        <input class="input" name="name_search" placeholder="Nhập mã/tên sách để tìm kiếm" >
     </div>
 
     <form action="" method="post">
-        <?php build_body(); ?>
+		<?php build_body(); ?>
     </form>
 
     <?php
@@ -139,16 +135,3 @@
         show_number_page($res, $productsPerPage);
     ?>
 </section>
-
-<script>
-	const inputSearch = document.getElementById("search");
-	inputSearch.addEventListener("input", function() {
-		let search = inputSearch.value;
-		let sql = ` where s.maSach like '%${search}%' or s.tenSach like '%${search}%'`;
-		let xhr = new XMLHttpRequest();
-    	xhr.open('POST', 'product_list.php', true);
-    	xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    	xhr.send('sql=' + sql);
-		console.log(sql);
-	});
-</script>
