@@ -30,15 +30,11 @@
             echo "<tr>";
             echo "<td>$stt</td>";
             echo "<td>$row[0]</td>";
-            echo "<td><a class='link-detail' title='Xem chi tiết' href=''>$row[1]</a></td>";
+            echo "<td><a class='link-detail' title='Xem chi tiết' href='?action=detail&productId=$row[0]'>$row[1]</a></td>";
             echo "<td>{$row['tenLS']}</td>";
             echo "<td>$row[2]</td>";
             echo "<td>$row[3]</td>";
             echo "<td>$row[4]</td>";
-            // echo "<td>
-            //     <a class='btn btn-success m-2 del-btn' href='?action=edit&productId=$row[0]'>Sửa</a> 
-            //     <button class='btn btn-danger m-2 del-btn' data-productID='$row[0]'>Xóa</button>
-            // </td>";
             echo "<td>
                 <a class='btn btn-success m-2 del-btn' href='?action=edit&productId=$row[0]'>Sửa</a> 
                 <a class='btn btn-danger m-2 del-btn' href='?action=delete&productId=$row[0]' onclick=\"return confirm('Bạn có chắc chắn muốn xóa?');\" >Xóa</a>

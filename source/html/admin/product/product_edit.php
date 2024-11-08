@@ -74,7 +74,7 @@
         $result = quick_query($sql);
 
         if ($result) {
-            echo "<script>alert('Cập nhật sản phẩm thành công')</script>";
+            echo "<script>alert('Cập nhật thông tin sách thành công')</script>";
             // Truy vấn lại dữ liệu vừa cập nhật
             $sql = "SELECT * FROM sach WHERE maSach = '$productId'";
             $res = get_data_query($sql);
@@ -82,7 +82,7 @@
                 $product = $res[0]; 
             }
             } else {
-                echo "<script>alert('Cập nhật phẩm thất bại' . $result)</script>";
+                echo "<script>alert('Cập nhật thông tin sách thất bại' . $result)</script>";
             }
     }
 ?>
@@ -92,12 +92,12 @@
     <hr>
     <form action="" method="post" class="form-container">
         <div>
-            <label for="productId" class="form-label">Mã sản phẩm</label>
+            <label for="productId" class="form-label">Mã sách</label>
             <input type="text" readonly style="background-color: #ccc;" id="productId" name="productId" value="<?php echo $product['maSach'] ?? $productId; ?>" class="form-input" >
         </div>
 
         <div>
-            <label for="productName" class="form-label">Tên sản phẩm</label>
+            <label for="productName" class="form-label">Tên sách</label>
             <input required type="text" id="productName" name="productName" value="<?php echo $product['tenSach'] ?? "" ?>" class="form-input">
         </div>
 

@@ -63,9 +63,9 @@
 		$result = quick_query($sql);
 
 		if ($result) {
-			echo "<script>alert('Thêm sản phẩm thành công')</script>";
+			echo "<script>alert('Thêm sách thành công')</script>";
 		} else {
-			echo "<script>alert('Thêm sản phẩm thất bại' . $result)</script>";
+			echo "<script>alert('Thêm sách thất bại' . $result)</script>";
 		}
 	}
 ?>
@@ -76,12 +76,12 @@
 
 	<form action="?action=create" method="post" class="form-container" enctype="multipart/form-data">
 		<div>
-			<label for="productId" class="form-label">Mã sản phẩm</label>
+			<label for="productId" class="form-label">Mã sách</label>
 			<input required type="text" id="productId" name="productId" class="form-input">
 		</div>
 
 		<div>
-			<label for="productName" class="form-label">Tên sản phẩm</label>
+			<label for="productName" class="form-label">Tên sách</label>
 			<input required type="text" name="productName" class="form-input">
 		</div>
 
