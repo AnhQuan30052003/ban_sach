@@ -31,6 +31,10 @@
 	textarea {
 		width: 100%;
 	}
+
+	.btn-choose-file {
+		padding: 2px 4px;
+	}
 </style>
 
 <?php
@@ -114,13 +118,13 @@
 			</div>
 		</div>
 
-		<!-- <div>
-            <label for="" class="form-label" >Hình ảnh</label>
-            <input required type="file" name="" id="" accept="image/*" required >
-        </div> -->
 		<div>
 			<label for="" class="form-label">Hình ảnh</label>
-			<input required type="text" name="productImg" id="" class="form-input" required>
+			<input required type="text" name="productImg" id="productImg" class="form-input" disabled>
+			<span>
+				<button type='button' id='choose'>Chọn</button>
+				<input type="file" id='get-file' name='get-file' style='display: none;'>
+			</span>
 		</div>
 
 		<div style="margin-top: 10px">
@@ -130,3 +134,19 @@
 		</div>
 	</form>
 </section>
+
+<script>
+	const inputText = document.getElementById("productImg");
+	const buttonChoose = document.getElementById("choose");
+	const inputFile = document.getElementById("get-file");
+
+	buttonChoose.addEventListener("click", function() {
+		getFile.click();
+	});
+
+	inputFile.addEventListener("change", function() {
+		if (inputFile.value != "") {
+			inputText.value = inputFile.files[0].name;
+		}
+	});
+</script>

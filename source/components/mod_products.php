@@ -75,12 +75,16 @@
     foreach ($result as $line) {
       if ($soLuong == 1) echo "<tr>";
       $tym = ""; 
+
       if (in_array($line[0], $array)) $tym = "style='color: red;'";
       $show = rand(0,1) ? "style= 'display: block;' " : "style= 'display: none;' ";
+
+      $imgPath = "../../assets/images/products/$line[8]";
+
       echo "
         <td>
           <div class='image'>
-            <img src='$line[8]' alt='' style='width: 100%; height: 100%; object-fit: cover;'>
+            <img src='$imgPath' alt='' style='width: 100%; height: 100%; object-fit: cover;'>
             <div class= 'image-item__favor' $show >
               <i class= 'fa-solid fa-check'></i>
               <span>Yêu thích</span>

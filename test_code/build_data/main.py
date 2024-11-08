@@ -26,7 +26,7 @@ with open(path, "r") as file:
 path = os.path.join(pathCur, "output.txt")
 with open(path, "a") as file:
   start = 29
-  end = 200
+  end = 100
   index = 0
   for i in range(start, end + 1):
     id = chuoi_so(i)
