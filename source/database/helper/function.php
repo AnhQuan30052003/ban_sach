@@ -87,14 +87,11 @@
     }
   }
 
-  # Lấy mã khách hàng mới nhất
-  function get_id_user() {
-    $sql = "select maKH from khach_hang";
+  # Lấy id của... cuối cùng
+  function get_id_laster(string $sql) {
     $result = get_data_query($sql);
-    $result = $result[count($result) - 1];
 
-    $id = $result["maKH"];
-    $id = (int) $id + 1;
+    $id = (int) $result[0][0] + 1;
     $id = (string) $id;
     $strId = "";
 
@@ -105,5 +102,32 @@
     $strId .= $id;
 
     return $strId;
+  }
+
+  # Kiểm tra xem file có thoả không ?
+  function check_image(array $img) {
+    $error = "";
+
+    $file_size = $img['size'];
+    $file_ext = @strtolower(end(explode('.', $img['name'])));
+    $expensions = array("jpeg", "jpg", "png");
+    
+    if (!in_array($file_ext, $expensions)) {
+      $error = "Phải chọn ảnh JPG hoặc PNG !";
+      return $error;
+    }
+
+    if ($file_size > 2097152) {
+      $error = 'Ảnh lón hơn 2MB !';
+      return $error;
+    }
+    
+    return $error;
+  }
+  
+  # Đẩy và lưu file ảnh
+  function save_file(array $img) {
+    $path = getcwd() . "\..\..\..\assets\images\products\\{$img['name']}";
+    move_uploaded_file($img["tmp_name"], $path);
   }
 ?>

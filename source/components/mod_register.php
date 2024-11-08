@@ -15,7 +15,7 @@
   function check_register() {
     global $errorRegister, $userId, $_maKH, $_tenKH, $_email, $_sdt, $_password, $_diaChi;
 
-    $_maKH = get_id_user();
+    $_maKH = get_id_laster("select maKH from khach_hang group by maKH order by maKH desc limit 1");
     $sql = "insert into `khach_hang` values ('$_maKH', '$_tenKH', '$_email', '$_sdt', '$_password', '$_diaChi');";
     $result = quick_query($sql);
     

@@ -3,8 +3,12 @@
     if (!isset($_GET["page"])) $_GET["page"] = 1;
     $offset = ($_GET["page"] - 1) * $productsPerPage;
 
-    $sql = "SELECT s.maSach, s.tenSach, s.tacGia, s.soLuong, s.giaTien , l.tenLS FROM sach AS s JOIN loai_sach AS l ON s.maLS = l.maLS 
-        LIMIT $offset, $productsPerPage";
+    $sql = "
+        SELECT s.maSach, s.tenSach, s.tacGia, s.soLuong, s.giaTien , l.tenLS
+        FROM sach AS s JOIN loai_sach AS l ON s.maLS = l.maLS 
+        GROUP BY s.maSach, s.tenSach, s.tacGia, s.soLuong, s.giaTien , l.tenLS
+        LIMIT $offset, $productsPerPage
+    ";
 
     $res = get_data_query($sql);
 
@@ -44,8 +48,6 @@
         }
         echo "</table>";
     }
-
-
 ?>
 
 <style>
@@ -119,14 +121,14 @@
     <h3 >QUẢN LÝ SÁCH</h3><hr>
     <div class="wrap-search-add">
         <a class="btn btn-add" href="?action=create">Tạo mới</a>
-        <input class="input" name="name_search" type="search" placeholder="Nhập tên sản phẩm để tìm kiếm" >
+        <input class="input" name="name_search" type="search" placeholder="Nhập mã/tên sách để tìm kiếm" >
     </div>
     <form action="?action=edit" method="post">
         <?php build_body(); ?>
     </form>
 
     <?php
-        $sql = "select * from sach";
+        $sql = cutString($sql, "LIMIT");
         $res = quick_query($sql);
     
         show_number_page($res, $productsPerPage);
