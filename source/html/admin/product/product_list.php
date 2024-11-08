@@ -2,18 +2,18 @@
     $productsPerPage = 10;
     if (!isset($_GET["page"])) $_GET["page"] = 1;
     $offset = ($_GET["page"] - 1) * $productsPerPage;
-
-    $sql = "SELECT s.maSach, s.tenSach, s.tacGia, s.soLuong, s.giaTien , l.tenLS FROM sach AS s JOIN loai_sach AS l ON s.maLS = l.maLS 
-        LIMIT $offset, $productsPerPage";
+	
+	$sql = "
+		SELECT s.maSach, s.tenSach, s.tacGia, s.soLuong, s.giaTien , l.tenLS
+		FROM sach AS s JOIN loai_sach AS l ON s.maLS = l.maLS
+		GROUP BY s.maSach, s.tenSach, s.tacGia, s.soLuong, s.giaTien , l.tenLS LIMIT $offset, $productsPerPage
+	";
 
     $res = get_data_query($sql);
 
     function build_body() {
         global $res;
-        if (is_bool($res)) {
-            number_products_found(0);
-            return;
-        }
+        if (is_bool($res)) return;
         echo "<table align='center' cellpadding='2' cellspacing='2' '>";
         echo '<tr>
             <th width="10">STT</th>
@@ -44,8 +44,6 @@
         }
         echo "</table>";
     }
-
-
 ?>
 
 <style>
@@ -119,14 +117,15 @@
     <h3 >QUẢN LÝ SÁCH</h3><hr>
     <div class="wrap-search-add">
         <a class="btn btn-add" href="?action=create">Tạo mới</a>
-        <input class="input" name="name_search" type="search" placeholder="Nhập tên sản phẩm để tìm kiếm" >
+        <input class="input" name="name_search" placeholder="Nhập mã/tên sách để tìm kiếm" >
     </div>
+
     <form action="" method="post">
-        <?php build_body(); ?>
+		<?php build_body(); ?>
     </form>
 
     <?php
-        $sql = "select * from sach";
+        $sql = cutString($sql, "LIMIT");
         $res = quick_query($sql);
     
         show_number_page($res, $productsPerPage);
