@@ -9,12 +9,6 @@
   --white-color: #fff;
   --black-color: #000;
   --text-color: #333;
-  --star-gold: #FFCE3E;
-  --header-height: 120px;
-  --navbar-height: 30px;
-  --header-with-search: calc(var(--header-height) - var(--navbar-height));
-  --header-sort-bar-height: 46px;
-  --width: 0%;
 }
 html {
   font-family: 'Roboto', sans-serif;

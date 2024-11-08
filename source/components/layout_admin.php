@@ -29,6 +29,10 @@
         padding: 0;
     }
 
+    a{
+        text-decoration: none;
+    }
+
     .ad-container .sidebar {
         position: fixed;
         top: 0;
@@ -187,6 +191,10 @@
         border: 1px solid var(--black-color);
     }
 
+    .btn.btn-back:active{
+        background-color: #eeeeee4b;
+    }
+
     .btn.btn-back > .fa-arrow-left {
         margin-right: 5px;
         margin-left: 5px;
@@ -229,7 +237,7 @@
         <div class="sidebar">
             <nav class="navbar">
                 <a href="./index.php" class="navbar-brand">
-                    <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>ADMIN</h3>
+                    <h3><i class="fa fa-hashtag me-2"></i>ADMIN</h3>
                 </a>
                 <div class="navbar-nav ">
                     <div class="nav-item ">
@@ -250,7 +258,7 @@
             <!-- Navbar Start -->
             <nav class="navbar">
                 <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
-                    <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
+                    <h2><i class="fa fa-hashtag"></i></h2>
                 </a>
                 <div class="navbar-nav">
                     <li class="nav-item">

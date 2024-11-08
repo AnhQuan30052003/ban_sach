@@ -149,10 +149,10 @@
                 <input required type="submit" name="submit" value="Cập nhật" class="btn btn-success" />
             </div>
             <div>
-                <button onclick="window.history.back()" class="btn btn-back">
+                <a href="index.php"  class="btn btn-back">
                     <i class="fa-solid fa-arrow-left"></i>
                     <span >Quay lại</span>
-                </button>
+                </a>
             </div>
         </div>
     </form>

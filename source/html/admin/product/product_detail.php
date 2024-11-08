@@ -1,9 +1,16 @@
 <style>
-    .row {
+    hr{
+        margin: 10px 0;
+    }
+    .row-detail {
         display: flex;
         flex-wrap: wrap;
         margin-left: -4px;
         margin-right: -4px;
+    }
+
+    .row>*{
+        padding: 0 12px;
     }
     .col-4 {
         flex: 0 0 33.33333%;
@@ -17,56 +24,109 @@
         flex: 0 0 100%;
         max-width: 100%;
     }
+
+    .text-center{
+        text-align: center;
+    }
+
+    .text-primary {
+        font-size: 18px;
+        color: var(--primary-color);
+    }
+
+    .w-100 {
+        width: 100%;
+    }
+
+    .h-auto {
+        height: auto;
+    }
+
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+    table td{
+        border: 1px solid #ccc;
+        padding: 5px;
+        font-size: 17px;
+    }
+    
+    table td:nth-child(2){
+        color: #757575;
+    }
+
 </style>
 <?php
-    if(isset($_GET['action']) && $_GET['action'] === 'detail')
+    if(isset($_GET['action']) && $_GET['action'] === 'detail'){
+        $productId = $_GET['productId'] ?? "";
+        $sql = "SELECT * FROM `sach` WHERE maSach = '$productId' ";
+        $res = get_data_query($sql);
+        if($res){
+            $product = $res[0];
+        }
+    }
 ?>
-<div class="row" style="padding: 0 24px">
+<div class="row-deltail" style="padding: 0 24px">
     <div class="col-12">
         <h3 class="text-center mt-3">Thông tin chi tiết</h3>
     </div>
     <div class="col-12">
         <div class="row">
             <div class="col-4">
-                <h6 class="text-center text-primary">Ảnh sản phẩm</h6>
+                <h6 class="text-center text-primary">Ảnh sách</h6>
                 <hr />
-                <img class="w-100 h-auto" src="" />
+                <img class="w-100 h-auto" src= <?php echo '../../../assets/images/products/'.$product['hinhAnh'] ?> />
             </div>
             <div class="col-8">
-                <h6 class="text-center text-primary">Thông tin sản phẩm</h6>
+                <h6 class="text-center text-primary">Thông tin sách</h6>
                 <hr />
                 <table class="table table-bordered">
                     <tr>
-                        <td class="text-dark">Tên sách</td>
-                        <td>@Html.DisplayFor(model => model.product_name)</td>
+                        <td class="text-dark">Mã sách</td>
+                        <td> <?php echo $product['maSach'] ?> </td>
                     </tr>
 
                     <tr>
-                        <td class="text-dark">Phân loại</td>
-                        <td>@Html.DisplayFor(model => model.Category.name)</td>
+                        <td class="text-dark">Tên sách</td>
+                        <td> <?php echo $product['tenSach'] ?> </td>
+                    </tr>
+
+                    <tr>
+                        <td class="text-dark">Mã loại sách</td>
+                        <td><?php echo $product['maLS'] ?></td>
+                    </tr>
+
+                    <tr>
+                        <td class="text-dark">Tác giả</td>
+                        <td><?php echo $product['tacGia'] ?></td>
                     </tr>
 
                     <tr>
                         <td class="text-dark">Giá tiền</td>
-                        <td>@Model.price.ToString("#,##0")</td>
+                        <td><?php echo number_format($product['giaTien'], 0, ',', '.') ?></td>
                     </tr>
 
                     <tr>
                         <td class="text-dark">Số lượng</td>
-                        <td>@Html.DisplayFor(model => model.qty_in_stock)</td>
+                        <td><?php echo $product['soLuong'] ?></td>
                     </tr>
 
                     <tr>
                         <td class="text-dark">Mô tả</td>
-                        <td>@Html.Raw(Model.description)</td>
+                        <td><?php echo $product['moTa'] ?></td>
                     </tr>
                 </table>
+
+                <div class="btn-group" style="margin-top: 10px">
+                    <a class='btn btn-success m-2 del-btn' href='?action=edit&productId=$row[0]'>Chỉnh sửa</a> 
+                    <a href="index.php"  class="btn btn-back">
+                        <i class="fa-solid fa-arrow-left"></i>
+                        <span >Quay lại</span>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
-</div>
-
-<div style="text-align: right; padding: 0 24px">
-    <a href=""></a>
-    <a href=""></a>
 </div>
