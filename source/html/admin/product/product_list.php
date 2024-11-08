@@ -35,9 +35,13 @@
             echo "<td>$row[2]</td>";
             echo "<td>$row[3]</td>";
             echo "<td>$row[4]</td>";
+            // echo "<td>
+            //     <a class='btn btn-success m-2 del-btn' href='?action=edit&productId=$row[0]'>Sửa</a> 
+            //     <button class='btn btn-danger m-2 del-btn' data-productID='$row[0]'>Xóa</button>
+            // </td>";
             echo "<td>
-                <a class='btn btn-success m-2' href='?action=edit&productId=$row[0]'>Sửa</a> 
-                <a class='btn btn-danger m-2' href='?action=delete&productId=$row[0]'>Xóa</a>
+                <a class='btn btn-success m-2 del-btn' href='?action=edit&productId=$row[0]'>Sửa</a> 
+                <a class='btn btn-danger m-2 del-btn' href='?action=delete&productId=$row[0]' onclick=\"return confirm('Bạn có chắc chắn muốn xóa?');\" >Xóa</a>
             </td>";
             echo "</tr>";
             $stt++;
@@ -120,7 +124,7 @@
         <a class="btn btn-add" href="?action=create">Tạo mới</a>
         <input class="input" name="name_search" type="search" placeholder="Nhập tên sản phẩm để tìm kiếm" >
     </div>
-    <form action="?action=edit" method="post">
+    <form action="" method="post">
         <?php build_body(); ?>
     </form>
 

@@ -113,9 +113,7 @@
         <div>
             <label for="description" class="form-label">Mô tả</label>
             <div class="editor-container">
-                <textarea rows="5" name="productDes" id="">
-
-                </textarea>
+                <textarea rows="5" name="productDes" id=""></textarea>
             </div>
         </div>
 
@@ -128,8 +126,14 @@
             <input required type="text" name="productImg" id="" class="form-input" required>
         </div>
 
-        <div style="margin-top: 10px">
-            <div class="col-md-offset-2 col-md-10">
+        <div class="btn-group" style="margin-top: 10px">
+            <div>
+                <a href="index.php" class="btn btn-back">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span >Quay lại</span>
+                </a>
+            </div>
+            <div>
                 <input required type="submit" name="submit" value="Thêm" class="btn btn-success" />
             </div>
         </div>
