@@ -2,22 +2,22 @@
     $productsPerPage = 10;
     if (!isset($_GET["page"])) $_GET["page"] = 1;
     $offset = ($_GET["page"] - 1) * $productsPerPage;
+	
+	$sql = "
+		SELECT s.maSach, s.tenSach, s.tacGia, s.soLuong, s.giaTien , l.tenLS
+		FROM sach AS s JOIN loai_sach AS l ON s.maLS = l.maLS
+	";
 
-    $sql = "
-        SELECT s.maSach, s.tenSach, s.tacGia, s.soLuong, s.giaTien , l.tenLS
-        FROM sach AS s JOIN loai_sach AS l ON s.maLS = l.maLS 
-        GROUP BY s.maSach, s.tenSach, s.tacGia, s.soLuong, s.giaTien , l.tenLS
-        LIMIT $offset, $productsPerPage
-    ";
+	$getSql = $_POST["sql"] ?? "";
+	if ($getSql != "") $sql .= $getSql;
+
+	$sql .= " GROUP BY s.maSach, s.tenSach, s.tacGia, s.soLuong, s.giaTien , l.tenLS LIMIT $offset, $productsPerPage";
 
     $res = get_data_query($sql);
 
     function build_body() {
         global $res;
-        if (is_bool($res)) {
-            number_products_found(0);
-            return;
-        }
+        if (is_bool($res)) return;
         echo "<table align='center' cellpadding='2' cellspacing='2' '>";
         echo '<tr>
             <th width="10">STT</th>
@@ -39,9 +39,13 @@
             echo "<td>$row[2]</td>";
             echo "<td>$row[3]</td>";
             echo "<td>$row[4]</td>";
+            // echo "<td>
+            //     <a class='btn btn-success m-2 del-btn' href='?action=edit&productId=$row[0]'>Sửa</a> 
+            //     <button class='btn btn-danger m-2 del-btn' data-productID='$row[0]'>Xóa</button>
+            // </td>";
             echo "<td>
-                <a class='btn btn-success m-2' href='?action=edit&productId=$row[0]'>Sửa</a> 
-                <a class='btn btn-danger m-2' href='?action=delete&productId=$row[0]'>Xóa</a>
+                <a class='btn btn-success m-2 del-btn' href='?action=edit&productId=$row[0]'>Sửa</a> 
+                <a class='btn btn-danger m-2 del-btn' href='?action=delete&productId=$row[0]' onclick=\"return confirm('Bạn có chắc chắn muốn xóa?');\" >Xóa</a>
             </td>";
             echo "</tr>";
             $stt++;
@@ -121,9 +125,10 @@
     <h3 >QUẢN LÝ SÁCH</h3><hr>
     <div class="wrap-search-add">
         <a class="btn btn-add" href="?action=create">Tạo mới</a>
-        <input class="input" name="name_search" type="search" placeholder="Nhập mã/tên sách để tìm kiếm" >
+        <input class="input" name="name_search" type="search" id='search' placeholder="Nhập mã/tên sách để tìm kiếm" >
     </div>
-    <form action="?action=edit" method="post">
+
+    <form action="" method="post">
         <?php build_body(); ?>
     </form>
 
@@ -134,3 +139,16 @@
         show_number_page($res, $productsPerPage);
     ?>
 </section>
+
+<script>
+	const inputSearch = document.getElementById("search");
+	inputSearch.addEventListener("input", function() {
+		let search = inputSearch.value;
+		let sql = ` where s.maSach like '%${search}%' or s.tenSach like '%${search}%'`;
+		let xhr = new XMLHttpRequest();
+    	xhr.open('POST', 'product_list.php', true);
+    	xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    	xhr.send('sql=' + sql);
+		console.log(sql);
+	});
+</script>

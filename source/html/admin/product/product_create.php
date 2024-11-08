@@ -62,20 +62,20 @@
 		// truy van them sp
 		$imgTemp = $img['name'];
 		$sql = "
-			INSERT INTO `sach` (maSach, tenSach, maLS, moTa, giaTien, soLuong, tacGia, hinhAnh)
-			VALUES ('$productId', '$productName', '$categoryId', '$productDes', $price, $quantity, '$author', '$imgTemp')
-		";
+				INSERT INTO `sach` (maSach, tenSach, maLS, moTa, giaTien, soLuong, tacGia, hinhAnh)
+				VALUES ('$productId', '$productName', '$categoryId', '$productDes', $price, $quantity, '$author', '$imgTemp')
+			";
 
 		$result = quick_query($sql);
 
 		if ($result) {
 			save_file($img);
 			echo "
-				<script>
-					alert('Thêm sách thành công');
-					window.location.href = './index.php';
-				</script>
-			";
+					<script>
+						alert('Thêm sách thành công');
+						window.location.href = './index.php';
+					</script>
+				";
 		} else {
 			echo "<script>alert('Thêm sách thất bại' . $result)</script>";
 		}
@@ -103,13 +103,13 @@
 			<label for="category" class="form-label">Phân loại</label>
 			<select name="category" class="form-select">
 				<?php
-					// truy van loai san pham cho comboBox
-					$sql_ls = "SELECT s.maLS, l.tenLS FROM sach AS s JOIN loai_sach AS l ON s.maLS = l.maLS group by s.maLS";
-					$res = get_data_query($sql_ls);
+				// truy van loai san pham cho comboBox
+				$sql_ls = "SELECT s.maLS, l.tenLS FROM sach AS s JOIN loai_sach AS l ON s.maLS = l.maLS group by s.maLS";
+				$res = get_data_query($sql_ls);
 
-					foreach ($res as $line) {
-						echo "<option value='{$line['maLS']}'> {$line['tenLS']} </option>";
-					}
+				foreach ($res as $line) {
+					echo "<option value='{$line['maLS']}'> {$line['tenLS']} </option>";
+				}
 				?>
 			</select>
 		</div>
@@ -145,8 +145,14 @@
 			</span>
 		</div>
 
-		<div style="margin-top: 10px">
-			<div class="col-md-offset-2 col-md-10">
+		<div class="btn-group" style="margin-top: 10px">
+			<div>
+				<a href="index.php" class="btn btn-back">
+					<i class="fa-solid fa-arrow-left"></i>
+					<span>Quay lại</span>
+				</a>
+			</div>
+			<div>
 				<input required type="submit" name="submit" value="Thêm" class="btn btn-success" />
 			</div>
 		</div>

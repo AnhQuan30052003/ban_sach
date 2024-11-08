@@ -35,10 +35,11 @@
 
 <?php
 
-// truy van loai san pham cho comboBox
-
+    // truy van loai san pham cho comboBox
     $sql_ls = "SELECT s.maLS, l.tenLS FROM sach AS s JOIN loai_sach AS l ON s.maLS = l.maLS group by s.maLS";
     $res_ls = get_data_query($sql_ls);
+    
+    // truy van chi tiet san pham theo id
     if(isset($_GET['productId'])){
         $id = $_GET['productId'];
         $sql = "SELECT s.*, l.tenLS FROM sach AS s JOIN loai_sach AS l ON s.maLS = l.maLS WHERE s.maSach = $id";
@@ -80,9 +81,9 @@
             if ($res) {
                 $product = $res[0]; 
             }
-        } else {
-            echo "<script>alert('Cập nhật phẩm thất bại' . $result)</script>";
-        }
+            } else {
+                echo "<script>alert('Cập nhật phẩm thất bại' . $result)</script>";
+            }
     }
 ?>
 
@@ -138,14 +139,20 @@
             <label for="" class="form-label" >Hình ảnh</label>
             <input required type="file" name="" id="" accept="image/*" required >
         </div> -->
-        <div>
+        <div >
             <label for="productImg"  class="form-label">Hình ảnh</label>
             <input required type="text" name="productImg" value="<?php echo $product['hinhAnh'] ?>" id="productImg" class="form-input" required>
         </div>
 
-        <div style="margin-top: 10px">
+        <div class="btn-group" style="margin-top: 10px">
             <div class="col-md-offset-2 col-md-10">
                 <input required type="submit" name="submit" value="Cập nhật" class="btn btn-success" />
+            </div>
+            <div>
+                <button onclick="window.history.back()" class="btn btn-back">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span >Quay lại</span>
+                </button>
             </div>
         </div>
     </form>

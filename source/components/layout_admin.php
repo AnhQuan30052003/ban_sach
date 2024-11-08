@@ -6,12 +6,9 @@
     include_once $pathComponents . "/head.php";
     include_once $pathComponents . "/mod_paginate.php";
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
-
-<?php head("Page Admin"); ?>
-
+<?php head("Page Admin");?>
 <style>
     :root{
         --primary-color: #f95030;
@@ -142,6 +139,12 @@
         color: #757575;
     }
 
+    .btn-group {
+        display: flex;
+        gap: 10px;
+        justify-content: end;
+    }
+
     .btn {
         display: inline-block;
         font-weight: 400;
@@ -171,6 +174,28 @@
         color: #fff;
         background-color: #dc3545;
         border-color: #dc3545;
+    }
+
+    .btn.btn-back{
+        display: flex;
+        width: 100px;
+        align-items: center;
+        justify-content: center;
+        background-color: #eeeeee4b;
+        transition: all 0.2s linear;
+        background: #fff;
+        border: 1px solid var(--black-color);
+    }
+
+    .btn.btn-back > .fa-arrow-left {
+        margin-right: 5px;
+        margin-left: 5px;
+        font-size: 15px;
+        transition: all 0.4s ease-in;
+    }
+
+    .btn.btn-back:hover > .fa-arrow-left {
+        transform: translateX(-5px);
     }
 
 
@@ -274,7 +299,6 @@
         <!-- Back to Top -->
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
-
     <script src='../../../assets/javascripts/mod_header.js'></script>
 </body>
 </html>
