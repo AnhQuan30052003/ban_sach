@@ -5,6 +5,8 @@
     include_once "../../../database/helper/db.php";
     include_once $pathComponents . "/head.php";
     include_once $pathComponents . "/mod_paginate.php";
+
+
 ?>
 
 <!DOCTYPE html>
@@ -22,6 +24,10 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        html{
+            font-family: Arial, Helvetica, sans-serif;
         }
 
         li {
@@ -59,7 +65,7 @@
             display: block;
             padding: 7px 20px;
             text-decoration: none;
-            font-size: 17px;
+            font-size: 15px;
         }
 
 
@@ -111,7 +117,7 @@
 
         .navbar .navbar-nav .nav-link {
             padding: 12px 0;
-            font-size: 18px;
+            font-size: 15px;
             display: block;
             text-decoration: none;
             color: #333;

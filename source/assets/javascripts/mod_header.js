@@ -1,6 +1,7 @@
 function send() {
   document.querySelector("#search-text").value = "";
   document.querySelector("#form-search").submit();
+  console.log(123);
 }
 
 function no_search() {

@@ -2,15 +2,53 @@
     $productsPerPage = 10;
     if (!isset($_GET["page"])) $_GET["page"] = 1;
     $offset = ($_GET["page"] - 1) * $productsPerPage;
-	
-	$sql = "
-		SELECT s.maSach, s.tenSach, s.tacGia, s.soLuong, s.giaTien , l.tenLS
-		FROM sach AS s JOIN loai_sach AS l ON s.maLS = l.maLS
-		GROUP BY s.maSach, s.tenSach, s.tacGia, s.soLuong, s.giaTien , l.tenLS LIMIT $offset, $productsPerPage
-	";
+	//cac bien luu tru tim kiem
+    $loaiSach = isset($_GET["loai-sach"]) ? $_GET["loai-sach"] : "0000";
+    $tacGia = isset($_GET["tac-gia"]) ? $_GET["tac-gia"] : "";
+    $search = isset($_GET["search"]) ? trim($_GET["search"]) : "";
+
+    $sql = "
+        SELECT s.maSach, s.tenSach, s.tacGia, s.soLuong, s.giaTien , l.tenLS
+        FROM sach AS s 
+        JOIN loai_sach AS l ON s.maLS = l.maLS
+    ";
+    
+    $conditions = [];
+    if ($loaiSach !== "") {
+        $conditions[] = "s.maLS = '$loaiSach'";
+    }
+    if ($tacGia !== "") {
+        $conditions[] = "s.tacGia = '$tacGia'";
+    }
+    if ($search !== "") {
+        $conditions[] = "(s.maSach LIKE '%$search%' OR s.tenSach LIKE '%$search%')";
+    }
+    
+    if (count($conditions) > 0) {
+        $sql .= " WHERE " . implode(" AND ", $conditions);
+    }
+    
+    $sql .= " GROUP BY s.maSach, s.tenSach, s.tacGia, s.soLuong, s.giaTien, l.tenLS LIMIT $offset, $productsPerPage";
 
     $res = get_data_query($sql);
     save_or_to_index(true);
+
+    function build_group_box($name, $typeCur, $sql) {
+        $result = get_data_query($sql);
+    
+        $typeName = $name == "tac-gia" ? "Tác giả" : "Loại sách";
+    
+        echo "<select class='group-box' name='$name' id='$name' onchange='send()'>";
+    
+        if ($typeCur == "") echo "<option value='' selected>$typeName</option>";
+        else echo "<option value=''>$typeName</option>";
+    
+        foreach ($result as $line) {
+          if ($line[0] == $typeCur) echo "<option value='$line[0]' selected>$line[1]</option>";
+          else echo "<option value='$line[0]'>$line[1]</option>";
+        }
+        echo "</select>";
+    }
 
     function build_body() {
         global $res;
@@ -93,7 +131,7 @@
         text-decoration: none;
     }
 
-    .wrap-search-add{
+    .wrapper-search-add, #form-search{
         display: flex;
         align-items: center;
         gap: 20px;
@@ -103,7 +141,7 @@
         margin: 2px;
     }
 
-    .input {
+    .search-text {
         border: 2px solid transparent;
         width: 17em;
         height: 2.7em;
@@ -115,8 +153,8 @@
         transition: all 0.5s;
     }
 
-    .input:hover,
-    .input:focus {
+    .search-text:hover,
+    .search-text:focus {
     border: 2px solid #4A9DEC;
     box-shadow: 0px 0px 0px 7px rgb(74, 157, 236, 20%);
     background-color: white;
@@ -125,9 +163,15 @@
 
 <section class='dislay-content' style='min-height: 600px;'>
     <h3 >QUẢN LÝ SÁCH</h3><hr>
-    <div class="wrap-search-add">
+    <div class="wrapper-search-add">
         <a class="btn btn-add" href="?action=create">Tạo mới</a>
-        <input class="input" name="name_search" placeholder="Nhập mã/tên sách để tìm kiếm" >
+        <form action="" method="GET" id="form-search">
+            <input class="search-text" id="search-text" name="search" value="<?php echo $search ?? "" ?>" placeholder="Nhập mã/tên sách để tìm kiếm">
+            <div>
+                <?php build_group_box("loai-sach", $loaiSach, "select * from loai_sach"); ?>
+                <?php build_group_box("tac-gia", $tacGia, "select distinct tacGia, tacGia from sach"); ?>
+            </div>
+        </form>
     </div>
 
     <form action="" method="post">
