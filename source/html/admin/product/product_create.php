@@ -49,15 +49,14 @@
 		$quantity = $_POST["quantity"] ?? 1;
 		$productDes = $_POST["productDes"] ?? "";
 		$price = $_POST["price"] ?? 0;
-		$img = $_POST["productImg"] ?? "";
+		$img = $_FILES["get-file"];
 		
-		if (strlen($img) == 0) {
+		if ($img["name"] == "") {
 			echo "<script>alert('Bạn chưa chọn ảnh !')</script>";
 			return;
 		}
 		
 		# Kiểm tra xem ảnh có thoả không ?
-		$img = $_FILES["get-file"];
 		$result = check_image($img);
 		
 		if (strlen($result) > 0) {
@@ -102,12 +101,12 @@
 		</div>
 
 		<div>
-			<label for="productName" class="form-label">Tên sản phẩm</label>
+			<label for="productName" class="form-label">Tên sách</label>
 			<input required type="text" name="productName" class="form-input" value="<?php echo $_POST['productName'] ?? ''; ?>">
 		</div>
 
 		<div>
-			<label for="category" class="form-label">Phân loại</label>
+			<label for="category" class="form-label">Loại sách</label>
 			<select name="category" class="form-select">
 				<?php
 					$sql_ls = "SELECT s.maLS, l.tenLS FROM sach AS s JOIN loai_sach AS l ON s.maLS = l.maLS group by s.maLS";

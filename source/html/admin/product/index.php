@@ -9,6 +9,9 @@
         case 'edit':
             $body = 'product_edit.php';
             break;
+        case 'detail':
+            $body = 'product_detail.php';
+            break;
         case 'delete':
             $body = 'product_delete.php';
             break;

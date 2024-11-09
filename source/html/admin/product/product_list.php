@@ -16,31 +16,32 @@
         global $res;
         if (is_bool($res)) return;
         echo "<table align='center' cellpadding='2' cellspacing='2' '>";
-        echo '<tr>
-            <th width="10">STT</th>
-            <th width="50">Mã sách</th>
-            <th width="150">Tên sách</th>
-            <th width="50">Loại sách</th>
-            <th width="50">Tác giả</th>
-            <th width="50">Số lượng</th>
-            <th width="50">Giá tiền</th>
-            <th width="50">Thao tác</th>
-            </tr>';
+        echo "
+            <tr>
+                <th>STT</th>
+                <th>Mã sách</th>
+                <th width='350'>Tên sách</th>
+                <th>Loại sách</th>
+                <th>Tác giả</th>
+                <th>Số lượng</th>
+                <th>Giá tiền</th>
+                <th>Thao tác</th>
+            </tr>
+        ";
         $stt = 1;
         foreach ($res as $row) {
+            $money = number_format($row[4], 0, ',', '.');
+
             echo "<tr>";
             echo "<td>$stt</td>";
             echo "<td>$row[0]</td>";
-            echo "<td><a class='link-detail' title='Xem chi tiết' href=''>$row[1]</a></td>";
+            echo "<td><a class='link-detail' title='Xem chi tiết' href='?action=detail&productId=$row[0]'>$row[1]</a></td>";
             echo "<td>{$row['tenLS']}</td>";
             echo "<td>$row[2]</td>";
             echo "<td>$row[3]</td>";
-            echo "<td>$row[4]</td>";
-            // echo "<td>
-            //     <a class='btn btn-success m-2 del-btn' href='?action=edit&productId=$row[0]'>Sửa</a> 
-            //     <button class='btn btn-danger m-2 del-btn' data-productID='$row[0]'>Xóa</button>
-            // </td>";
-            echo "<td>
+            echo "<td>$money</td>";
+            echo "<td style='display: flex; justify-content: center; gap: 5px;'>
+                <a class='btn btn-success m-2 del-btn' href='?action=detail&productId=$row[0]' style='background-color: gray;'>Chi tiết</a> 
                 <a class='btn btn-success m-2 del-btn' href='?action=edit&productId=$row[0]'>Sửa</a> 
                 <a class='btn btn-danger m-2 del-btn' href='?action=delete&productId=$row[0]' onclick=\"return confirm('Bạn có chắc chắn muốn xóa?');\" >Xóa</a>
             </td>";
@@ -63,6 +64,7 @@
 
     table tr {
         border-bottom: 1px solid #ccc;
+        width: 100%;
     }
 
     table tr:not(:first-child):hover{
@@ -118,7 +120,7 @@
     }
 </style>
 
-<section style='min-height: 600px;'>
+<section class='dislay-content' style='min-height: 600px;'>
     <h3 >QUẢN LÝ SÁCH</h3><hr>
     <div class="wrap-search-add">
         <a class="btn btn-add" href="?action=create">Tạo mới</a>
