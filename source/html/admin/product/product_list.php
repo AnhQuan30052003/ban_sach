@@ -10,6 +10,7 @@
 	";
 
     $res = get_data_query($sql);
+    save_or_to_index(true);
 
     function build_body() {
         global $res;

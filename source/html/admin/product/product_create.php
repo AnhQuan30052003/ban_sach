@@ -49,11 +49,17 @@
 		$quantity = $_POST["quantity"] ?? 1;
 		$productDes = $_POST["productDes"] ?? "";
 		$price = $_POST["price"] ?? 0;
-		$img = $_FILES["get-file"];
-
+		$img = $_POST["productImg"] ?? "";
+		
+		if (strlen($img) == 0) {
+			echo "<script>alert('Bạn chưa chọn ảnh !')</script>";
+			return;
+		}
+		
 		# Kiểm tra xem ảnh có thoả không ?
+		$img = $_FILES["get-file"];
 		$result = check_image($img);
-
+		
 		if (strlen($result) > 0) {
 			echo "<script>alert('$result')</script>";
 			return;
@@ -62,20 +68,21 @@
 		// truy van them sp
 		$imgTemp = $img['name'];
 		$sql = "
-				INSERT INTO `sach` (maSach, tenSach, maLS, moTa, giaTien, soLuong, tacGia, hinhAnh)
-				VALUES ('$productId', '$productName', '$categoryId', '$productDes', $price, $quantity, '$author', '$imgTemp')
-			";
+			INSERT INTO `sach` (maSach, tenSach, maLS, moTa, giaTien, soLuong, tacGia, hinhAnh)
+			VALUES ('$productId', '$productName', '$categoryId', '$productDes', $price, $quantity, '$author', '$imgTemp')
+		";
 
 		$result = quick_query($sql);
 
 		if ($result) {
 			save_file($img);
+			$link = save_or_to_index(false);
 			echo "
-					<script>
-						alert('Thêm sách thành công');
-						window.location.href = './index.php';
-					</script>
-				";
+				<script>
+					alert('Thêm sách thành công');
+					window.location.href = '$link';
+				</script>
+			";
 		} else {
 			echo "<script>alert('Thêm sách thất bại' . $result)</script>";
 		}
@@ -96,43 +103,42 @@
 
 		<div>
 			<label for="productName" class="form-label">Tên sản phẩm</label>
-			<input required type="text" name="productName" class="form-input">
+			<input required type="text" name="productName" class="form-input" value="<?php echo $_POST['productName'] ?? ''; ?>">
 		</div>
 
 		<div>
 			<label for="category" class="form-label">Phân loại</label>
 			<select name="category" class="form-select">
 				<?php
-				// truy van loai san pham cho comboBox
-				$sql_ls = "SELECT s.maLS, l.tenLS FROM sach AS s JOIN loai_sach AS l ON s.maLS = l.maLS group by s.maLS";
-				$res = get_data_query($sql_ls);
+					$sql_ls = "SELECT s.maLS, l.tenLS FROM sach AS s JOIN loai_sach AS l ON s.maLS = l.maLS group by s.maLS";
+					$res = get_data_query($sql_ls);
 
-				foreach ($res as $line) {
-					echo "<option value='{$line['maLS']}'> {$line['tenLS']} </option>";
-				}
+					foreach ($res as $line) {
+						echo "<option value='{$line['maLS']}'> {$line['tenLS']} </option>";
+					}
 				?>
 			</select>
 		</div>
 
 		<div>
 			<label for="author" class="form-label">Tác giả</label>
-			<input required type="text" name="author" id="" class="form-input">
+			<input required type="text" name="author" id="" class="form-input" value="<?php echo $_POST['author'] ?? ''; ?>">
 		</div>
 
 		<div>
 			<label for="quantity" class="form-label">Số lượng</label>
-			<input required type="number" min="1" value="1" name="quantity" class="form-input">
+			<input required type="number" min="1" value="1" name="quantity" class="form-input" value="<?php echo $_POST['quantity'] ?? ''; ?>">
 		</div>
 
 		<div>
 			<label for="price" class="form-label">Giá</label>
-			<input required type="number" min="0" name="price" class="form-input">
+			<input required type="number" min="0" name="price" class="form-input" value="<?php echo $_POST['price'] ?? ''; ?>">
 		</div>
 
 		<div>
 			<label for="description" class="form-label">Mô tả</label>
 			<div class="editor-container">
-				<textarea rows="5" name="productDes" id=""></textarea>
+				<textarea rows="5" name="productDes" id=""><?php echo $_POST['productDes'] ?? ""; ?></textarea>
 			</div>
 		</div>
 
@@ -147,7 +153,7 @@
 
 		<div class="btn-group" style="margin-top: 10px">
 			<div>
-				<a href="index.php" class="btn btn-back">
+				<a href="<?php echo save_or_to_index(false); ?>" class="btn btn-back">
 					<i class="fa-solid fa-arrow-left"></i>
 					<span>Quay lại</span>
 				</a>
