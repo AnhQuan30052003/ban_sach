@@ -25,9 +25,10 @@
                 <th>Tác giả</th>
                 <th>Số lượng</th>
                 <th>Giá tiền</th>
-                <th>Thao tác</th>
+                <th style='text-align: center;'>Thao tác</th>
             </tr>
         ";
+
         $stt = 1;
         foreach ($res as $row) {
             $money = number_format($row[4], 0, ',', '.');
@@ -40,11 +41,13 @@
             echo "<td>$row[2]</td>";
             echo "<td>$row[3]</td>";
             echo "<td>$money</td>";
-            echo "<td style='display: flex; justify-content: center; gap: 5px;'>
-                <a class='btn btn-success m-2 del-btn' href='?action=detail&productId=$row[0]' style='background-color: gray;'>Chi tiết</a> 
-                <a class='btn btn-success m-2 del-btn' href='?action=edit&productId=$row[0]'>Sửa</a> 
-                <a class='btn btn-danger m-2 del-btn' href='?action=delete&productId=$row[0]' onclick=\"return confirm('Bạn có chắc chắn muốn xóa?');\" >Xóa</a>
-            </td>";
+            echo "
+                <td style='display: flex; justify-content: center; gap: 5px;'>
+                    <a class='btn btn-success m-2 del-btn' href='?action=detail&productId=$row[0]' style='background-color: gray;'>Chi tiết</a> 
+                    <a class='btn btn-success m-2 del-btn' href='?action=edit&productId=$row[0]'>Sửa</a> 
+                    <a class='btn btn-danger m-2 del-btn' href='?action=delete&productId=$row[0]' onclick=\"return confirm('Bạn có chắc chắn muốn xóa?');\" >Xóa</a>
+                </td>
+            ";
             echo "</tr>";
             $stt++;
         }
