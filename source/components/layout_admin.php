@@ -251,7 +251,7 @@
                             <a href="#" class="nav-link dropdown-toggle " data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Quản lý</a>
                             <div class="dropdown-menu ">
                                 <a href="../product/index.php" class="dropdown-item">Sách</a>
-                                <a href="../customer/index.php" class="dropdown-item">Loại sách</a>
+                                <a href="../typeOfProduct/index.php" class="dropdown-item">Loại sách</a>
                                 <a href="../customer/index.php" class="dropdown-item">Khách hàng</a>                            
                             </div>
                         </div>

@@ -4,31 +4,24 @@
     $offset = ($_GET["page"] - 1) * $productsPerPage;
 	//cac bien luu tru tim kiem
     $loaiSach = isset($_GET["loai-sach"]) ? $_GET["loai-sach"] : "";
-    $tacGia = isset($_GET["tac-gia"]) ? $_GET["tac-gia"] : "";
     $search = isset($_GET["search"]) ? trim($_GET["search"]) : "";
 
-    $sql = "
-        SELECT s.maSach, s.tenSach, s.tacGia, s.soLuong, s.giaTien , l.tenLS
-        FROM sach AS s 
-        JOIN loai_sach AS l ON s.maLS = l.maLS
-    ";
+    $sql = "SELECT * FROM `loai_sach`";
     
     $conditions = [];
     if ($loaiSach !== "") {
-        $conditions[] = "s.maLS = '$loaiSach'";
-    }
-    if ($tacGia !== "") {
-        $conditions[] = "s.tacGia = '$tacGia'";
-    }
+        $conditions[] = "maLS = '$loaiSach'";
+    }   
+
     if ($search !== "") {
-        $conditions[] = "(s.maSach LIKE '%$search%' OR s.tenSach LIKE '%$search%')";
+        $conditions[] = "(maLS LIKE '%$search%' OR tenLS LIKE '%$search%')";
     }
     
     if (count($conditions) > 0) {
         $sql .= " WHERE " . implode(" AND ", $conditions);
     }
     
-    $sql .= " GROUP BY s.maSach, s.tenSach, s.tacGia, s.soLuong, s.giaTien, l.tenLS LIMIT $offset, $productsPerPage";
+    $sql .= " LIMIT $offset, $productsPerPage";
 
     $res = get_data_query($sql);
     save_or_to_index(true);
@@ -36,7 +29,7 @@
     function build_group_box($name, $typeCur, $sql) {
         $result = get_data_query($sql);
     
-        $typeName = $name == "tac-gia" ? "Tác giả" : "Loại sách";
+        $typeName = $name == "loai-sach" ? "Loại sách" : "";
     
         echo "<select class='group-box' name='$name' id='$name' onchange='send()'>";
     
@@ -57,33 +50,22 @@
         echo "
             <tr>
                 <th>STT</th>
-                <th>Mã sách</th>
-                <th width='350'>Tên sách</th>
-                <th>Loại sách</th>
-                <th>Tác giả</th>
-                <th>Số lượng</th>
-                <th>Giá tiền</th>
+                <th>Mã loại sách</th>
+                <th width='350'>Tên loại sách</th>
                 <th style='text-align: center;'>Thao tác</th>
             </tr>
         ";
 
         $stt = 1;
         foreach ($res as $row) {
-            $money = number_format($row[4], 0, ',', '.');
-
             echo "<tr>";
             echo "<td>$stt</td>";
             echo "<td>$row[0]</td>";
-            echo "<td><a class='link-detail' title='Xem chi tiết' href='?action=detail&productId=$row[0]'>$row[1]</a></td>";
-            echo "<td>{$row['tenLS']}</td>";
-            echo "<td>$row[2]</td>";
-            echo "<td>$row[3]</td>";
-            echo "<td>$money</td>";
+            echo "<td>$row[1]</td>";
             echo "
                 <td style='display: flex; justify-content: center; gap: 5px;'>
-                    <a class='btn btn-success m-2 del-btn' href='?action=detail&productId=$row[0]' style='background-color: gray;'>Chi tiết</a> 
-                    <a class='btn btn-success m-2 del-btn' href='?action=edit&productId=$row[0]'>Sửa</a> 
-                    <a class='btn btn-danger m-2 del-btn' href='?action=delete&productId=$row[0]' onclick=\"return confirm('Bạn có chắc chắn muốn xóa?');\" >Xóa</a>
+                    <a class='btn btn-success m-2 del-btn' href='?action=edit&typeId=$row[0]'>Sửa</a> 
+                    <a class='btn btn-danger m-2 del-btn' href='?action=delete&typeId=$row[0]' onclick=\"return confirm('Bạn có chắc chắn muốn xóa?');\" >Xóa</a>
                 </td>
             ";
             echo "</tr>";
@@ -186,10 +168,9 @@
     <div class="wrapper-search-add">
         <a class="btn btn-add" href="?action=create">Tạo mới</a>
         <form action="" method="GET" id="form-search">
-            <input class="search-text" id="search-text" name="search" value="<?php echo $search ?? "" ?>" placeholder="Nhập mã/tên sách để tìm kiếm">
+            <input class="search-text" id="search-text" name="search" value="<?php echo $search ?? "" ?>" placeholder="Nhập mã/tên loại sách để tìm kiếm">
             <div>
                 <?php build_group_box("loai-sach", $loaiSach, "select * from loai_sach"); ?>
-                <?php build_group_box("tac-gia", $tacGia, "select distinct tacGia, tacGia from sach"); ?>
             </div>
         </form>
     </div>
