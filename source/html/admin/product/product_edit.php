@@ -118,9 +118,9 @@
 				tacGia='$author',
 				hinhAnh='$img' 
 			WHERE maSach='$productId'
-			";
-		// echo "<pre>$sql</pre>"; 
-		$result = quick_query($sql);
+		";
+		
+			$result = quick_query($sql);
 
 		if ($result) {
 			if ($imgSave != null) {
@@ -128,6 +128,7 @@
 			}
 
 			$link = save_or_to_index(false);
+			
 			echo "
 				<script>
 					alert('Cập nhật sách thành công');
