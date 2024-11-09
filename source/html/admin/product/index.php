@@ -3,9 +3,6 @@
     $action = $_GET['action'] ?? 'list';
 
     switch ($action) {
-        case 'list':
-            $body = 'product_list.php';
-            break;
         case 'edit':
             $body = 'product_edit.php';
             break;
