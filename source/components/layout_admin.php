@@ -6,7 +6,13 @@
     include_once $pathComponents . "/head.php";
     include_once $pathComponents . "/mod_paginate.php";
 
-
+    function check_page(string $pageName, string $type) {
+        $url = get_url_page(false);
+        if (strpos($url, $type)) {
+            return "[$pageName]";
+        }
+        return $pageName;
+    }
 ?>
 
 <!DOCTYPE html>
@@ -250,9 +256,9 @@
                         <div class="nav-item ">
                             <a href="#" class="nav-link dropdown-toggle " data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Quản lý</a>
                             <div class="dropdown-menu ">
-                                <a href="../product/index.php" class="dropdown-item">Sách</a>
-                                <a href="../typeOfProduct/index.php" class="dropdown-item">Loại sách</a>
-                                <a href="../customer/index.php" class="dropdown-item">Khách hàng</a>                            
+                                <a href="../product/index.php" class="dropdown-item"><?php echo check_page("Sách", "product"); ?></a>
+                                <a href="../typeOfProduct/index.php" class="dropdown-item"><?php echo check_page("Loại sách", "typeOfProduct"); ?></a>
+                                <a href="../customer/index.php" class="dropdown-item"><?php echo check_page("Khách hàng", "customer"); ?></a>
                             </div>
                         </div>
                     </div>
