@@ -159,6 +159,26 @@
     box-shadow: 0px 0px 0px 7px rgb(74, 157, 236, 20%);
     background-color: white;
     }
+
+    select {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    font-size: 14px;
+    background-color: #fff;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+    select:hover {
+        border-color: #888;
+    }
+
+    select:focus {
+        border-color: #007BFF;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
 </style>
 
 <section class='dislay-content' style='min-height: 600px;'>
