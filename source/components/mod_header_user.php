@@ -211,7 +211,7 @@
   <div class="container">
     <div class="logo">
       <a href="index.php">
-        <i class="fa-solid fa-book-open" style='color: white; font-size: 80px;'></i>
+         <img style="height: 100px;" src="../../assets/images/logo.png" alt="">
       </a>
     </div>
 

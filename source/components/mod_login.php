@@ -68,10 +68,13 @@
 
   .login-form {
     max-width: 360px;
-    margin: 0 54px;
+    margin: 0 40px;
     text-align: left;
   }
 
+  .login-header{
+    margin-bottom: 20px;
+  }
   .login-form label {
     display: block;
   }
@@ -141,7 +144,7 @@
 <div class="login-container" id='div-login' style='display: none;'>
   <div class='cancel' onclick="show_or_hidden(1);">X</div>
   <div class="login-header">
-    <!-- <img class="header-logo" src="" alt=""> -->
+    <!-- <img style="height: 100px; margin-bottom: 10px; " class="header-logo" src="../../assets/images/logo.png" alt=""> -->
     <h2>ĐĂNG NHẬP</h2>
     <p style='color: red;'> <?php echo $errorLogin; ?></p>
   </div>

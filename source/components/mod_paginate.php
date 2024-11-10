@@ -1,5 +1,6 @@
 <style>
   .mod-paginate {
+    min-height: 0;
     margin: 10px 0;
     a {
       text-decoration: none;

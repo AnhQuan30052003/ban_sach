@@ -9,7 +9,7 @@
     function check_page(string $pageName, string $type) {
         $url = get_url_page(false);
         if (strpos($url, $type)) {
-            return "[$pageName]";
+            return "<span style='color: var(--primary-color); font-weight: bold;' >[$pageName]</span>";
         }
         return $pageName;
     }
@@ -45,6 +45,9 @@
         a{
             text-decoration: none;
         }
+        a:active{
+            color: var(--primary-color) !important;
+        }
 
         .ad-container .sidebar {
             position: fixed;
@@ -61,17 +64,36 @@
             padding: 5px 0;
             margin: 0 24px 16px;
             font-size: 24px;
+            color: var(--primary-color);
         }
 
         .sidebar .navbar .nav-item .nav-link {
             padding: 7px 20px;
         }
 
+        .sidebar .navbar .nav-item .nav-link,.dropdown-toggle{
+            font-size: 17px;
+            font-weight: bold;
+            
+        }
+
+
+
         .sidebar .dropdown-menu .dropdown-item {
             display: block;
             padding: 7px 20px;
             text-decoration: none;
             font-size: 15px;
+            color: #333;
+        }
+
+        .sidebar .dropdown-menu .dropdown-item:hover{
+            width: 80%;
+            border-radius: 0 20px 20px 0;
+            background-color: white;
+            color: var(--primary-color);
+            transition: background-color 0.2s ease;
+            font-weight: bold;
         }
 
 
@@ -238,6 +260,8 @@
         }
         section {
             padding: 24px;
+            min-height: 600px;
+            /* max-height: 600px; */
         }
         h3 {
             padding: 10px 0;
@@ -270,9 +294,6 @@
             <div class="content">
                 <!-- Navbar Start -->
                 <nav class="navbar">
-                    <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
-                        <h2><i class="fa fa-hashtag"></i></h2>
-                    </a>
                     <div class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link text-primary" href="#">
