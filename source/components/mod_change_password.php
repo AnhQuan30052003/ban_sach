@@ -6,7 +6,7 @@
   trim($_password_new);
 
   $errorChangePassword = "";
-  $linkBack = ($userId == "0000" ? "../admin/index.php" : "../user/index.php");
+  $linkBack = save_or_to_index(false);
   $username = ($userId == "0000" ? "admin" : $infoUser["email"]);
 
   function check_change_password() {
@@ -136,7 +136,6 @@
 <div class="login-container" id='div-change-password'>
   <div class='cancel' onclick="show_or_hidden(1);">X</div>
   <div class="login-header">
-    <!-- <img class="header-logo" src="" alt=""> -->
     <h2>ĐỔI MẬT KHẨU</h2>
     <p style='color: red;'> <?php echo $errorChangePassword; ?></p>
   </div>
