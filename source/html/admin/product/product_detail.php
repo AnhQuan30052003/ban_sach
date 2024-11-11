@@ -58,6 +58,7 @@
     }
 
 </style>
+
 <?php
     if(isset($_GET['action']) && $_GET['action'] === 'detail'){
         $productId = $_GET['productId'];
@@ -66,6 +67,7 @@
         $product = $res[0];
     }
 ?>
+
 <div class="row-deltail" style="padding: 0 24px">
     <div class="col-12">
         <h3 class="text-center mt-3">Thông tin chi tiết</h3>

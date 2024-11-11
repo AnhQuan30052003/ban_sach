@@ -258,8 +258,9 @@
             outline: none;
             color: var(--white-color);
         }
-        section {
+        .display-content {
             padding: 24px;
+            padding-bottom: 0;
             min-height: 600px;
             /* max-height: 600px; */
         }

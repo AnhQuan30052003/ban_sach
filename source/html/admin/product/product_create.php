@@ -130,7 +130,7 @@
 	if (isset($_POST['submit'])) save($idBook);
 ?>
 
-<section>
+<section class='display-content'>
 	<h3>THÊM SÁCH</h3>
 	<hr>
 

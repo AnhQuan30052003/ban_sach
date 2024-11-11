@@ -144,7 +144,7 @@
 	if (isset($_POST['submit'])) update();
 ?>
 
-<section>
+<section class='display-content'>
 	<h3>CẬP NHẬT SÁCH</h3>
 	<hr>
 	<form action="" method="post" class="form-container" enctype="multipart/form-data">

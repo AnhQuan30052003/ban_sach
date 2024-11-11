@@ -7,9 +7,21 @@
     }
 
     .box .line {
-      border: solid 1px;
-      padding: 5px 7px;
+      /* padding: 5px 7px; */
       border-radius: 10px;
+    }
+
+    .line {
+      display: flex;
+      gap: 5px;
+      justify-content: center;
+    }
+
+    .item {
+      border: solid 1px;
+      padding: 3px 5px;
+      border-radius: 5px;
+      color: black;
     }
   }
 </style>
@@ -33,16 +45,16 @@
     echo "<div class='box' style='width: 100%; text-align: center;'>";
     echo "<span class='line'>";
 
-    if ($maxPage > 3) echo "<a href='" . $url . "&page=" . 1 . "'> Đầu </a>";
-    if ($pageP >= 1) echo "<a href='" . $url . "&page=" . $pageP  . "'> < </a>";
+    if ($maxPage > 3) echo "<a class='item' href='" . $url . "&page=" . 1 . "'> << </a>";
+    if ($pageP >= 1) echo "<a class='item' href='" . $url . "&page=" . $pageP  . "'> < </a>";
 
     for ($i = 1; $i <= $maxPage; $i++) {
-      if ($i == $_GET["page"]) echo "<b> $i </b>";
-      else echo "<a href='" . $url . "&page=" . $i  . "'> $i </a>";
+      if ($i == $_GET["page"]) echo "<b class='item' style='background-color: #8080807a; color: white;'> $i </b>";
+      else echo "<a class='item' href='" . $url . "&page=" . $i  . "'> $i </a>";
     }
 
-    if ($pageN <= $maxPage) echo "<a href='" . $url . "&page=" . $pageN  . "'> > </a>";
-    if ($maxPage > 3) echo "<a href='" . $url . "&page=" . $maxPage . "'> Cuối </a>";
+    if ($pageN <= $maxPage) echo "<a class='item' href='" . $url . "&page=" . $pageN  . "'> > </a>";
+    if ($maxPage > 3) echo "<a class='item' href='" . $url . "&page=" . $maxPage . "'> >> </a>";
 
     echo "</span>";
     echo "</div>";
