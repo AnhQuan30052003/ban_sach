@@ -12,7 +12,7 @@
   function check_change_password() {
     global $errorChangePassword, $userId, $_password_old, $_password_new, $linkBack, $infoUser;
 
-    if ($_password_old != $infoUser["matKhau"]) {
+    if (md5($_password_old) != $infoUser["matKhau"]) {
       $errorChangePassword = "Mật khẩu cũ không chính xác !";
       return;
     }
@@ -22,6 +22,7 @@
       return;
     }
 
+    $_password_new = md5($_password_new);
     $sql = "update khach_hang set matKhau = '$_password_new' where maKH = '$userId'";
     $result = quick_query($sql);
 

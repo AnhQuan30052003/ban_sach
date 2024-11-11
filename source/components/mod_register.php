@@ -5,7 +5,7 @@
   $_password = isset($_REQUEST["password"]) ? $_REQUEST["password"] : "";
   $_diaChi = isset($_REQUEST["diaChi"]) ? $_REQUEST["diaChi"] : "";
 
-  trim($_username);
+  trim($_tenKH);
   trim($_sdt);
   trim($_email);
   trim($_password);
@@ -14,6 +14,8 @@
 
   function check_register() {
     global $errorRegister, $userId, $_maKH, $_tenKH, $_email, $_sdt, $_password, $_diaChi;
+
+    $_password = md5($_password);
 
     $_maKH = get_id_laster("select maKH from khach_hang group by maKH order by maKH desc limit 1");
     $sql = "insert into `khach_hang` values ('$_maKH', '$_tenKH', '$_email', '$_sdt', '$_password', '$_diaChi');";
@@ -26,9 +28,28 @@
 
     $userId = $_maKH;
     get_data_user($userId);
+    echo "<script>alert('Đăng ký tài khoản thành công');</script>";
   }
 
-  if (isset($_REQUEST["btn-register"])) check_register();
+  if (isset($_REQUEST["btn-register"])) {
+    # Kiểm tra dữ liệu lấy vào
+    $data_correct = true;
+
+    # _tenKH phải toàn là ký tự, không có số
+    if ($data_correct) $data_correct = run_check("check_is_string", $_tenKH, "Họ và tên không chứa số !");
+
+    # _sdt là chuỗi toàn số
+    if ($data_correct) $data_correct = run_check("check_is_numeric", $_sdt, "Số điện thoại phải là chuỗi toàn số !");
+
+    # _email phải đúng định dạng
+    if ($data_correct) $data_correct = run_check("check_is_email", $_email, "Email không đúng định dạng !");
+
+    if ($data_correct) {
+      check_register();
+      return;
+    }
+    $errorRegister = " ";
+  }
 ?>
 
 <style>
@@ -107,7 +128,6 @@
 <div class="register-container" id='div-register' style='display: none;'>
   <div class='cancel' onclick="show_or_hidden(2);">X</div>
   <div class="register-header">
-    <!-- <img class="header-logo" src="" alt=""> -->
     <h2>ĐĂNG KÝ</h1>
     <p style='color: red;'> <?php echo $errorRegister; ?></p>
   </div>
@@ -115,26 +135,26 @@
   <div class="register-form">
     <form action="" method="POST">
       <div class="form-group">
-        <input type="text" id="tenKH" name="tenKH" placeholder="Họ và tên" required value='<?php if (isset($_REQUEST["tenKH"])) echo $_REQUEST["tenKH"]; ?>'>
+        <input type="text" id="tenKH" name="tenKH" placeholder="Họ và tên" required value='<?php echo $_REQUEST["tenKH"] ?? "" ?>'>
       </div>
 
       <div class="form-group">
-        <input type="text" id="sdt" name="sdt" placeholder="Số điện thoại" required value='<?php if (isset($_REQUEST["sdt"])) echo $_REQUEST["sdt"]; ?>'>
+        <input type="text" id="sdt" name="sdt" placeholder="Số điện thoại" required value='<?php echo $_REQUEST["sdt"] ?? "" ?>'>
       </div>
 
       <div class="form-group">
-        <input type="email" id="email" name="email" placeholder="Email" required value='<?php if (isset($_REQUEST["email"])) echo $_REQUEST["email"]; ?>'>
+        <input type="email" id="email" name="email" placeholder="Email" required value='<?php echo $_REQUEST["email"] ?? "" ?>'>
       </div>
       
       <div class="form-group" style='position: relative;'>
-        <input type="password" name="password" placeholder="Mật khẩu" required value='<?php if (isset($_REQUEST["password"])) echo $_REQUEST["password"]; ?>'>
+        <input type="password" name="password" placeholder="Mật khẩu" required value='<?php echo $_REQUEST["password"] ?? "" ?>'>
         <span class='frame-eyes'>
           <i class="fa-solid fa-eye-slash"></i>
         </span>
       </div>
 
       <div class="form-group">
-        <input type="text" id="diaChi" name="diaChi" placeholder="Địa chỉ" required value='<?php if (isset($_REQUEST["diaChi"])) echo $_REQUEST["diaChi"]; ?>'>
+        <input type="text" id="diaChi" name="diaChi" placeholder="Địa chỉ" required value='<?php echo $_REQUEST["diaChi"] ?? "" ?>'>
       </div>
 
       <button type="submit" class="btn" name='btn-register'>Đăng ký</button>

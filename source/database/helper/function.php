@@ -130,4 +130,45 @@
     $path = getcwd() . "\..\..\..\assets\images\products\\{$img['name']}";
     move_uploaded_file($img["tmp_name"], $path);
   }
+
+  # Kiểm tra chuỗi là ký tự
+  function check_is_string(string $text) {
+    for ($i = 0; $i < strlen($text); $i++) {
+      if (is_numeric($text[$i])) return false;
+    }
+
+    return true;
+  }
+
+  # Kiểm tra chuỗi là số
+  function check_is_numeric(string $text) {
+    $count = 0;
+    for ($i = 0; $i < strlen($text); $i++) {
+      if (is_numeric($text[$i])) $count += 1;
+    }
+
+    return $count == strlen($text);
+  }
+
+  # Kiểm tra email
+  function check_is_email(string $text) {
+    $have_a = false;
+    $have_com = false;
+    if (strpos($text, "@")) $have_a = true;
+    if (strpos($text, ".com")) $have_com = true;
+
+    if ($have_a && $have_com) return true;
+    
+    return false;
+  }
+
+  # Chạy hàm khác & chuỗi thông báo
+  function run_check($func, $text, $info) {
+    if ($func($text) == false) {
+      echo "<script>alert('$info');</script>";
+      return false;
+    }
+    
+    return true;
+  }
 ?>

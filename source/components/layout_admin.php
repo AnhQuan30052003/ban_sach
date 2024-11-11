@@ -158,7 +158,7 @@
         }
 
         .ad-footer {
-            padding: 24px 24px 0 24px;
+            padding: 0 24px;
         }
 
         .footer-box {

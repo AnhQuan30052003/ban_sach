@@ -4,6 +4,7 @@
 
   trim($_username);
   trim($_password);
+  $_password = md5($_password);
   $errorLogin = "";
 
   # Nếu userName & password hợp lệ thì truy vấn
@@ -144,7 +145,6 @@
 <div class="login-container" id='div-login' style='display: none;'>
   <div class='cancel' onclick="show_or_hidden(1);">X</div>
   <div class="login-header">
-    <!-- <img style="height: 100px; margin-bottom: 10px; " class="header-logo" src="../../assets/images/logo.png" alt=""> -->
     <h2>ĐĂNG NHẬP</h2>
     <p style='color: red;'> <?php echo $errorLogin; ?></p>
   </div>

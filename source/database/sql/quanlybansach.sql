@@ -14,9 +14,9 @@ CREATE TABLE `khach_hang` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 INSERT INTO `khach_hang`  VALUES
-('0000', 'admin'          , 'quan.na.63cntt@ntu.edu.vn' , ''          , 'admin'         , ''                                ),
-('0001', 'Nguyễn Anh Quân', 'anhquan300503@gmail.com'   , '0398090114', 'nguyenanhquan' , 'KTX K7 Trường Đại học Nha Trang' ),
-('0002', 'Nguyễn Tiến Đạt', 'dat@gmail.com'             , '0398090111', 'nguyentiendat' , 'Nha Trang'                       );
+('0000', 'admin'          , 'quan.na.63cntt@ntu.edu.vn' , ''          , '21232f297a57a5a743894a0e4a801fc3', ''                                ),
+('0001', 'Nguyễn Anh Quân', 'anhquan300503@gmail.com'   , '0398090114', '50baf05c8bc18b1c3d13d91a804051d6', 'KTX K7 Trường Đại học Nha Trang' ),
+('0002', 'Nguyễn Tiến Đạt', 'dat@gmail.com'             , '0398090111', 'e108177f8c3bb6f94ce0750f35a7c354', 'Nha Trang'                       );
 
 
 
