@@ -183,9 +183,9 @@
 
 		<div>
 			<label for="" class="form-label">Hình ảnh</label>
-			<input required type="text" name="productImg" id="productImg" class="form-input" disabled>
+			<input type="text" name="productImg" id="productImg" class="form-input" readonly style='background-color: #ccc'>
 			<div style="margin-top: 12px" >
-				<button id='choose' >
+				<button id='choose' type="button">
 					<svg
 						aria-hidden="true"
 						stroke="currentColor"
