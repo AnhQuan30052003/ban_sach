@@ -199,7 +199,7 @@
 			<label for="productImg" class="form-label">Hình ảnh</label>
 			<input type="text" name="productImg" value="<?php echo $product['hinhAnh'] ?>" id="productImg" class="form-input" readonly style='background-color: #ccc'>
 			<div style="margin-top: 12px" >
-				<button id='choose' >
+				<button id='choose' type="button">
 					<svg
 						aria-hidden="true"
 						stroke="currentColor"
@@ -247,9 +247,10 @@
 	const inputText = document.getElementById("productImg");
 	const buttonChoose = document.getElementById("choose");
 	const inputFile = document.getElementById("get-file");
-
+	
 	buttonChoose.addEventListener("click", function() {
 		inputFile.click();
+		console.log(`Ảnh mới`);
 	});
 
 	inputFile.addEventListener("change", function() {
