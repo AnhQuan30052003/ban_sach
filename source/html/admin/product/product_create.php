@@ -143,6 +143,7 @@
 		<div>
 			<label for="productName" class="form-label">Tên sách</label>
 			<input required type="text" name="productName" class="form-input" value="<?php echo $_POST['productName'] ?? ''; ?>">
+			<span class="error-message" id="productNameError"></span>
 		</div>
 
 		<div>
@@ -235,11 +236,77 @@
 
 	buttonChoose.addEventListener("click", function() {
 		inputFile.click();
+		console.log(123);
 	});
 
 	inputFile.addEventListener("change", function() {
+		console.log(123);
 		if (inputFile.value != "") {
 			inputText.value = inputFile.files[0].name;
 		}
 	});
+
+	// Validation
+    // function showError(inputId, message) {
+    //     document.getElementById(inputId + "Error").innerText = message;
+    // }
+
+    // // Hàm ẩn thông báo lỗi
+    // function hideError(inputId) {
+    //     document.getElementById(inputId + "Error").innerText = "";
+    // }
+
+    // // Kiểm tra Tên sách
+    // document.querySelector("input[name='productName']").addEventListener("input", function () {
+    //     const productName = this.value.trim();
+    //     if (productName === "") {
+    //         showError("productName", "Tên sách không được để trống.");
+    //     }
+	// 	else if(length(productName) <= 5){
+	// 		showError("productName", "Số lượng kí tự phải lớn hơn 5");
+	// 	}
+	// 	else {
+    //         hideError("productName");
+    //     }
+    // });
+
+    // // Kiểm tra Tác giả
+    // document.querySelector("input[name='author']").addEventListener("input", function () {
+    //     const author = this.value.trim();
+    //     if (author === "") {
+    //         showError("author", "Tên tác giả không được để trống.");
+    //     } else {
+    //         hideError("author");
+    //     }
+    // });
+
+    // // Kiểm tra Số lượng
+    // document.querySelector("input[name='quantity']").addEventListener("input", function () {
+    //     const quantity = this.value;
+    //     if (isNaN(quantity) || quantity <= 0) {
+    //         showError("quantity", "Số lượng phải là số dương.");
+    //     } else {
+    //         hideError("quantity");
+    //     }
+    // });
+
+    // // Kiểm tra Giá
+    // document.querySelector("input[name='price']").addEventListener("input", function () {
+    //     const price = this.value;
+    //     if (isNaN(price) || price < 0) {
+    //         showError("price", "Giá phải là số không âm.");
+    //     } else {
+    //         hideError("price");
+    //     }
+    // });
+
+    // // Kiểm tra Mô tả
+    // document.querySelector("textarea[name='productDes']").addEventListener("input", function () {
+    //     const description = this.value.trim();
+    //     if (description === "") {
+    //         showError("productDes", "Mô tả không được để trống.");
+    //     } else {
+    //         hideError("productDes");
+    //     }
+    // });
 </script>

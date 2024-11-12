@@ -108,7 +108,7 @@
 	if (isset($_POST['submit'])) save($idBook);
 ?>
 
-<section>
+<section class="display-content" >
 	<h3>THÊM SÁCH</h3>
 	<hr>
 
@@ -137,19 +137,3 @@
 		</div>
 	</form>
 </section>
-
-<script>
-	const inputText = document.getElementById("typeImg");
-	const buttonChoose = document.getElementById("choose");
-	const inputFile = document.getElementById("get-file");
-
-	buttonChoose.addEventListener("click", function() {
-		inputFile.click();
-	});
-
-	inputFile.addEventListener("change", function() {
-		if (inputFile.value != "") {
-			inputText.value = inputFile.files[0].name;
-		}
-	});
-</script>

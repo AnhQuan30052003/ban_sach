@@ -113,7 +113,7 @@
 	if (isset($_POST['submit'])) update();
 ?>
 
-<section>
+<section class="display-content" >
 	<h3>CẬP NHẬT LOẠI SÁCH</h3>
 	<hr>
 	<form action="" method="post" class="form-container" enctype="multipart/form-data">
@@ -142,19 +142,3 @@
 	</form>
 </section>
 
-<!-- <script>
-	const inputText = document.getElementById("typeImg");
-	const buttonChoose = document.getElementById("choose");
-	const inputFile = document.getElementById("get-file");
-
-	buttonChoose.addEventListener("click", function() {
-		inputFile.click();
-	});
-
-	inputFile.addEventListener("change", function() {
-		if (inputFile.value != "") {
-			inputText.value = inputFile.files[0].name;
-			console.log(inputFile);
-		}
-	});
-</script> -->
