@@ -7,34 +7,48 @@
   $_password = md5($_password);
   $errorLogin = "";
 
-  # Nếu userName & password hợp lệ thì truy vấn
-  $sql = "select * from khach_hang where (tenKH = '$_username' or email = '$_username') and matKhau = '$_password'";
-  $result = get_data_query($sql);
+  function request($_username, $_password, $nameTable) {
+    $sql = "select * from `$nameTable` where email = '$_username' and matKhau = '$_password'";
+    $result = get_data_query($sql);
+    return $result;
+  }
 
-  function check_login() {
-    global $result, $errorLogin, $userId, $infoUser;
-    if (count($result) == 0) {
+  # Nếu userName & password hợp lệ thì truy vấn
+  function check_login($_username, $_password) {
+    global $errorLogin, $userId, $role;
+    
+    # Kiểm tra bên khách hàng
+    $result = request($_username, $_password, "khach_hang");
+    $role = count($result) > 0 ? "khach_hang" : "";
+
+    # Kiểm tra bên admin
+    if ($role == "") {
+      $result = request($_username, $_password, "admin");
+      $role = count($result) > 0 ? "admin" : "";
+    }
+
+    if ($role == "") {
       $errorLogin = "Tài khoản hoặc mật khẩu không chính xác !";
       return;
     }
 
-    $userId = $result[0]["maKH"];
-    get_data_user($userId);
+    $userId = $result[0][0];
+    get_data_user($userId, $role);
 
     echo "
-    <script>
-      localStorage.setItem('userId', '$userId');
+      <script>
+        localStorage.setItem('userId', '$userId');
         alert('Đăng nhập thành công');
       </script>
     ";
 
-    if ($userId == "0000") {
+    if ($role == "admin") {
       $link = "../admin/index.php";
       echo "<script>window.location.href = '$link';</script>";
     }
   }
 
-  if (isset($_REQUEST["btn-login"]) && $userId == "") check_login();
+  if (isset($_REQUEST["btn-login"]) && $userId == "") check_login($_username, $_password);
 ?>
 
 <style>

@@ -4,9 +4,20 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
+CREATE TABLE `admin` (
+  `ma` varchar(4) NOT NULL,
+  `ten` varchar(100),
+  `email` varchar(100),
+  `sdt` varchar(10),
+  `matKhau` varchar(50)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+INSERT INTO `admin`  VALUES
+('0000', 'Nguyễn Tiến Quân', 'admin@gmail.com' , '0123456789', '21232f297a57a5a743894a0e4a801fc3'); -- admin
+
 CREATE TABLE `khach_hang` (
-  `maKH` varchar(4) NOT NULL,
-  `tenKH` varchar(100),
+  `ma` varchar(4) NOT NULL,
+  `ten` varchar(100),
   `email` varchar(100),
   `sdt` varchar(10),
   `matKhau` varchar(50),
@@ -14,9 +25,8 @@ CREATE TABLE `khach_hang` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 INSERT INTO `khach_hang`  VALUES
-('0000', 'admin'          , 'quan.na.63cntt@ntu.edu.vn' , ''          , '21232f297a57a5a743894a0e4a801fc3', ''                                ),
-('0001', 'Nguyễn Anh Quân', 'anhquan300503@gmail.com'   , '0398090114', '50baf05c8bc18b1c3d13d91a804051d6', 'KTX K7 Trường Đại học Nha Trang' ),
-('0002', 'Nguyễn Tiến Đạt', 'dat@gmail.com'             , '0398090111', 'e108177f8c3bb6f94ce0750f35a7c354', 'Nha Trang'                       );
+('0000', 'Nguyễn Anh Quân', 'quan@gmail.com', '0398090114', '50baf05c8bc18b1c3d13d91a804051d6', 'KTX K7 Trường Đại học Nha Trang' ), -- nguyenanhquan
+('0001', 'Nguyễn Tiến Đạt', 'dat@gmail.com' , '0398090111', 'e108177f8c3bb6f94ce0750f35a7c354', 'Nha Trang'                       ); -- nguyentiendat
 
 
 
@@ -155,18 +165,18 @@ INSERT INTO `sach` (`maSach`, `tenSach`, `maLS`, `moTa`, `giaTien`, `soLuong`, `
 -- --------------------------------------------------------
 -- `maSYT` varchar(4) NOT NULL,
 CREATE TABLE `sach_yeu_thich` (
-  `maKH` varchar(4),
+  `ma` varchar(4),
   `maSach` varchar(4)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 
 INSERT INTO `sach_yeu_thich` VALUES
-('0001', '0000'),
+('0000', '0000'),
 ('0001', '0008');
 
 
 ALTER TABLE `khach_hang`
-  ADD PRIMARY KEY (`maKH`);
+  ADD PRIMARY KEY (`ma`);
 
 ALTER TABLE `loai_sach`
   ADD PRIMARY KEY (`maLS`);
@@ -176,14 +186,14 @@ ALTER TABLE `sach`
   ADD KEY `maLS` (`maLS`);
 
 ALTER TABLE `sach_yeu_thich`
-  ADD KEY `maKH` (`maKH`),
+  ADD KEY `ma` (`ma`),
   ADD KEY `maSach` (`maSach`),
-  ADD PRIMARY KEY (`maKH`, `maSach`);
+  ADD PRIMARY KEY (`ma`, `maSach`);
 
 ALTER TABLE `sach`
   ADD CONSTRAINT `sach_ibfk_1` FOREIGN KEY (`maLS`) REFERENCES `loai_sach` (`maLS`);
 
 ALTER TABLE `sach_yeu_thich`
   ADD CONSTRAINT `sach_yeu_thich_ibfk_2` FOREIGN KEY (`maSach`) REFERENCES `sach` (`maSach`),
-  ADD CONSTRAINT `sach_yeu_thich_ibfk_3` FOREIGN KEY (`maKH`) REFERENCES `khach_hang` (`maKH`);
+  ADD CONSTRAINT `sach_yeu_thich_ibfk_3` FOREIGN KEY (`ma`) REFERENCES `khach_hang` (`ma`);
 COMMIT;

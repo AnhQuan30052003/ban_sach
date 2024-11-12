@@ -7,17 +7,16 @@
   $search = isset($_GET["search"]) ? trim($_GET["search"]) : "";
 
   $sql = "
-    select maKH, tenKH, email, sdt, diaChi from `khach_hang`
+    select ma, ten, email, sdt, diaChi from `khach_hang`
   ";
 
   if ($search != "") {
-    $sql .= " where maKH like '%$search%' or tenKH like '%$search%' or email like '%$search%' or sdt like '%$search%' or diaChi like '%$search%'";
+    $sql .= " where ma like '%$search%' or ten like '%$search%' or email like '%$search%' or sdt like '%$search%' or diaChi like '%$search%'";
   }
 
   $sql .= " LIMIT $offset, $customerPerPage";
 
   $res = get_data_query($sql);
-  if (count($res) > 1) unset($res[0]);
   save_or_to_index(true);
 
   function build_body() {

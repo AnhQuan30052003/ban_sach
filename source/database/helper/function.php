@@ -34,11 +34,6 @@
     return "favorite";
   }
 
-  function check_password(string $passNormal, string $md5Pass) {
-    if (md5($passNormal) == $md5Pass) return true;
-    return false;
-  }
-
   # Lưu trang index
   function save_or_to_index(bool $save) {
     if ($save) $_SESSION["index"] = get_url_page(false);
@@ -46,25 +41,28 @@
   }
 
   # Lấy dữ liệu của user
-  function get_data_user($userId) {
+  function get_data_user($userId, $role) {
     global $infoUser;
 
-    $sql = "select * from khach_hang where maKH = '$userId'";
+    $nameTable = $role == "admin" ? "admin" : "khach_hang";
+
+    $sql = "select * from `$nameTable` where ma = '$userId'";
     $result = get_data_query($sql);
 
     $_SESSION["userId"] = $userId;
+    $_SESSION["role"] = $role;
 
     $infoUser["userId"] = $userId;
-    $infoUser["tenKH"] = $result[0]["tenKH"];
+    $infoUser["ten"] = $result[0]["ten"];
     $infoUser["email"] = $result[0]["email"];
     $infoUser["sdt"] = $result[0]["sdt"];
     $infoUser["matKhau"] = $result[0]["matKhau"];
-    $infoUser["diaChi"] = $result[0]["diaChi"];
+    if ($role == "khach_hang") $infoUser["diaChi"] = $result[0]["diaChi"];
   }
 
   # Xử lý đăng nhập ràng buộc trang
   function login_to_link() {
-    global $userId;
+    global $userId, $role;
 
     if (strlen($userId) == 0) return;
 
@@ -72,7 +70,7 @@
     if (strpos($url, "system")) return;
 
     # Là admin
-    if ($userId == "0000") {
+    if ($role == "admin") {
       if (!strpos($url, "admin")) {
         $link = "../admin/index.php";
         echo "<script>window.location.href = '$link'</script>";

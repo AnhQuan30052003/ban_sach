@@ -30,13 +30,13 @@
   function build_user_login() {
     global $userId, $infoUser;
     // Hiển thị khi user đăng nhập
-    if ($userId != null) {
-      $name = $infoUser["tenKH"];
+    if ($userId != "") {
+      $name = $infoUser["ten"];
 
       echo "
         <span class='user-login-true' style='font-weight: bold;'>
           <i class='fa-solid fa-user'></i>
-          <span style='margin: 0 10px;'>$name</span>
+          <span style='margin: 0 10px;'>Xin chào <span style='text-decoration: underline; font-style: italic;'>$name</span></span>
         </span>
         
         <!-- Tuỳ chọn  -->

@@ -298,7 +298,7 @@
                         <li class="nav-item">
                             <a class="nav-link text-primary" href="#">
                                 <i class="fa fa-user"></i>
-                                <span style="margin-left: 5px;">Admin</span>
+                                <span style="margin-left: 5px;"><?php echo $infoUser["ten"]; ?></span>
                             </a>
                         </li>
 

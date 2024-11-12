@@ -1,7 +1,7 @@
 <?php
 	if (isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['id'])) {
 		$customerId = $_GET['id'];
-		$sql = "DELETE FROM `khach_hang` WHERE maKH = '$customerId'";
+		$sql = "DELETE FROM `khach_hang` WHERE ma = '$customerId'";
 		$res = quick_query($sql);
 
 		$linkBack = save_or_to_index(false);

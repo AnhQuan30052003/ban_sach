@@ -1,11 +1,11 @@
 <?php
-  $_tenKH = isset($_REQUEST["tenKH"]) ? $_REQUEST["tenKH"] : "";
+  $_ten = isset($_REQUEST["ten"]) ? $_REQUEST["ten"] : "";
   $_sdt = isset($_REQUEST["sdt"]) ? $_REQUEST["sdt"] : "";
   $_email = isset($_REQUEST["email"]) ? $_REQUEST["email"] : "";
   $_password = isset($_REQUEST["password"]) ? $_REQUEST["password"] : "";
   $_diaChi = isset($_REQUEST["diaChi"]) ? $_REQUEST["diaChi"] : "";
 
-  trim($_tenKH);
+  trim($_ten);
   trim($_sdt);
   trim($_email);
   trim($_password);
@@ -13,12 +13,12 @@
   $errorRegister = "";
 
   function check_register() {
-    global $errorRegister, $userId, $_maKH, $_tenKH, $_email, $_sdt, $_password, $_diaChi;
+    global $errorRegister, $userId, $role, $_ma, $_ten, $_email, $_sdt, $_password, $_diaChi;
 
     $_password = md5($_password);
 
-    $_maKH = get_id_laster("select maKH from khach_hang group by maKH order by maKH desc limit 1");
-    $sql = "insert into `khach_hang` values ('$_maKH', '$_tenKH', '$_email', '$_sdt', '$_password', '$_diaChi');";
+    $_ma = get_id_laster("select ma from khach_hang group by ma order by ma desc limit 1");
+    $sql = "insert into `khach_hang` values ('$_ma', '$_ten', '$_email', '$_sdt', '$_password', '$_diaChi');";
     $result = quick_query($sql);
     
     if (!$result) {
@@ -26,8 +26,8 @@
       return;
     }
 
-    $userId = $_maKH;
-    get_data_user($userId);
+    $userId = $_ma;
+    get_data_user($userId, $role);
     echo "<script>alert('Đăng ký tài khoản thành công');</script>";
   }
 
@@ -35,8 +35,8 @@
     # Kiểm tra dữ liệu lấy vào
     $data_correct = true;
 
-    # _tenKH phải toàn là ký tự, không có số
-    if ($data_correct) $data_correct = run_check("check_is_string", $_tenKH, "Họ và tên không chứa số !");
+    # _ten phải toàn là ký tự, không có số
+    if ($data_correct) $data_correct = run_check("check_is_string", $_ten, "Họ và tên không chứa số !");
 
     # _sdt là chuỗi toàn số
     if ($data_correct) $data_correct = run_check("check_is_numeric", $_sdt, "Số điện thoại phải là chuỗi toàn số !");
@@ -135,7 +135,7 @@
   <div class="register-form">
     <form action="" method="POST">
       <div class="form-group">
-        <input type="text" id="tenKH" name="tenKH" placeholder="Họ và tên" required value='<?php echo $_REQUEST["tenKH"] ?? "" ?>'>
+        <input type="text" id="ten" name="ten" placeholder="Họ và tên" required value='<?php echo $_REQUEST["ten"] ?? "" ?>'>
       </div>
 
       <div class="form-group">
