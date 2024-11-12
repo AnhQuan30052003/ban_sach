@@ -28,7 +28,7 @@
       select s.maSach, tenSach, ls.maLS, tenLS, moTa, giaTien, soLuong, tacGia, hinhAnh
       from sach s join loai_sach ls on s.maLS = ls.maLS
         join sach_yeu_thich syt on syt.maSach = s.maSach
-      where syt.maKH = '$userId'
+      where syt.ma = '$userId'
     ";
 
     if (strlen($tim) > 0) {
@@ -64,7 +64,7 @@
     number_products_found(count($resultTemp));
 
     # Danh sách sản phẩm yêu thích của user
-    $sqlTemp = "select maSach from sach_yeu_thich where maKH = '$userId'";
+    $sqlTemp = "select maSach from sach_yeu_thich where ma = '$userId'";
     $resultTemp = get_data_query($sqlTemp);
 
     $array = [];

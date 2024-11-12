@@ -7,10 +7,10 @@
 
   $errorChangePassword = "";
   $linkBack = save_or_to_index(false);
-  $username = ($userId == "0000" ? "admin" : $infoUser["email"]);
+  $username = $infoUser["email"];
 
   function check_change_password() {
-    global $errorChangePassword, $userId, $_password_old, $_password_new, $linkBack, $infoUser;
+    global $errorChangePassword, $userId, $role, $_password_old, $_password_new, $linkBack, $infoUser;
 
     if (md5($_password_old) != $infoUser["matKhau"]) {
       $errorChangePassword = "Mật khẩu cũ không chính xác !";
@@ -23,7 +23,8 @@
     }
 
     $_password_new = md5($_password_new);
-    $sql = "update khach_hang set matKhau = '$_password_new' where maKH = '$userId'";
+    $nameTable = $role == "admin" ? "admin" : "khach_hang";
+    $sql = "update `$nameTable` set matKhau = '$_password_new' where ma = '$userId'";
     $result = quick_query($sql);
 
     if (!$result) {
@@ -31,7 +32,7 @@
       return;
     }
 
-    get_data_user($userId);
+    get_data_user($userId, $role);
 
     echo "
       <script>

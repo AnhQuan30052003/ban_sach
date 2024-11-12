@@ -7,7 +7,7 @@
 
   $errorForgottenPassword = "";
   $showInputPin = "none";
-  $linkBack = ($userId == "0000" ? "../admin/index.php" : "../user/index.php");
+  $linkBack = ($role == "admin" ? "../admin/index.php" : "../user/index.php");
 
   function find_account() {
     global $errorForgottenPassword, $_pin;

@@ -3,5 +3,10 @@
 
   $_SESSION = [];
   $linkIndex = "../../html/user/index.php";
-  echo "<script>window.location.href = '$linkIndex';</script>";
+  echo "
+    <script>
+      localStorage.clear();
+      window.location.href = '$linkIndex';
+    </script>
+  ";
 ?>

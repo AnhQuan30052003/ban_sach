@@ -76,7 +76,7 @@
 <?php
 	// truy van chi tiet san pham theo id
 	$id = $_GET['id'];
-	$sql = "select * from khach_hang where maKH = '$id'";
+	$sql = "select * from khach_hang where ma = '$id'";
 	$res = get_data_query($sql);
 	$customer = $res[0];
 
@@ -91,12 +91,12 @@
 		// truy van them sp
 		$sql = "
 			UPDATE `khach_hang` 	
-			SET tenKH = '$customerName',
+			SET ten = '$customerName',
 				matKhau = '$password',
 				sdt = '$phoneNumber',
 				email ='$email',
 				diaChi ='$address'
-			WHERE maKH ='$customerId'
+			WHERE ma ='$customerId'
 			";
 
 		$result = quick_query($sql);
@@ -130,7 +130,7 @@
 
 		<div>
 			<label for="customerName" class="form-label">Tên khách hàng</label>
-			<input required type="text" id="customerName" name="customerName" value="<?php echo $customer['tenKH']; ?>" class="form-input">
+			<input required type="text" id="customerName" name="customerName" value="<?php echo $customer['ten']; ?>" class="form-input">
 		</div>
 
 		<div>

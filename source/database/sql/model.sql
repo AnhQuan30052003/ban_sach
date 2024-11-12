@@ -20,15 +20,23 @@ create table sach (
 )
 
 create table khach_hang (
-	maKH varchar(4) primary key,
-	tenKH nvarchar(100),
+	ma varchar(4) primary key,
+	ten nvarchar(100),
 	email varchar(100),
 	sdt varchar(10),
 	matKhau varchar(50),
-	diaChi nvarchar(200),
+	diaChi nvarchar(200)
+)
+
+create table admin (
+	ma varchar(4) primary key,
+	ten nvarchar(100),
+	email varchar(100),
+	sdt varchar(10),
+	matKhau varchar(50)
 )
 
 create table sach_yeu_thich (
-	maKH varchar(4) foreign key references khach_hang(maKH),
+	ma varchar(4) foreign key references khach_hang(ma),
 	maSach varchar(4) foreign key references sach(maSach),
 )
