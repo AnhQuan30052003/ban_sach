@@ -110,7 +110,7 @@
 
   .search-text {
     border: 2px solid transparent;
-    width: 25em;
+    width: 20em;
     height: 2.7em;
     padding-left: 0.8em;
     outline: none;
@@ -148,7 +148,7 @@
   }
 </style>
 
-<section class='dislay-content' style='min-height: 600px;'>
+<section class='display-content'>
   <h3>QUẢN LÝ KHÁCH HÀNG</h3>
   <hr>
   <div class="wrapper-search-add">

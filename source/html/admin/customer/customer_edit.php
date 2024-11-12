@@ -135,7 +135,7 @@
 
 		<div>
 			<label for="email" class="form-label">Email</label>
-			<input required type="text" name="email" id="email" value="<?php echo $customer['email']; ?>" class="form-input">
+			<input required type="email" name="email" id="email" value="<?php echo $customer['email']; ?>" class="form-input">
 		</div>
 
 		<div>
@@ -145,7 +145,7 @@
 
 		<div>
 			<label for="password" class="form-label">Mật khẩu</label>
-			<input required type="text" id="password" name="password" value="<?php echo $customer['matKhau'];  ?>" class="form-input">
+			<input readonly style='background-color: #ccc;' type="text" id="password" name="password" value="<?php echo $customer['matKhau'];  ?>" class="form-input">
 		</div>
 
 		<div>

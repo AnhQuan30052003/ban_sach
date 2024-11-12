@@ -114,7 +114,7 @@
 ?>
 
 <section>
-	<h3>CẬP NHẬT SÁCH</h3>
+	<h3>CẬP NHẬT LOẠI SÁCH</h3>
 	<hr>
 	<form action="" method="post" class="form-container" enctype="multipart/form-data">
 		<div>

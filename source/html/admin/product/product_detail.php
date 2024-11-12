@@ -47,10 +47,14 @@
         border-collapse: collapse;
         width: 100%;
     }
-    table td{
+    table tr td{
         border: 1px solid #ccc;
         padding: 5px;
         font-size: 17px;
+    }
+
+    tr td.text-dark {
+        width: 120px;
     }
     
     table td:nth-child(2){

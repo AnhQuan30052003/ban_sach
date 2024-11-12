@@ -137,7 +137,7 @@
 	<form action="?action=create" method="post" class="form-container" enctype="multipart/form-data">
 		<div>
 			<label for="productId" class="form-label">Mã sách</label>
-			<input required type="text" id="productId" name="productId" class="form-input" value="<?php echo $idBook; ?>" disabled>
+			<input required type="text" id="productId" name="productId" class="form-input" value="<?php echo $idBook; ?>" readonly style='background-color: #ccc'>
 		</div>
 
 		<div>

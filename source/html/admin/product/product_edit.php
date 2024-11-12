@@ -149,17 +149,17 @@
 	<hr>
 	<form action="" method="post" class="form-container" enctype="multipart/form-data">
 		<div>
-			<label for="productId" class="form-label">Mã sản phẩm</label>
+			<label for="productId" class="form-label">Mã sách</label>
 			<input type="text" readonly style="background-color: #ccc;" id="productId" name="productId" value="<?php echo $id; ?>" class="form-input">
 		</div>
 
 		<div>
-			<label for="productName" class="form-label">Tên sản phẩm</label>
+			<label for="productName" class="form-label">Tên sách</label>
 			<input required type="text" id="productName" name="productName" value="<?php echo $product['tenSach'] ?? "" ?>" class="form-input">
 		</div>
 
 		<div>
-			<label for="category" class="form-label">Phân loại</label>
+			<label for="category" class="form-label">Loại sách</label>
 			<select name="category" id="category" class="form-select">
 				<?php
 					$sql_ls = "SELECT s.maLS, l.tenLS FROM sach AS s JOIN loai_sach AS l ON s.maLS = l.maLS group by s.maLS";
@@ -197,9 +197,9 @@
 
 		<div>
 			<label for="productImg" class="form-label">Hình ảnh</label>
-			<input required type="text" name="productImg" value="<?php echo $product['hinhAnh'] ?>" id="productImg" class="form-input" disabled>
+			<input type="text" name="productImg" value="<?php echo $product['hinhAnh'] ?>" id="productImg" class="form-input" readonly style='background-color: #ccc'>
 			<div style="margin-top: 12px" >
-                <button id='choose' >
+				<button id='choose' >
 					<svg
 						aria-hidden="true"
 						stroke="currentColor"

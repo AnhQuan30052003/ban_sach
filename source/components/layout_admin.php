@@ -262,7 +262,6 @@
             padding: 24px;
             padding-bottom: 0;
             min-height: 600px;
-            /* max-height: 600px; */
         }
         h3 {
             padding: 10px 0;
@@ -279,7 +278,7 @@
                     </a>
                     <div class="navbar-nav ">
                         <div class="nav-item ">
-                            <a href="#" class="nav-link dropdown-toggle " data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Quản lý</a>
+                            <a href="./index.php" class="nav-link dropdown-toggle " data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Quản lý</a>
                             <div class="dropdown-menu ">
                                 <a href="../product/index.php" class="dropdown-item"><?php echo check_page("Sách", "product"); ?></a>
                                 <a href="../typeOfProduct/index.php" class="dropdown-item"><?php echo check_page("Loại sách", "typeOfProduct"); ?></a>

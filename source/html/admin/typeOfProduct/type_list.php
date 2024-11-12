@@ -136,7 +136,7 @@
     }
 </style>
 
-<section class='dislay-content'>
+<section class='display-content'>
     <h3 >QUẢN LÝ LOẠI SÁCH</h3><hr>
     <div class="wrapper-search-add">
         <a class="btn btn-add" href="?action=create">Tạo mới</a>
