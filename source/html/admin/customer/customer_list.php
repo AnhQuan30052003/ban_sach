@@ -7,23 +7,24 @@
   $search = isset($_GET["search"]) ? trim($_GET["search"]) : "";
 
   $sql = "
-    select maKH, tenKH, email, sdt, diaChi from khach_hang
+    select maKH, tenKH, email, sdt, diaChi from `khach_hang`
   ";
 
-  if ($search !== "") {
-    $sql  .= " maKh like '%$search%' or tenKh like '%$search%' or email like '%$search%' or sdt like '%$search%' or diaChi like '%$search%'";
+  if ($search != "") {
+    $sql .= " where maKH like '%$search%' or tenKH like '%$search%' or email like '%$search%' or sdt like '%$search%' or diaChi like '%$search%'";
   }
 
-  $sql .= " GROUP BY maKH, tenKH, email, sdt, diaChi LIMIT $offset, $customerPerPage";
+  $sql .= " LIMIT $offset, $customerPerPage";
 
   $res = get_data_query($sql);
-  unset($res[0]);
+  if (count($res) > 1) unset($res[0]);
   save_or_to_index(true);
 
   function build_body() {
     global $res;
     if (is_bool($res)) return;
-    echo "<table align='center' cellpadding='2' cellspacing='2' '>";
+
+    echo "<table align='center' cellpadding='2' cellspacing='2'>";
     echo "
       <tr>
         <th>STT</th>
@@ -154,6 +155,13 @@
   <div class="wrapper-search-add">
     <form action="" method="GET" id="form-search">
       <input class="search-text" id="search-text" name="search" value="<?php echo $search ?? "" ?>" placeholder="Nhập mã/tên khách hàng để tìm kiếm">
+      <?php
+        if ($search != "") {
+          $sql_count = cutString($sql, "LIMIT");
+          $result_count = count(get_data_query($sql_count));
+          echo "<span id='description' style='color: red;'>Tìm thấy $result_count kết quả</span>";
+        }
+      ?>
     </form>
   </div>
 

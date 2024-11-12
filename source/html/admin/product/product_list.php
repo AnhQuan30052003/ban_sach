@@ -182,7 +182,9 @@
 </style>
 
 <section class='display-content'>
-    <h3 >QUẢN LÝ SÁCH</h3><hr>
+    <h3 >QUẢN LÝ SÁCH</h3>
+    <hr>
+
     <div class="wrapper-search-add">
         <a class="btn btn-add" href="?action=create">Tạo mới</a>
         <form action="" method="GET" id="form-search">
@@ -191,6 +193,14 @@
                 <?php build_group_box("loai-sach", $loaiSach, "select * from loai_sach"); ?>
                 <?php build_group_box("tac-gia", $tacGia, "select distinct tacGia, tacGia from sach"); ?>
             </div>
+
+            <?php
+                if ($loaiSach != "" || $tacGia != "" || $search != "") {
+                    $sql_count = cutString($sql, "LIMIT");
+                    $result_count = count(get_data_query($sql_count));
+                    echo "<span id='description' style='color: red;'>Tìm thấy $result_count kết quả</span>";
+                }
+            ?>
         </form>
     </div>
 
