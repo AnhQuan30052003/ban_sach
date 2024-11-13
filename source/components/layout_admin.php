@@ -6,7 +6,8 @@
     include_once $pathComponents . "/head.php";
     include_once $pathComponents . "/mod_paginate.php";
 
-    function check_page(string $pageName, string $type) {
+    function check_page(string $pageName, string $type)
+    {
         $url = get_url_page(false);
         if (strpos($url, $type)) {
             return "<span style='color: var(--primary-color); font-weight: bold;' >[$pageName]</span>";
@@ -17,22 +18,23 @@
 
 <!DOCTYPE html>
 <html lang="en">
-    <?php head("Page Admin");?>
+    <?php head("Page Admin", "../../../"); ?>
     <style>
-        :root{
+        :root {
             --primary-color: #f95030;
-            --primary-color-rgb: rgba(238, 75 , 43);
+            --primary-color-rgb: rgba(238, 75, 43);
             --white-color: #fff;
             --black-color: #000;
             --text-color: #949494;
         }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        html{
+        html {
             font-family: Arial, Helvetica, sans-serif;
         }
 
@@ -42,10 +44,11 @@
             padding: 0;
         }
 
-        a{
+        a {
             text-decoration: none;
         }
-        a:active{
+
+        a:active {
             color: var(--primary-color) !important;
         }
 
@@ -71,10 +74,11 @@
             padding: 7px 20px;
         }
 
-        .sidebar .navbar .nav-item .nav-link,.dropdown-toggle{
+        .sidebar .navbar .nav-item .nav-link,
+        .dropdown-toggle {
             font-size: 17px;
             font-weight: bold;
-            
+
         }
 
 
@@ -87,7 +91,7 @@
             color: #333;
         }
 
-        .sidebar .dropdown-menu .dropdown-item:hover{
+        .sidebar .dropdown-menu .dropdown-item:hover {
             width: 80%;
             border-radius: 0 20px 20px 0;
             background-color: white;
@@ -203,19 +207,20 @@
             background-color: #28a745;
             border-color: #28a745;
         }
+
         .btn-success:hover {
             color: #fff;
             background-color: #218838;
             border-color: #1e7e34;
         }
 
-        .btn.btn-danger{
+        .btn.btn-danger {
             color: #fff;
             background-color: #dc3545;
             border-color: #dc3545;
         }
 
-        .btn.btn-back{
+        .btn.btn-back {
             display: flex;
             width: 100px;
             align-items: center;
@@ -226,18 +231,18 @@
             border: 1px solid var(--black-color);
         }
 
-        .btn.btn-back:active{
+        .btn.btn-back:active {
             background-color: #eeeeee4b;
         }
 
-        .btn.btn-back > .fa-arrow-left {
+        .btn.btn-back>.fa-arrow-left {
             margin-right: 5px;
             margin-left: 5px;
             font-size: 15px;
             transition: all 0.4s ease-in;
         }
 
-        .btn.btn-back:hover > .fa-arrow-left {
+        .btn.btn-back:hover>.fa-arrow-left {
             transform: translateX(-5px);
         }
 
@@ -253,176 +258,161 @@
             border: 2px solid var(--primary-color);
         }
 
-        .btn.btn-add:hover{
+        .btn.btn-add:hover {
             background-color: var(--primary-color);
             outline: none;
             color: var(--white-color);
         }
+
         .display-content {
             padding: 24px;
             padding-bottom: 0;
             min-height: 600px;
         }
+
         h3 {
             padding: 10px 0;
             text-align: center;
         }
 
-        .error-message{
+        .error-message {
             display: inline-block;
             color: red;
             margin-top: 10px;
         }
     </style>
 
-    <body>
-        <div class="ad-container">
-            <div class="sidebar">
-                <nav class="navbar">
-                    <a href="./index.php" class="navbar-brand">
-                        <h3><i class="fa fa-hashtag me-2"></i>ADMIN</h3>
-                    </a>
-                    <div class="navbar-nav ">
-                        <div class="nav-item ">
-                            <a href="./index.php" class="nav-link dropdown-toggle " data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Quản lý</a>
-                            <div class="dropdown-menu ">
-                                <a href="../product/index.php" class="dropdown-item"><?php echo check_page("Sách", "product"); ?></a>
-                                <a href="../typeOfProduct/index.php" class="dropdown-item"><?php echo check_page("Loại sách", "typeOfProduct"); ?></a>
-                                <a href="../customer/index.php" class="dropdown-item"><?php echo check_page("Khách hàng", "customer"); ?></a>
-                            </div>
-                        </div>
-                    </div>
-                </nav>
-            </div>
-            <!-- Sidebar End -->
-
-            <!-- Content Start -->
-            <div class="content">
-                <!-- Navbar Start -->
-                <nav class="navbar">
-                    <div class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link text-primary" href="#">
-                                <i class="fa fa-user"></i>
-                                <span style="margin-left: 5px;"><?php echo $infoUser["ten"]; ?></span>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-primary" href='../../system/change_password.php'>
-                                <i class='fa-solid fa-key'></i>
-                                <span style="margin-left: 5px;">Đổi mật khẩu</span>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" onclick='logout(3);' href="#">
-                                <i class="fa fa-sign-out-alt"></i>
-                                <span>Đăng xuất</span>
-                            </a>
-                        </li>
-
-                    </div>
-                </nav>
-                <!-- Navbar End -->
-                <?php include_once $body; ?>
-
-                <!-- Footer Start -->
-                <div class="ad-footer">
-                    <div class="footer-box">
-                        <div class="row">
-                            <div class="row-item">
-                                &copy; <a href="#">Ecommerce website</a>, All Right Reserved.
-                            </div>
-                            <div class="row-item">
-                                Designed By <a href="#">Tiến Quân</a>
-                            </div>
+<body>
+    <div class="ad-container">
+        <div class="sidebar">
+            <nav class="navbar">
+                <a href="./index.php" class="navbar-brand">
+                    <h3><i class="fa fa-hashtag me-2"></i>ADMIN</h3>
+                </a>
+                <div class="navbar-nav ">
+                    <div class="nav-item ">
+                        <a href="./index.php" class="nav-link dropdown-toggle " data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Quản lý</a>
+                        <div class="dropdown-menu ">
+                            <a href="../product/index.php" class="dropdown-item"><?php echo check_page("Sách", "product"); ?></a>
+                            <a href="../typeOfProduct/index.php" class="dropdown-item"><?php echo check_page("Loại sách", "typeOfProduct"); ?></a>
+                            <a href="../customer/index.php" class="dropdown-item"><?php echo check_page("Khách hàng", "customer"); ?></a>
                         </div>
                     </div>
                 </div>
-                <!-- Footer End -->
-            </div>
-            <!-- Content End -->
-
-            <!-- Back to Top -->
-            <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+            </nav>
         </div>
-        <script src='../../../assets/javascripts/mod_header.js'></script>
-        <script>
-            	// Validation
-            function showError(spanId, message) {
-                document.getElementById(spanId + "Error").style.visibility = "visible";
-                document.getElementById(spanId + "Error").innerText = message;
+        <!-- Sidebar End -->
+
+        <!-- Content Start -->
+        <div class="content">
+            <!-- Navbar Start -->
+            <nav class="navbar">
+                <div class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link text-primary" href="#">
+                            <i class="fa fa-user"></i>
+                            <span style="margin-left: 5px;"><?php echo $infoUser["ten"]; ?></span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-primary" href='../../system/change_password.php'>
+                            <i class='fa-solid fa-key'></i>
+                            <span style="margin-left: 5px;">Đổi mật khẩu</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" onclick='logout(3);' href="#">
+                            <i class="fa fa-sign-out-alt"></i>
+                            <span>Đăng xuất</span>
+                        </a>
+                    </li>
+
+                </div>
+            </nav>
+            <!-- Navbar End -->
+            <?php include_once $body; ?>
+
+            <!-- Footer Start -->
+            <div class="ad-footer">
+                <div class="footer-box">
+                    <div class="row">
+                        <div class="row-item">
+                            &copy; <a href="#">Ecommerce website</a>, All Right Reserved.
+                        </div>
+                        <div class="row-item">
+                            Designed By <a href="#">Tiến Quân</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer End -->
+        </div>
+        <!-- Content End -->
+
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    </div>
+
+    <script src='../../../assets/javascripts/mod_header.js'></script>
+    <script>
+        // Validation
+        function showError(spanId, message) {
+            document.getElementById(spanId + "Error").style.visibility = "visible";
+            document.getElementById(spanId + "Error").innerText = message;
+        }
+
+        // Hàm ẩn thông báo lỗi
+        function hideError(spanId) {
+            document.getElementById(spanId + "Error").style.visibility = "hidden";
+        }
+
+        // Kiểm tra Tên sách
+
+        function validateProductName() {
+            var n = document.forms[0]['productName'].value;;
+            if (n == null || n == "") {
+                showError('productName', 'Tên sách không được để trống');
+
+            } else if (/^[a-zA-Z]+$/.test(n)) {
+                hideError('productName');
+            } else {
+                if (/[\/!:\-\*?"<>_|~@#$`%^.&[()-,+=/\\/'";\]{}]/.test(n)) {
+                    showError('productName', 'Không chứa ký tự đặc biệt');
+                }
+
+            }
+        }
+
+        function validateAuthor() {
+            var author = document.forms[0]['author'].value;
+            if (author == null || author == "") {
+                showError('author', 'Tác giả không được để trống');
+
+            } else if (/^[a-zA-Z]+$/.test(author)) {
+                hideError('author');
+            } else {
+                if (/[\/!:\-\*?"<>_|~@#$`%^.&[()-,+=/\\/'";\]{}]/.test(author)) {
+                    showError('author', 'Không chứa ký tự đặc biệt');
+                } else {
+                    showError('author', 'Không được chứa số');
+                }
+
+            }
+        }
+
+        function validateQuanlity() {
+            var quantity = document.forms[0]['quantity'].value;
+            if (quantity == null || quantity == "") {
+                showError('quantity', 'Số lượng không được để trống');
+
+            } else {
+                hideError('quantity');
             }
 
-            // Hàm ẩn thông báo lỗi
-            function hideError(spanId) {
-                document.getElementById(spanId + "Error").style.visibility = "hidden";
-            }
+        }
+    </script>
+</body>
 
-            // Kiểm tra Tên sách
-
-            function validateProductName()
-            {	
-                var n = document.forms[0]['productName'].value;;
-                if(n==null || n=="")
-                {
-                    showError('productName', 'Tên sách không được để trống');
-                    
-                }
-                else if(/^[a-zA-Z]+$/.test(n))
-                {
-                    hideError('productName');
-                }
-                            
-                else
-                {
-                    if(/[\/!:\-\*?"<>_|~@#$`%^.&[()-,+=/\\/'";\]{}]/.test(n))
-                    {
-                        showError('productName', 'Không chứa ký tự đặc biệt');
-                    }
-                    
-                }
-            }
-
-            function validateAuthor(){
-                var author = document.forms[0]['author'].value;
-                if(author == null || author == "")
-                {
-                    showError('author', 'Tác giả không được để trống');
-                    
-                }
-                else if(/^[a-zA-Z]+$/.test(author))
-                {
-                    hideError('author');
-                }
-                            
-                else
-                {
-                    if(/[\/!:\-\*?"<>_|~@#$`%^.&[()-,+=/\\/'";\]{}]/.test(author))
-                    {
-                        showError('author', 'Không chứa ký tự đặc biệt');
-                    }
-                    else
-                    {
-                        showError('author', 'Không được chứa số');
-                    }
-                    
-                }
-            }
-            function validateQuanlity(){
-                var quantity = document.forms[0]['quantity'].value;
-                if(quantity == null || quantity == "")
-                {
-                    showError('quantity', 'Số lượng không được để trống');
-                    
-                }
-                else
-                {
-                    hideError('quantity');
-                }
-                            
-            }
-        </script>
-    </body>
 </html>
