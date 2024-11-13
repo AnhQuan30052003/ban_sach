@@ -269,7 +269,6 @@
         }
 
         .error-message{
-            display: inline-block;
             color: red;
             margin-top: 10px;
         }
@@ -351,13 +350,15 @@
         <script>
             	// Validation
             function showError(spanId, message) {
-                document.getElementById(spanId + "Error").style.visibility = "visible";
-                document.getElementById(spanId + "Error").innerText = message;
+                const spanMes = document.getElementById(spanId + "Error");
+                spanMes.style.display = "inline-block";
+                spanMes.innerText = message;
             }
 
             // Hàm ẩn thông báo lỗi
             function hideError(spanId) {
-                document.getElementById(spanId + "Error").style.visibility = "hidden";
+                const spanMes = document.getElementById(spanId + "Error");
+                spanMes.style.display = "none";
             }
 
             // Kiểm tra Tên sách
