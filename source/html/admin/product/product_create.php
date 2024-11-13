@@ -169,24 +169,27 @@
 		<div>
 			<label for="quantity" class="form-label">Số lượng</label>
 			<input required type="number" onkeyup="validateQuanlity()" onblur="validateQuanlity()"  min="1" value="1" name="quantity" id="quantity" class="form-input" value="<?php echo $_POST['quantity'] ?? ''; ?>">
-			<span class="error-message" id="quantityrError"></span>
+			<span class="error-message" id="quantityError"></span>
 		</div>
 
 		<div>
 			<label for="price" class="form-label">Giá</label>
-			<input required type="number" min="0" name="price" class="form-input" value="<?php echo $_POST['price'] ?? ''; ?>">
+			<input required type="number"  onkeyup="validatePrice()" onblur="validatePrice()"  min="0" name="price" id="price" class="form-input" value="<?php echo $_POST['price'] ?? ''; ?>">
+			<span class="error-message" id="priceError"></span>
 		</div>
 
 		<div>
 			<label for="description" class="form-label">Mô tả</label>
 			<div class="editor-container">
-				<textarea rows="5" name="productDes" id=""><?php echo $_POST['productDes'] ?? ""; ?></textarea>
+				<textarea rows="5"  onkeyup="validateDesc()" onblur="validateDesc()" name="productDes" id="des"><?php echo $_POST['productDes'] ?? ""; ?></textarea>
 			</div>
+			<span class="error-message" id="desError"></span>
 		</div>
 
 		<div>
 			<label for="" class="form-label">Hình ảnh</label>
 			<input type="text" name="productImg" id="productImg" class="form-input" readonly style='background-color: #ccc'>
+			<span class="error-message" id="imageError"></span>
 			<div style="margin-top: 12px" >
 				<button id='choose' type="button">
 					<svg

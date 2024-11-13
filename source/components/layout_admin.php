@@ -385,7 +385,7 @@
                     
                 }
             }
-
+            // * Tác giả
             function validateAuthor(){
                 var author = document.forms[0]['author'].value;
                 if(author == null || author == "")
@@ -401,27 +401,36 @@
                 else
                 {
                     if(/[\/!:\-\*?"<>_|~@#$`%^.&[()-,+=/\\/'";\]{}]/.test(author))
-                    {
                         showError('author', 'Không chứa ký tự đặc biệt');
-                    }
                     else
-                    {
                         showError('author', 'Không được chứa số');
-                    }
-                    
                 }
             }
+            //* Số lượng
             function validateQuanlity(){
                 var quantity = document.forms[0]['quantity'].value;
                 if(quantity == null || quantity == "")
-                {
                     showError('quantity', 'Số lượng không được để trống');
-                    
-                }
                 else
-                {
                     hideError('quantity');
-                }
+                            
+            }
+            //* Giá tiền
+            function validatePrice(){
+                var price = document.forms[0]['price'].value;
+                if(price == null || price == "")
+                    showError('price', 'Giá không được để trống');
+                else
+                    hideError('price');
+                            
+            }
+            // * Mô tả
+            function validateDesc(){
+                var des = document.getElementById('des').value;
+                if(des == null || des == "")
+                    showError('des', 'Mô tả không được để trống');
+                else
+                    hideError('des');
                             
             }
         </script>
