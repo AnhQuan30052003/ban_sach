@@ -267,6 +267,12 @@
             padding: 10px 0;
             text-align: center;
         }
+
+        .error-message{
+            display: inline-block;
+            color: red;
+            margin-top: 10px;
+        }
     </style>
 
     <body>
@@ -342,5 +348,81 @@
             <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
         </div>
         <script src='../../../assets/javascripts/mod_header.js'></script>
+        <script>
+            	// Validation
+            function showError(spanId, message) {
+                document.getElementById(spanId + "Error").style.visibility = "visible";
+                document.getElementById(spanId + "Error").innerText = message;
+            }
+
+            // Hàm ẩn thông báo lỗi
+            function hideError(spanId) {
+                document.getElementById(spanId + "Error").style.visibility = "hidden";
+            }
+
+            // Kiểm tra Tên sách
+
+            function validateProductName()
+            {	
+                var n = document.forms[0]['productName'].value;;
+                if(n==null || n=="")
+                {
+                    showError('productName', 'Tên sách không được để trống');
+                    
+                }
+                else if(/^[a-zA-Z]+$/.test(n))
+                {
+                    hideError('productName');
+                }
+                            
+                else
+                {
+                    if(/[\/!:\-\*?"<>_|~@#$`%^.&[()-,+=/\\/'";\]{}]/.test(n))
+                    {
+                        showError('productName', 'Không chứa ký tự đặc biệt');
+                    }
+                    
+                }
+            }
+
+            function validateAuthor(){
+                var author = document.forms[0]['author'].value;
+                if(author == null || author == "")
+                {
+                    showError('author', 'Tác giả không được để trống');
+                    
+                }
+                else if(/^[a-zA-Z]+$/.test(author))
+                {
+                    hideError('author');
+                }
+                            
+                else
+                {
+                    if(/[\/!:\-\*?"<>_|~@#$`%^.&[()-,+=/\\/'";\]{}]/.test(author))
+                    {
+                        showError('author', 'Không chứa ký tự đặc biệt');
+                    }
+                    else
+                    {
+                        showError('author', 'Không được chứa số');
+                    }
+                    
+                }
+            }
+            function validateQuanlity(){
+                var quantity = document.forms[0]['quantity'].value;
+                if(quantity == null || quantity == "")
+                {
+                    showError('quantity', 'Số lượng không được để trống');
+                    
+                }
+                else
+                {
+                    hideError('quantity');
+                }
+                            
+            }
+        </script>
     </body>
 </html>

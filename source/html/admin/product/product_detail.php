@@ -72,7 +72,7 @@
     }
 ?>
 
-<div class="row-deltail" style="padding: 0 24px">
+<div class="row-deltail display-content" style="padding: 0 24px">
     <div class="col-12">
         <h3 class="text-center mt-3">Thông tin chi tiết</h3>
     </div>
