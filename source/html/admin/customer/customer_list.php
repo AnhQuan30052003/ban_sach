@@ -47,8 +47,8 @@
       echo "<td>$row[4]</td>";
       echo "
         <td style='display: flex; justify-content: center; gap: 5px;'>
-            <a class='btn btn-success m-2 del-btn' href='?action=edit&id=$row[0]'>Sửa</a> 
-            <a class='btn btn-danger m-2 del-btn' href='?action=delete&id=$row[0]' onclick=\"return confirm('Bạn có chắc chắn muốn xóa?');\" >Xóa</a>
+            <a class='btn btn-success mg-2 del-btn' href='?action=edit&id=$row[0]'>Sửa</a> 
+            <a class='btn btn-danger mg-2 del-btn' href='?action=delete&id=$row[0]' onclick=\"return confirm('Bạn có chắc chắn muốn xóa?');\" >Xóa</a>
         </td>
       ";
       echo "</tr>";
@@ -104,7 +104,7 @@
     margin: 20px 0;
   }
 
-  .m-2 {
+  .mg-2 {
     margin: 2px;
   }
 

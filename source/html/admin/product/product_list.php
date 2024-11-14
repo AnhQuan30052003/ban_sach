@@ -81,9 +81,9 @@
             echo "<td>$money</td>";
             echo "
                 <td style='display: flex; justify-content: center; gap: 5px;'>
-                    <a class='btn btn-success m-2 del-btn' href='?action=detail&productId=$row[0]' style='background-color: gray;'>Chi tiết</a> 
-                    <a class='btn btn-success m-2 del-btn' href='?action=edit&productId=$row[0]'>Sửa</a> 
-                    <a class='btn btn-danger m-2 del-btn' href='?action=delete&productId=$row[0]' onclick=\"return confirm('Bạn có chắc chắn muốn xóa?');\" >Xóa</a>
+                    <a class='btn btn-success mg-2 del-btn' href='?action=detail&productId=$row[0]' style='background-color: gray;'>Chi tiết</a> 
+                    <a class='btn btn-success mg-2 del-btn' href='?action=edit&productId=$row[0]'>Sửa</a> 
+                    <a class='btn btn-danger mg-2 del-btn' href='?action=delete&productId=$row[0]' onclick=\"return confirm('Bạn có chắc chắn muốn xóa?');\" >Xóa</a>
                 </td>
             ";
             echo "</tr>";
@@ -137,7 +137,7 @@
         gap: 20px;
         margin: 20px 0;
     }
-    .m-2 {
+    .mg-2 {
         margin: 2px;
     }
 
