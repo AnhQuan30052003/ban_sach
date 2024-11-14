@@ -142,8 +142,8 @@
 
 		<div>
 			<label for="productName" class="form-label">Tên sách</label>
-			<input required type="text" onkeyup="validateProductName()" onblur="validateProductName()" name="productName" id="productName" class="form-input" value="<?php echo $_POST['productName'] ?? ''; ?>">
-			<span class="error-message" id="productNameError"></span>
+			<input required type="text" name="productName" id="productName" class="form-input" value="<?php echo $_POST['productName'] ?? ''; ?>">
+			<span class="error" id="error-productName"></span>
 		</div>
 
 		<div>
@@ -162,31 +162,34 @@
 
 		<div>
 			<label for="author" class="form-label">Tác giả</label>
-			<input required type="text" onkeyup="validateAuthor()" onblur="validateAuthor()" name="author" id="author" class="form-input" value="<?php echo $_POST['author'] ?? ''; ?>">
-			<span class="error-message" id="authorError"></span>
+			<input required type="text" name="author" id="author" class="form-input" value="<?php echo $_POST['author'] ?? ''; ?>">
+			<span class="error" id="error-author"></span>
 		</div>
 
 		<div>
 			<label for="quantity" class="form-label">Số lượng</label>
-			<input required type="number" onkeyup="validateQuanlity()" onblur="validateQuanlity()"  min="1" value="1" name="quantity" id="quantity" class="form-input" value="<?php echo $_POST['quantity'] ?? ''; ?>">
-			<span class="error-message" id="quantityrError"></span>
+			<input required type="number" min="1" value="1" name="quantity" id="quantity" class="form-input" value="<?php echo $_POST['quantity'] ?? ''; ?>">
+			<span class="error" id="error-quantity"></span>
 		</div>
 
 		<div>
 			<label for="price" class="form-label">Giá</label>
-			<input required type="number" min="0" name="price" class="form-input" value="<?php echo $_POST['price'] ?? ''; ?>">
+			<input required type="number" min="0" name="price" id="price" class="form-input" value="<?php echo $_POST['price'] ?? ''; ?>">
+			<span class="error" id="error-price"></span>
 		</div>
 
 		<div>
 			<label for="description" class="form-label">Mô tả</label>
 			<div class="editor-container">
-				<textarea rows="5" name="productDes" id=""><?php echo $_POST['productDes'] ?? ""; ?></textarea>
+				<textarea rows="5" name="productDes" id="des"><?php echo $_POST['productDes'] ?? ""; ?></textarea>
 			</div>
+			<span class="error" id="error-des"></span>
 		</div>
 
 		<div>
 			<label for="" class="form-label">Hình ảnh</label>
 			<input type="text" name="productImg" id="productImg" class="form-input" readonly style='background-color: #ccc'>
+			<span class="error" id="error-productImg"></span>
 			<div style="margin-top: 12px" >
 				<button id='choose' type="button">
 					<svg
@@ -246,4 +249,29 @@
 		}
 	});
 
+	// validate
+	// Trường tên sách
+	window.addEventListener("load", after_leave("productName", "error-productName", "Tên sách"));
+	window.addEventListener("load", change_input("productName", "error-productName", "Tên sách", 0, true));
+
+	// Trường tác giả
+	window.addEventListener("load", after_leave("author", "error-author", "Tác giả"));
+	window.addEventListener("load", change_input("author", "error-author", "Tác giả", 0, true));
+
+
+	// Trường số lượng
+	window.addEventListener("load", after_leave("quantity", "error-quantity", "Số lượng"));
+	window.addEventListener("load", change_input("quantity", "error-quantity", "Số lượng"));
+
+	// Trường giá
+	window.addEventListener("load", after_leave("price", "error-price", "Giá"));
+	window.addEventListener("load", change_input("price", "error-price", "Giá"));
+
+	// Trường mô tả
+	window.addEventListener("load", after_leave("des", "error-des", "Mô tả"));
+	window.addEventListener("load", change_input("des", "error-des", "Mô tả"));
+
+	// Trường ảnh
+	window.addEventListener("load", after_leave("productImg", "error-productImg", "Hình ảnh"));
+	window.addEventListener("load", change_input("productImg", "error-productImg", "Hình ảnh"));
 </script>

@@ -167,13 +167,15 @@
     <form action="" method="POST">
       <div class="form-group">
         <input type="text" id="username" name="username" placeholder="Email" required value='<?php if (isset($_REQUEST["username"])) echo $_REQUEST["username"]; ?>'>
+        <span id='error-username' class='error'></span>
       </div>
-
+      
       <div class="form-group" style='position: relative;'>
-        <input type="password" name="password" placeholder="Mật khẩu" required value='<?php if (isset($_REQUEST["password"])) echo $_REQUEST["password"]; ?>' >
+        <input type="password" id='password-login' name="password" placeholder="Mật khẩu" required value='<?php if (isset($_REQUEST["password"])) echo $_REQUEST["password"]; ?>' >
         <span class='frame-eyes'>
           <i class="fa-solid fa-eye-slash"></i>
         </span>
+        <span id='error-password-login' class='error'></span>
       </div>
 
       <div class="save-pass" style='display: flex; gap: 10px; align-items: center;'>
@@ -195,3 +197,13 @@
     </div>
   </div>
 </div>
+
+<script>
+  // Trường username
+  window.addEventListener("load", after_leave("username", "error-username", "Tài khoản"));
+  window.addEventListener("load", change_input("username", "error-username", "Tài khoản"));
+
+  // Trường mật khẩu
+  window.addEventListener("load", after_leave("password-login", "error-password-login", "Mật khẩu"));
+  window.addEventListener("load", change_input("password-login", "error-password-login", "Mật khẩu"));
+</script>

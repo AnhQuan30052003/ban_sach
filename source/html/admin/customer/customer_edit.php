@@ -131,16 +131,19 @@
 		<div>
 			<label for="customerName" class="form-label">Tên khách hàng</label>
 			<input required type="text" id="customerName" name="customerName" value="<?php echo $customer['ten']; ?>" class="form-input">
+			<span id='error-customerName' class='error'></span>
 		</div>
 
 		<div>
 			<label for="email" class="form-label">Email</label>
 			<input required type="email" name="email" id="email" value="<?php echo $customer['email']; ?>" class="form-input">
+			<span id='error-email' class='error'></span>
 		</div>
 
 		<div>
 			<label for="phoneNumber" class="form-label">Số điện thoại</label>
 			<input required type="number" id="phoneNumber" name="phoneNumber" value="<?php echo $customer['sdt']; ?>" class="form-input">
+			<span id='error-phoneNumber' class='error'></span>
 		</div>
 
 		<div>
@@ -151,6 +154,7 @@
 		<div>
 			<label for="address" class="form-label">Địa chỉ</label>
 			<input required type="text" id="address" name="address" value="<?php echo $customer['diaChi']; ?>" class="form-input">
+			<span id='error-address' class='error'></span>
 		</div>
 
 		<div class="btn-group" style="margin-top: 10px">
@@ -169,18 +173,20 @@
 </section>
 
 <script>
-	const inputText = document.getElementById("productImg");
-	const buttonChoose = document.getElementById("choose");
-	const inputFile = document.getElementById("get-file");
+	// validate
+	// Trường tên khách hàng
+	window.addEventListener("load", after_leave("customerName", "error-customerName", "Tên khách hàng"));
+	window.addEventListener("load", change_input("customerName", "error-customerName", "Tên khách hàng", 0, true));
 
-	buttonChoose.addEventListener("click", function() {
-		inputFile.click();
-	});
+	// Trường email
+	window.addEventListener("load", after_leave("email", "error-email", "Email"));
+	window.addEventListener("load", change_input("email", "error-email", "Email"));
 
-	inputFile.addEventListener("change", function() {
-		if (inputFile.value != "") {
-			inputText.value = inputFile.files[0].name;
-			console.log(inputFile);
-		}
-	});
+	// Trường sdt
+	window.addEventListener("load", after_leave("phoneNumber", "error-phoneNumber", "Số điện thoại"));
+  window.addEventListener("load", change_input("phoneNumber", "error-phoneNumber", "Số điện thoại", 10, false, true));
+
+	// Trường địa chỉs
+	window.addEventListener("load", after_leave("address", "error-address", "Địa chỉ"));
+  window.addEventListener("load", change_input("address", "error-address", "Địa chỉ"));
 </script>

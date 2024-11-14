@@ -16,3 +16,8 @@ button {
 body {
   position: relative;
 }
+
+.error {
+  color: red;
+  font-size: 12px;
+}

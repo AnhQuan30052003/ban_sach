@@ -156,6 +156,7 @@
 		<div>
 			<label for="productName" class="form-label">Tên sách</label>
 			<input required type="text" id="productName" name="productName" value="<?php echo $product['tenSach'] ?? "" ?>" class="form-input">
+			<span class="error" id="error-productName"></span>
 		</div>
 
 		<div>
@@ -176,28 +177,33 @@
 		<div>
 			<label for="author" class="form-label">Tác giả</label>
 			<input required type="text" name="author" id="author" value="<?php echo $product['tacGia'] ?? "" ?>" class="form-input">
+			<span class="error" id="error-author"></span>
 		</div>
 
 		<div>
 			<label for="quantity" class="form-label">Số lượng</label>
 			<input required type="number" id="quantity" name="quantity" value="<?php echo $product['soLuong'] ?? $quantity ?>" class="form-input">
+			<span class="error" id="error-quantity"></span>
 		</div>
 
 		<div>
 			<label for="price" class="form-label">Giá</label>
 			<input required type="number" id="price" min="0" name="price" value="<?php echo $product['giaTien'] ?>" class="form-input">
+			<span class="error" id="error-price"></span>
 		</div>
 
 		<div>
 			<label for="description" class="form-label">Mô tả</label>
 			<div class="editor-container">
-				<textarea rows="5" name="productDes" id=""><?php echo $product['moTa'] ?? ""; ?></textarea>
+				<textarea rows="5" name="productDes" id="des"><?php echo $product['moTa'] ?? ""; ?></textarea>
 			</div>
+			<span class="error" id="error-des"></span>
 		</div>
 
 		<div>
 			<label for="productImg" class="form-label">Hình ảnh</label>
 			<input type="text" name="productImg" value="<?php echo $product['hinhAnh'] ?>" id="productImg" class="form-input" readonly style='background-color: #ccc'>
+			<span class="error" id="error-productImg"></span>
 			<div style="margin-top: 12px" >
 				<button id='choose' type="button">
 					<svg
@@ -259,4 +265,29 @@
 			console.log(inputFile);
 		}
 	});
+
+	// Trường tên sách
+	window.addEventListener("load", after_leave("productName", "error-productName", "Tên sách"));
+	window.addEventListener("load", change_input("productName", "error-productName", "Tên sách", 0, true));
+
+	// Trường tác giả
+	window.addEventListener("load", after_leave("author", "error-author", "Tác giả"));
+	window.addEventListener("load", change_input("author", "error-author", "Tác giả", 0, true));
+
+
+	// Trường số lượng
+	window.addEventListener("load", after_leave("quantity", "error-quantity", "Số lượng"));
+	window.addEventListener("load", change_input("quantity", "error-quantity", "Số lượng"));
+
+	// Trường giá
+	window.addEventListener("load", after_leave("price", "error-price", "Giá"));
+	window.addEventListener("load", change_input("price", "error-price", "Giá"));
+
+	// Trường mô tả
+	window.addEventListener("load", after_leave("des", "error-des", "Mô tả"));
+	window.addEventListener("load", change_input("des", "error-des", "Mô tả"));
+
+	// Trường ảnh
+	window.addEventListener("load", after_leave("productImg", "error-productImg", "Hình ảnh"));
+	window.addEventListener("load", change_input("productImg", "error-productImg", "Hình ảnh"));
 </script>

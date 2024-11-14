@@ -114,13 +114,14 @@
 
 	<form action="?action=create" method="post" class="form-container" enctype="multipart/form-data">
 		<div>
-			<label for="typeId" class="form-label">Mã sách</label>
+			<label for="typeId" class="form-label">Mã loại sách</label>
 			<input required type="text" id="typeId" name="typeId" class="form-input" value="<?php echo $idBook; ?>" disabled>
 		</div>
 
 		<div>
-			<label for="typeName" class="form-label">Tên sách</label>
-			<input required type="text" name="typeName" class="form-input" value="<?php echo $_POST['typeName'] ?? ''; ?>">
+			<label for="typeName" class="form-label">Tên loại sách</label>
+			<input required id='typeName' type="text" name="typeName" class="form-input" value="<?php echo $_POST['typeName'] ?? ''; ?>">
+			<span id='error-typeName' class='error'></span>
 		</div>
 
 
@@ -137,3 +138,9 @@
 		</div>
 	</form>
 </section>
+
+<script>
+	// Trường typename
+	window.addEventListener("load", after_leave("typeName", "error-typeName", "Tên loại sách"));
+	window.addEventListener("load", change_input("typeName", "error-typeName", "Tên loại sách"));
+</script>

@@ -136,25 +136,30 @@
     <form action="" method="POST">
       <div class="form-group">
         <input type="text" id="ten" name="ten" placeholder="Họ và tên" required value='<?php echo $_REQUEST["ten"] ?? "" ?>'>
+        <span id='error-ten' class='error'></span>
       </div>
 
       <div class="form-group">
         <input type="text" id="sdt" name="sdt" placeholder="Số điện thoại" required value='<?php echo $_REQUEST["sdt"] ?? "" ?>'>
+        <span id='error-sdt' class='error'></span>
       </div>
 
       <div class="form-group">
         <input type="email" id="email" name="email" placeholder="Email" required value='<?php echo $_REQUEST["email"] ?? "" ?>'>
+        <span id='error-email' class='error'></span>
       </div>
       
       <div class="form-group" style='position: relative;'>
-        <input type="password" name="password" placeholder="Mật khẩu" required value='<?php echo $_REQUEST["password"] ?? "" ?>'>
+        <input type="password" id='password-register' name="password" placeholder="Mật khẩu" required value='<?php echo $_REQUEST["password"] ?? "" ?>'>
         <span class='frame-eyes'>
           <i class="fa-solid fa-eye-slash"></i>
         </span>
+        <span id='error-password-register' class='error'></span>
       </div>
 
       <div class="form-group">
         <input type="text" id="diaChi" name="diaChi" placeholder="Địa chỉ" required value='<?php echo $_REQUEST["diaChi"] ?? "" ?>'>
+        <span id='error-diaChi' class='error'></span>
       </div>
 
       <button type="submit" class="btn" name='btn-register'>Đăng ký</button>
@@ -170,3 +175,26 @@
     </div>
   </div>
 </div>
+
+<script>
+  // Trường tên
+  window.addEventListener("load", after_leave("ten", "error-ten", "Họ và tên"));
+  window.addEventListener("load", change_input("ten", "error-ten", "Họ và tên", 0, true));
+
+  // Trường sdt
+  window.addEventListener("load", after_leave("sdt", "error-sdt", "Số điện thoại"));
+  window.addEventListener("load", change_input("sdt", "error-sdt", "Số điện thoại", 10, false, true));
+
+  // Trường email
+  window.addEventListener("load", after_leave("email", "error-email", "Email"));
+  window.addEventListener("load", change_input("email", "error-email", "Email"));
+
+  // Trường mật khẩu
+  window.addEventListener("load", after_leave("password-register", "error-password-register", "Mật khẩu"));
+  window.addEventListener("load", change_input("password-register", "error-password-register", "Mật khẩu"));
+
+  // Trường địa chỉ
+  window.addEventListener("load", after_leave("diaChi", "error-diaChi", "Địa chỉ"));
+  window.addEventListener("load", change_input("diaChi", "error-diaChi", "Địa chỉ"));
+
+</script>

@@ -124,7 +124,8 @@
 
 		<div>
 			<label for="typeName" class="form-label">Tên loại sách</label>
-			<input required type="text" id="typeName" name="typeName" value="<?php echo $type['tenLS'] ?? "" ?>" class="form-input">
+			<input required id='typeName' type="text" id="typeName" name="typeName" value="<?php echo $type['tenLS'] ?? "" ?>" class="form-input">
+			<span id='error-typeName' class='error'></span>
 		</div>
 
 		<div class="btn-group" style="margin-top: 10px">
@@ -142,3 +143,8 @@
 	</form>
 </section>
 
+<script>
+	// Trường typename
+	window.addEventListener("load", after_leave("typeName", "error-typeName", "Tên loại sách"));
+	window.addEventListener("load", change_input("typeName", "error-typeName", "Tên loại sách"));
+</script>

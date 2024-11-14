@@ -63,7 +63,7 @@
                 <th>Tác giả</th>
                 <th>Số lượng</th>
                 <th>Giá tiền</th>
-                <th style='text-align: center;'>Thao tác</th>
+                <th style='text-align: center; width: 300px;'>Thao tác</th>
             </tr>
         ";
 
