@@ -8,9 +8,10 @@
     $search = isset($_GET["search"]) ? trim($_GET["search"]) : "";
 
     $sql = "
-        SELECT s.maSach, s.tenSach, s.tacGia, s.soLuong, s.giaTien , l.tenLS
-        FROM sach AS s 
-        JOIN loai_sach AS l ON s.maLS = l.maLS
+        select s.maSach, tenSach, s.maLS, tenLS, s.maTG, tenTG, s.maNXB, tenNXB, giaTien
+        from sach s join loai_sach ls on s.maLS = ls.maLS
+            join tac_gia tg on tg.maTG = s.maTG
+            join nha_xuat_ban nxb on nxb.maNXB = s.maNXB
     ";
     
     $conditions = [];
@@ -28,7 +29,7 @@
         $sql .= " WHERE " . implode(" AND ", $conditions);
     }
     
-    $sql .= " GROUP BY s.maSach, s.tenSach, s.tacGia, s.soLuong, s.giaTien, l.tenLS LIMIT $offset, $productsPerPage";
+    $sql .= " GROUP BY s.maSach, tenSach, s.maLS, tenLS, s.maTG, tenTG, tenNXB, giaTien LIMIT $offset, $productsPerPage";
 
     $res = get_data_query($sql);
     save_or_to_index(true);
@@ -61,7 +62,7 @@
                 <th width='350'>Tên sách</th>
                 <th>Loại sách</th>
                 <th>Tác giả</th>
-                <th>Số lượng</th>
+                <th>Nhà xuất bản</th>
                 <th>Giá tiền</th>
                 <th style='text-align: center; width: 300px;'>Thao tác</th>
             </tr>
@@ -69,15 +70,15 @@
 
         $stt = 1;
         foreach ($res as $row) {
-            $money = number_format($row[4], 0, ',', '.');
+            $money = number_format($row[8], 0, ',', '.');
 
             echo "<tr>";
             echo "<td>$stt</td>";
             echo "<td>$row[0]</td>";
             echo "<td><a class='link-detail' title='Xem chi tiết' href='?action=detail&productId=$row[0]'>$row[1]</a></td>";
-            echo "<td>{$row['tenLS']}</td>";
-            echo "<td>$row[2]</td>";
             echo "<td>$row[3]</td>";
+            echo "<td>$row[5]</td>";
+            echo "<td>$row[7]</td>";
             echo "<td>$money</td>";
             echo "
                 <td style='display: flex; justify-content: center; gap: 5px;'>
@@ -191,7 +192,7 @@
             <input class="search-text" id="search-text" name="search" value="<?php echo $search ?? "" ?>" placeholder="Nhập mã/tên sách để tìm kiếm">
             <div>
                 <?php build_group_box("loai-sach", $loaiSach, "select * from loai_sach"); ?>
-                <?php build_group_box("tac-gia", $tacGia, "select distinct tacGia, tacGia from sach"); ?>
+                <?php build_group_box("tac-gia", $tacGia, "select * from tac_gia"); ?>
             </div>
 
             <?php

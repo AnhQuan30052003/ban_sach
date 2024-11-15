@@ -1,40 +1,35 @@
 <?php
-  function handle_sql_index() {
-    global $tim, $loaiSach, $tacGia;
+  function handle_sql(bool $pageFavorite = true) {
+    global $tim, $loaiSach, $tacGia, $nhaXuatBan, $userId;
 
     $sql = "
-      select maSach, tenSach, ls.maLS, tenLS, moTa, giaTien, soLuong, tacGia, hinhAnh
+      select s.maSach, tenSach, s.maLS, tenLS, moTa, giaTien, soLuong, s.maTG, tenTG, s.maNXB, tenNXB, hinhAnh
       from sach s join loai_sach ls on s.maLS = ls.maLS
+        join nha_xuat_ban nxb on nxb.maNXB = s.maNXB
+        join tac_gia tg on tg.maTG = s.maTG
     ";
 
+    if ($pageFavorite) $sql .= " join sach_yeu_thich syt on syt.maSach = s.maSach where syt.ma = '$userId' ";
+    else $sql .= " where ";
+
+    // Ưu tiên tìm kiếm theo input nhập vào
     if (strlen($tim) > 0) {
-      $sql .= " where tenSach like '%$tim%' or tenLS like '%$tim%' or moTa like '%$tim%' or tacGia like '%$tim%'";
+      if ($pageFavorite) $sql .= "and ";
+      $sql .= "(tenSach like '%$tim%' or tenLS like '%$tim%' or moTa like '%$tim%')";
+      return $sql;
+    }
+    
+    if ($pageFavorite) return $sql;
+
+    // Tìm kiếm theo lựa chọn của combobox
+    if ($loaiSach == "" && $tacGia == "" && $nhaXuatBan == "") {
+      $sql .= " false";
       return $sql;
     }
 
-    if (($loaiSach == "" && $tacGia == "") || ($loaiSach != "" && $tacGia != "")) {
-      $sql .= " where tacGia = '$tacGia' and ls.malS = '$loaiSach'";
-      return $sql;
-    }
-
-    $sql .= " where " . ($loaiSach == "" ? "tacGia = '$tacGia'" : "ls.maLS = '$loaiSach'");
-    return $sql;
-  }
-
-  function handle_sql_favorite() {
-    global $tim, $userId;
-
-    $sql = "
-      select s.maSach, tenSach, ls.maLS, tenLS, moTa, giaTien, soLuong, tacGia, hinhAnh
-      from sach s join loai_sach ls on s.maLS = ls.maLS
-        join sach_yeu_thich syt on syt.maSach = s.maSach
-      where syt.ma = '$userId'
-    ";
-
-    if (strlen($tim) > 0) {
-      $sql .= " and tenSach like '%$tim%' or tenLS like '%$tim%' or moTa like '%$tim%' or tacGia like '%$tim%'";
-      return $sql;
-    }
+    $sql .= $loaiSach != "" ? "s.maLS = '$loaiSach' " : "true ";
+    $sql .= $tacGia != "" ? "and s.maTG = '$tacGia' " : "and true ";
+    $sql .= $nhaXuatBan != "" ? "and s.maNXB = '$nhaXuatBan'" : "";
 
     return $sql;
   }
@@ -45,18 +40,13 @@
   if (!isset($_GET["page"])) $_GET["page"] = 1;
   $offset = ($_GET["page"] - 1) * $productsPerPage;
   
-  if ($typePage == "index") $sql = handle_sql_index();
-  else $sql = handle_sql_favorite();
-
+  $sql = handle_sql($typePage == "index" ? false : true);
   $sql .= " limit $offset, $productsPerPage";
   $result = get_data_query($sql);
 
   function build_data() {
     global $result, $sql, $userId;
-    if (is_bool($result)) {
-      number_products_found(0);
-      return;
-    }
+    if (is_bool($result)) return;
 
     # Hiển thị số đếm sản phẩm tìm thấy
     $sqlTemp = cutString($sql, "limit");
@@ -71,6 +61,7 @@
     foreach ($resultTemp as $line) {
       $array[] = $line[0];
     }
+
     $soLuong = 1;
     foreach ($result as $line) {
       if ($soLuong == 1) echo "<tr>";
@@ -79,7 +70,7 @@
       if (in_array($line[0], $array)) $tym = "style='color: red;'";
       $show = rand(0,1) ? "style= 'display: block;' " : "style= 'display: none;' ";
 
-      $imgPath = "../../assets/images/products/$line[8]";
+      $imgPath = "../../assets/images/products/$line[11]";
 
       echo "
         <td>
@@ -93,10 +84,11 @@
 
           <div class='info'>
             <div class='top'>
-              <p><span class='bold'>Tên sách:</span> $line[1]</p>
+              <p class='short-text-product'><span class='bold'>Tên sách:</span> $line[1]</p>
               <p><span class='bold'>Thể loại:</span> $line[3]</p>
-              <p><span class='bold'>Tác giả:</span> $line[7]</p>
-              <p><span class='bold'>Mô tả:</span> $line[4]</p>
+              <p><span class='bold'>Tác giả:</span> $line[8]</p>
+              <p><span class='bold'>Nhà xuất bản:</span> $line[10]</p>
+              <p class='short-text-product'><span class='bold'>Mô tả:</span> $line[4]</p>
               <p style='display: flex; justify-content: space-between;'>
                 <span><span class='bold'>Giá:</span> " . "<span style='color: red;'>". number_format($line[5], 0, ',', '.') . " VNĐ</span></span>
                 <span><span class='bold'>Còn:</span> $line[6]</span>
@@ -125,7 +117,7 @@
 
 <style>
   .mod-san-pham {
-    margin-top: <?php echo ($typePage == "index" ? "130px" : "100px"); ?>;
+    margin-top: <?php echo ($typePage == "index" ? "130px" : "110px"); ?>;
     min-height: 525px;
 
     .table-products {
@@ -161,6 +153,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            font-size: 15px;
 
             .top {
               display: flex;
@@ -186,13 +179,6 @@
               }
             }
 
-            p {
-              width: 392px;
-              white-space: nowrap;
-              overflow: hidden;
-              text-overflow: ellipsis;
-            }
-            
             .bold {
               font-weight: bold;
             }

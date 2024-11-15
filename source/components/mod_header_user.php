@@ -3,6 +3,7 @@
   // filter
   $loaiSach = isset($_GET["loai-sach"]) ? $_GET["loai-sach"] : "0000";
   $tacGia = isset($_GET["tac-gia"]) ? $_GET["tac-gia"] : "";
+  $nhaXuatBan = isset($_GET["nha-xuat-ban"]) ? $_GET["nha-xuat-ban"] : "";
 
   function build_home_or_favorite() {
     global $typePage;
@@ -64,15 +65,13 @@
     }
   }
 
-  function build_group_box($name, $typeCur, $sql) {
+  function build_group_box($name, $nameFake, $typeCur, $sql) {
     $result = get_data_query($sql);
-
-    $typeName = $name == "tac-gia" ? "Tác giả" : "Loại sách";
 
     echo "<select class='group-box' name='$name' id='$name' onchange='send()'>";
 
-    if ($typeCur == "") echo "<option value='' selected>$typeName</option>";
-    else echo "<option value=''>$typeName</option>";
+    if ($typeCur == "") echo "<option value='' selected>$nameFake</option>";
+    else echo "<option value=''>$nameFake</option>";
 
     foreach ($result as $line) {
       if ($line[0] == $typeCur) echo "<option value='$line[0]' selected>$line[1]</option>";
@@ -230,8 +229,9 @@
         </div>
 
         <div style='margin-top: 5px; <?php echo ($typePage == "index" ? "display: block;" : "display: none;"); ?>'>
-          <?php build_group_box("loai-sach", $loaiSach, "select * from loai_sach"); ?>
-          <?php build_group_box("tac-gia", $tacGia, "select distinct tacGia, tacGia from sach"); ?>
+          <?php build_group_box("loai-sach", "Loại sách", $loaiSach, "select * from loai_sach"); ?>
+          <?php build_group_box("tac-gia", "Tác giả", $tacGia, "select * from tac_gia"); ?>
+          <?php build_group_box("nha-xuat-ban", "Nhà xuất bản", $nhaXuatBan, "select * from nha_xuat_ban"); ?>
           <span id='description' class='description'></span>
         </div>
       </form>
