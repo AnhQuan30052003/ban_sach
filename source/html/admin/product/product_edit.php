@@ -276,7 +276,7 @@
 
 		<div class="btn-group" style="margin-top: 10px">
 			<div>
-				<button type="button" onclick="window.location.href= '<?php echo save_or_to_index(false); ?>'" class="btn btn-back">
+				<button type="button" onclick="javascript:history.back(-1);" class="btn btn-back">
 					<i class="fa-solid fa-arrow-left"></i>
 					<span>Quay lại</span>
 				</button>
