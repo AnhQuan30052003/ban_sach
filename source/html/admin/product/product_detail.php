@@ -66,7 +66,13 @@
 <?php
     if(isset($_GET['action']) && $_GET['action'] === 'detail'){
         $productId = $_GET['productId'];
-        $sql = "SELECT * FROM `sach` WHERE maSach = '$productId' ";
+        $sql = "
+            select s.maSach, tenSach, moTa, s.maLS, tenLS, s.maTG, tenTG, s.maNXB, tenNXB, giaTien, soLuong, soTrang, hinhAnh
+            from sach s join loai_sach ls on s.maLS = ls.maLS
+                join tac_gia tg on tg.maTG = s.maTG
+                join nha_xuat_ban nxb on nxb.maNXB = s.maNXB
+            where s.maSach = '$productId'
+        ";
         $res = get_data_query($sql);
         $product = $res[0];
     }
@@ -98,23 +104,33 @@
                     </tr>
 
                     <tr>
-                        <td class="text-dark">Mã loại sách</td>
-                        <td><?php echo $product['maLS'] ?></td>
+                        <td class="text-dark">Loại sách</td>
+                        <td><?php echo $product['tenLS'] ?></td>
                     </tr>
 
                     <tr>
                         <td class="text-dark">Tác giả</td>
-                        <td><?php echo $product['tacGia'] ?></td>
+                        <td><?php echo $product['tenTG'] ?></td>
+                    </tr>
+
+                    <tr>
+                        <td class="text-dark">Nhà xuất bản</td>
+                        <td><?php echo $product['tenNXB'] ?></td>
                     </tr>
 
                     <tr>
                         <td class="text-dark">Giá tiền</td>
-                        <td><?php echo number_format($product['giaTien'], 0, ',', '.') ?></td>
+                        <td><?php echo number_format($product['giaTien'], 0, ',', '.') . " VNĐ"; ?></td>
                     </tr>
 
                     <tr>
                         <td class="text-dark">Số lượng</td>
                         <td><?php echo $product['soLuong'] ?></td>
+                    </tr>
+
+                    <tr>
+                        <td class="text-dark">Số trang</td>
+                        <td><?php echo $product['soTrang'] ?></td>
                     </tr>
 
                     <tr>

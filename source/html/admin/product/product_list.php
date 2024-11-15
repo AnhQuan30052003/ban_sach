@@ -2,9 +2,11 @@
     $productsPerPage = 10;
     if (!isset($_GET["page"])) $_GET["page"] = 1;
     $offset = ($_GET["page"] - 1) * $productsPerPage;
+
 	//cac bien luu tru tim kiem
     $loaiSach = isset($_GET["loai-sach"]) ? $_GET["loai-sach"] : "";
     $tacGia = isset($_GET["tac-gia"]) ? $_GET["tac-gia"] : "";
+    $nhaXuatBan = isset($_GET["nha-xuat-ban"]) ? $_GET["nha-xuat-ban"] : "";
     $search = isset($_GET["search"]) ? trim($_GET["search"]) : "";
 
     $sql = "
@@ -13,43 +15,39 @@
             join tac_gia tg on tg.maTG = s.maTG
             join nha_xuat_ban nxb on nxb.maNXB = s.maNXB
     ";
-    
-    $conditions = [];
-    if ($loaiSach !== "") {
-        $conditions[] = "s.maLS = '$loaiSach'";
+
+    if ($search != "") {
+        $sql .= " where s.maSach like '%$search%' or tenSach like '%$search%'";
     }
-    if ($tacGia !== "") {
-        $conditions[] = "s.tacGia = '$tacGia'";
-    }
-    if ($search !== "") {
-        $conditions[] = "(s.maSach LIKE '%$search%' OR s.tenSach LIKE '%$search%')";
-    }
-    
-    if (count($conditions) > 0) {
-        $sql .= " WHERE " . implode(" AND ", $conditions);
+    else {
+        $conditions = [];
+        if ($loaiSach != "") $conditions[] = "s.maLS = '$loaiSach'";
+        if ($tacGia != "") $conditions[] = "s.maTG = '$tacGia'";
+        if ($nhaXuatBan != "") $conditions[] = "s.maNXB = '$nhaXuatBan'";
+
+        if (count($conditions) > 0) $sql .= " WHERE " . implode("AND ", $conditions);
     }
     
-    $sql .= " GROUP BY s.maSach, tenSach, s.maLS, tenLS, s.maTG, tenTG, tenNXB, giaTien LIMIT $offset, $productsPerPage";
+    $sql .= " GROUP BY s.maSach, tenSach, s.maLS, tenLS, s.maTG, tenTG, s.maNXB, tenNXB, giaTien LIMIT $offset, $productsPerPage";
 
     $res = get_data_query($sql);
     save_or_to_index(true);
 
-    function build_group_box($name, $typeCur, $sql) {
+    function build_group_box($name, $nameFake, $typeCur, $sql) {
         $result = get_data_query($sql);
-    
-        $typeName = $name == "tac-gia" ? "Tác giả" : "Loại sách";
     
         echo "<select class='group-box' name='$name' id='$name' onchange='send()'>";
     
-        if ($typeCur == "") echo "<option value='' selected>$typeName</option>";
-        else echo "<option value=''>$typeName</option>";
+        if ($typeCur == "") echo "<option value='' selected>$nameFake</option>";
+        else echo "<option value=''>$nameFake</option>";
     
         foreach ($result as $line) {
           if ($line[0] == $typeCur) echo "<option value='$line[0]' selected>$line[1]</option>";
           else echo "<option value='$line[0]'>$line[1]</option>";
         }
+        
         echo "</select>";
-    }
+      }
 
     function build_body() {
         global $res;
@@ -75,7 +73,7 @@
             echo "<tr>";
             echo "<td>$stt</td>";
             echo "<td>$row[0]</td>";
-            echo "<td><a class='link-detail' title='Xem chi tiết' href='?action=detail&productId=$row[0]'>$row[1]</a></td>";
+            echo "<td><a class='link-detail short-text-product-admin' title='Xem chi tiết' href='?action=detail&productId=$row[0]'>$row[1]</a></td>";
             echo "<td>$row[3]</td>";
             echo "<td>$row[5]</td>";
             echo "<td>$row[7]</td>";
@@ -191,8 +189,9 @@
         <form action="" method="GET" id="form-search">
             <input class="search-text" id="search-text" name="search" value="<?php echo $search ?? "" ?>" placeholder="Nhập mã/tên sách để tìm kiếm">
             <div>
-                <?php build_group_box("loai-sach", $loaiSach, "select * from loai_sach"); ?>
-                <?php build_group_box("tac-gia", $tacGia, "select * from tac_gia"); ?>
+                <?php build_group_box("loai-sach", "Loại sách", $loaiSach, "select * from loai_sach"); ?>
+                <?php build_group_box("tac-gia", "Tác giả", $tacGia, "select * from tac_gia"); ?>
+                <?php build_group_box("nha-xuat-ban", "Nhà xuất bản", $nhaXuatBan, "select * from nha_xuat_ban"); ?>
             </div>
 
             <?php

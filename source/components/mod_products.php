@@ -10,26 +10,23 @@
     ";
 
     if ($pageFavorite) $sql .= " join sach_yeu_thich syt on syt.maSach = s.maSach where syt.ma = '$userId' ";
-    else $sql .= " where ";
 
     // Ưu tiên tìm kiếm theo input nhập vào
     if (strlen($tim) > 0) {
-      if ($pageFavorite) $sql .= "and ";
+      $sql .= $pageFavorite ? "and " :  " where ";
       $sql .= "(tenSach like '%$tim%' or tenLS like '%$tim%' or moTa like '%$tim%')";
       return $sql;
     }
     
     if ($pageFavorite) return $sql;
 
-    // Tìm kiếm theo lựa chọn của combobox
-    if ($loaiSach == "" && $tacGia == "" && $nhaXuatBan == "") {
-      $sql .= " false";
-      return $sql;
-    }
+    $cons = [];
+    if ($loaiSach != "") $cons[] = "s.maLS = '$loaiSach'";
+    if ($tacGia != "") $cons[] = "s.maTG = '$tacGia'";
+    if ($nhaXuatBan != "") $cons[] = "s.maNXB = '$nhaXuatBan'";
 
-    $sql .= $loaiSach != "" ? "s.maLS = '$loaiSach' " : "true ";
-    $sql .= $tacGia != "" ? "and s.maTG = '$tacGia' " : "and true ";
-    $sql .= $nhaXuatBan != "" ? "and s.maNXB = '$nhaXuatBan'" : "";
+    if (count($cons) == 0) $sql .= " where false";
+    else $sql .= " where " . implode("and ", $cons);
 
     return $sql;
   }

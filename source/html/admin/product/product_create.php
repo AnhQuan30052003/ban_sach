@@ -85,8 +85,10 @@
 		$productId = $id;
 		$productName = $_POST["productName"] ?? "";
 		$categoryId = $_POST["category"] ?? "";
+		$nhaXuatBan = $_POST["nhaXuatBan"] ?? "";
 		$author = $_POST["author"] ?? "";
 		$quantity = $_POST["quantity"] ?? 1;
+		$pageNumber = $_POST["pageNumber"] ?? 1;
 		$productDes = $_POST["productDes"] ?? "";
 		$price = $_POST["price"] ?? 0;
 		$img = $_FILES["get-file"];
@@ -107,8 +109,8 @@
 		// truy van them sp
 		$imgTemp = $img['name'];
 		$sql = "
-			INSERT INTO `sach` (maSach, tenSach, maLS, moTa, giaTien, soLuong, tacGia, hinhAnh)
-			VALUES ('$productId', '$productName', '$categoryId', '$productDes', $price, $quantity, '$author', '$imgTemp')
+			INSERT INTO `sach` VALUES
+			('$productId', '$productName', '$categoryId', '$productDes', $price, $quantity, $pageNumber, '$author', '$nhaXuatBan', '$imgTemp')
 		";
 
 		$result = quick_query($sql);
@@ -148,28 +150,59 @@
 
 		<div>
 			<label for="category" class="form-label">Loại sách</label>
-			<select name="category" class="form-select">
+			<select name="category" id="category" class="form-select">
 				<?php
-					$sql_ls = "SELECT s.maLS, l.tenLS FROM sach AS s JOIN loai_sach AS l ON s.maLS = l.maLS group by s.maLS";
-					$res = get_data_query($sql_ls);
+					$sql_ls = "select * from loai_sach";
+					$res_ls = get_data_query($sql_ls);
 
-					foreach ($res as $line) {
-						echo "<option value='{$line['maLS']}'> {$line['tenLS']} </option>";
+					foreach ($res_ls as $line) {
+						$selected = ($line['0'] == $product['maLS']) ? 'selected' : '';
+						echo "<option value='{$line['0']}' $selected> {$line['1']} </option>";
 					}
 				?>
 			</select>
 		</div>
 
 		<div>
-			<label for="author" class="form-label">Tác giả</label>
-			<input required type="text" name="author" id="author" class="form-input" value="<?php echo $_POST['author'] ?? ''; ?>">
-			<span class="error" id="error-author"></span>
+			<label for="category" class="form-label">Nhà xuất bản</label>
+			<select name="nhaXuatBan" id="nhaXuatBan" class="form-select">
+				<?php
+					$sql_ls = "select * from nha_xuat_ban";
+					$res_ls = get_data_query($sql_ls);
+
+					foreach ($res_ls as $line) {
+						$selected = ($line['0'] == $product['maNXB']) ? 'selected' : '';
+						echo "<option value='{$line['0']}' $selected> {$line['1']} </option>";
+					}
+				?>
+			</select>
+		</div>
+
+		<div>
+			<label for="category" class="form-label">Tác giả</label>
+			<select name="author" id="author" class="form-select">
+				<?php
+					$sql_ls = "select * from tac_gia";
+					$res_ls = get_data_query($sql_ls);
+
+					foreach ($res_ls as $line) {
+						$selected = ($line['0'] == $product['maTG']) ? 'selected' : '';
+						echo "<option value='{$line['0']}' $selected> {$line['1']} </option>";
+					}
+				?>
+			</select>
 		</div>
 
 		<div>
 			<label for="quantity" class="form-label">Số lượng</label>
-			<input required type="number" min="1" value="1" name="quantity" id="quantity" class="form-input" value="<?php echo $_POST['quantity'] ?? ''; ?>">
+			<input required type="number" min="1" name="quantity" id="quantity" class="form-input" value="<?php echo $_POST['quantity'] ?? '1'; ?>">
 			<span class="error" id="error-quantity"></span>
+		</div>
+
+		<div>
+			<label for="pageNumber" class="form-label">Số trang</label>
+			<input required type="number" id="pageNumber" min="1" name="pageNumber" value="<?php echo $product['pageNumber'] ?? '1' ?>" class="form-input">
+			<span class="error" id="error-pageNumber"></span>
 		</div>
 
 		<div>
@@ -181,7 +214,7 @@
 		<div>
 			<label for="description" class="form-label">Mô tả</label>
 			<div class="editor-container">
-				<textarea rows="5" name="productDes" id="des"><?php echo $_POST['productDes'] ?? ""; ?></textarea>
+				<textarea rows="5" name="productDes" id="des" style='padding: 3px 5px;'><?php echo $_POST['productDes'] ?? ""; ?></textarea>
 			</div>
 			<span class="error" id="error-des"></span>
 		</div>
@@ -254,14 +287,13 @@
 	window.addEventListener("load", after_leave("productName", "error-productName", "Tên sách"));
 	window.addEventListener("load", change_input("productName", "error-productName", "Tên sách", 0, true));
 
-	// Trường tác giả
-	window.addEventListener("load", after_leave("author", "error-author", "Tác giả"));
-	window.addEventListener("load", change_input("author", "error-author", "Tác giả", 0, true));
-
-
 	// Trường số lượng
 	window.addEventListener("load", after_leave("quantity", "error-quantity", "Số lượng"));
 	window.addEventListener("load", change_input("quantity", "error-quantity", "Số lượng"));
+
+	// Trường số trang
+	window.addEventListener("load", after_leave("pageNumber", "error-pageNumber", "Số trang"));
+	window.addEventListener("load", change_input("pageNumber", "error-pageNumber", "Số trang"));
 
 	// Trường giá
 	window.addEventListener("load", after_leave("price", "error-price", "Giá"));

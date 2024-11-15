@@ -76,7 +76,13 @@
 <?php
 	// truy van chi tiet san pham theo id
 	$id = $_GET['productId'];
-	$sql = "SELECT s.*, l.tenLS FROM sach AS s JOIN loai_sach AS l ON s.maLS = l.maLS WHERE s.maSach = $id";
+	$sql = "
+		select s.maSach, tenSach, moTa, s.maLS, tenLS, s.maTG, tenTG, s.maNXB, tenNXB, giaTien, soLuong, soTrang, hinhAnh
+		from sach s join loai_sach ls on s.maLS = ls.maLS
+			join tac_gia tg on tg.maTG = s.maTG
+			join nha_xuat_ban nxb on nxb.maNXB = s.maNXB
+		where s.maSach = '$id'
+	";
 	$res = get_data_query($sql);
 	$product = $res[0];
 
@@ -85,10 +91,12 @@
 		$productId = $_POST["productId"];
 		$productName = $_POST["productName"];
 		$categoryId = $_POST["category"];
+		$nhaXuatBan = $_POST["nhaXuatBan"];
 		$author = $_POST["author"];
 		$quantity = $_POST["quantity"];
-		$productDes = $_POST["productDes"];
+		$pageNumber = $_POST["pageNumber"];
 		$price = $_POST["price"];
+		$productDes = $_POST["productDes"];
 		$img = $_FILES["get-file"];
 		$imgSave = null;
 
@@ -115,7 +123,9 @@
 				moTa='$productDes',
 				giaTien= $price,
 				soLuong= $quantity,
-				tacGia='$author',
+				soTrang= $pageNumber,
+				maTG='$author',
+				maNXB='$nhaXuatBan',
 				hinhAnh='$img' 
 			WHERE maSach='$productId'
 		";
@@ -163,27 +173,57 @@
 			<label for="category" class="form-label">Loại sách</label>
 			<select name="category" id="category" class="form-select">
 				<?php
-					$sql_ls = "SELECT s.maLS, l.tenLS FROM sach AS s JOIN loai_sach AS l ON s.maLS = l.maLS group by s.maLS";
+					$sql_ls = "select * from loai_sach";
 					$res_ls = get_data_query($sql_ls);
 
 					foreach ($res_ls as $line) {
-						$selected = ($line['maLS'] == $product['maLS']) ? 'selected' : '';
-						echo "<option value='{$line['maLS']}' $selected> {$line['tenLS']} </option>";
+						$selected = ($line['0'] == $product['maLS']) ? 'selected' : '';
+						echo "<option value='{$line['0']}' $selected> {$line['1']} </option>";
 					}
 				?>
 			</select>
 		</div>
 
 		<div>
-			<label for="author" class="form-label">Tác giả</label>
-			<input required type="text" name="author" id="author" value="<?php echo $product['tacGia'] ?? "" ?>" class="form-input">
-			<span class="error" id="error-author"></span>
+			<label for="category" class="form-label">Nhà xuất bản</label>
+			<select name="nhaXuatBan" id="nhaXuatBan" class="form-select">
+				<?php
+					$sql_ls = "select * from nha_xuat_ban";
+					$res_ls = get_data_query($sql_ls);
+
+					foreach ($res_ls as $line) {
+						$selected = ($line['0'] == $product['maNXB']) ? 'selected' : '';
+						echo "<option value='{$line['0']}' $selected> {$line['1']} </option>";
+					}
+				?>
+			</select>
+		</div>
+
+		<div>
+			<label for="category" class="form-label">Tác giả</label>
+			<select name="author" id="author" class="form-select">
+				<?php
+					$sql_ls = "select * from tac_gia";
+					$res_ls = get_data_query($sql_ls);
+
+					foreach ($res_ls as $line) {
+						$selected = ($line['0'] == $product['maTG']) ? 'selected' : '';
+						echo "<option value='{$line['0']}' $selected> {$line['1']} </option>";
+					}
+				?>
+			</select>
 		</div>
 
 		<div>
 			<label for="quantity" class="form-label">Số lượng</label>
 			<input required type="number" id="quantity" name="quantity" value="<?php echo $product['soLuong'] ?? $quantity ?>" class="form-input">
 			<span class="error" id="error-quantity"></span>
+		</div>
+
+		<div>
+			<label for="pageNumber" class="form-label">Số trang</label>
+			<input required type="number" id="pageNumber" name="pageNumber" value="<?php echo $product['soTrang'] ?? "" ?>" class="form-input">
+			<span class="error" id="error-pageNumber"></span>
 		</div>
 
 		<div>
@@ -195,7 +235,7 @@
 		<div>
 			<label for="description" class="form-label">Mô tả</label>
 			<div class="editor-container">
-				<textarea rows="5" name="productDes" id="des"><?php echo $product['moTa'] ?? ""; ?></textarea>
+				<textarea rows="5" name="productDes" id="des" style='padding: 3px 5px;'><?php echo $product['moTa'] ?? ""; ?></textarea>
 			</div>
 			<span class="error" id="error-des"></span>
 		</div>
@@ -270,14 +310,13 @@
 	window.addEventListener("load", after_leave("productName", "error-productName", "Tên sách"));
 	window.addEventListener("load", change_input("productName", "error-productName", "Tên sách", 0, true));
 
-	// Trường tác giả
-	window.addEventListener("load", after_leave("author", "error-author", "Tác giả"));
-	window.addEventListener("load", change_input("author", "error-author", "Tác giả", 0, true));
-
-
 	// Trường số lượng
 	window.addEventListener("load", after_leave("quantity", "error-quantity", "Số lượng"));
 	window.addEventListener("load", change_input("quantity", "error-quantity", "Số lượng"));
+
+	// Trường số trang
+	window.addEventListener("load", after_leave("pageNumber", "error-pageNumber", "Số trang"));
+	window.addEventListener("load", change_input("pageNumber", "error-pageNumber", "Số trang"));
 
 	// Trường giá
 	window.addEventListener("load", after_leave("price", "error-price", "Giá"));
