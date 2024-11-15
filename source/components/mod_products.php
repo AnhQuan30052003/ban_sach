@@ -93,8 +93,10 @@
             </div>
 
             <div class='bottom'>
-              <p class='item-maSach'>
-                <i class='icon-info fa-solid fa-circle-info' style='color: gray;'></i>
+              <p class='item-maSach'>                
+                <a href='./detail.php?id=$line[0]'>
+                  <i class='icon-info fa-solid fa-circle-info'style='color: gray;'></i>
+                </a>
                 <i class='icon-heart fa-solid fa-heart' $tym id='$line[0]'></i>
                 <i class='icon-cart fa-solid fa-cart-shopping'></i>
               </p>
