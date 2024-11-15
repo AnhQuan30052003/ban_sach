@@ -219,7 +219,7 @@
 						<i class="fa-solid fa-arrow-left"></i>
 						<span>Quay lại</span>
 					</a>
-					<a class='btn btn-success m-2 del-btn' href="<?php echo "?action=edit&productId=$productId" ?>">Mua</a>
+					<a class='btn btn-success m-2 del-btn' href="#">Mua</a>
 				</div>
 			</div>
 		</div>
