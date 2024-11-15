@@ -31,13 +31,10 @@ with open(path, "w") as file:
 
   start = 29
   end = 100
-  end = 200
   index = 0
   for i in range(start, end + 1):
     id = chuoi_so(i)
-    print(id)
     line = "('" + id + data[index][6:]
-    print(line)
     file.write(line)
     file.write("\n")
 
