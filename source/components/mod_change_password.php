@@ -1,16 +1,18 @@
 <?php
   $_password_old = isset($_REQUEST["password-old"]) ? $_REQUEST["password-old"] : "";
   $_password_new = isset($_REQUEST["password-new"]) ? $_REQUEST["password-new"] : "";
+  $_password_new_confirm = isset($_REQUEST["password-new-confirm"]) ? $_REQUEST["password-new-confirm"] : "";
 
   trim($_password_old);
   trim($_password_new);
+  trim($_password_new_confirm);
 
   $errorChangePassword = "";
   $linkBack = save_or_to_index(false);
   $username = $infoUser["email"];
 
-  function check_change_password() {
-    global $errorChangePassword, $userId, $role, $_password_old, $_password_new, $linkBack, $infoUser;
+  function check_change_password($_password_old, $_password_new, $_password_new_confirm) {
+    global $errorChangePassword, $userId, $role, $linkBack, $infoUser;
 
     if (md5($_password_old) != $infoUser["matKhau"]) {
       $errorChangePassword = "Mật khẩu cũ không chính xác !";
@@ -19,6 +21,11 @@
 
     if ($_password_old == $_password_new) {
       $errorChangePassword = "Mật khẩu mới không được trùng với mật khẩu cũ !";
+      return;
+    }
+
+    if ($_password_new != $_password_new_confirm) {
+      $errorChangePassword = "Mật khẩu xác nhận không chính xác !";
       return;
     }
 
@@ -42,7 +49,7 @@
     ";
   }
 
-  if (isset($_REQUEST["btn-change-password"])) check_change_password();
+  if (isset($_REQUEST["btn-change-password"])) check_change_password($_password_old, $_password_new, $_password_new_confirm);
 ?>
 
 <style>
@@ -157,6 +164,13 @@
 
       <div class="form-group"  style='position: relative;'>
         <input type="password" id="password-new" name="password-new" placeholder="Nhập mật khẩu mới" required value='<?php if (isset($_REQUEST["password-new"])) echo $_REQUEST["password-new"]; ?>' >
+        <span class='frame-eyes'>
+          <i class="fa-solid fa-eye-slash"></i>
+        </span>
+      </div>
+
+      <div class="form-group"  style='position: relative;'>
+        <input type="password" id="password-new-confirm" name="password-new-confirm" placeholder="Xác nhận mật khẩu mới" required value='<?php if (isset($_REQUEST["password-new-confirm"])) echo $_REQUEST["password-new-confirm"]; ?>' >
         <span class='frame-eyes'>
           <i class="fa-solid fa-eye-slash"></i>
         </span>
