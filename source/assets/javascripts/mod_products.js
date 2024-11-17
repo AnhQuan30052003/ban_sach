@@ -4,7 +4,7 @@ iconHeart.forEach(item => {
   item.addEventListener("click", function() {
 
     let userId = localStorage.getItem("userId")
-    if (userId == "") {
+    if (userId == null) {
       alert("Hãy đăng nhập để tiếp tục !");
       return;
     }

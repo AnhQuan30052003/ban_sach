@@ -21,3 +21,18 @@ body {
   color: red;
   font-size: 12px;
 }
+
+.short-text-product {
+  width: 392px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.short-text-product-admin {
+  display: inline-block;
+  width: 90%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

@@ -24,7 +24,11 @@ with open(path, "r") as file:
     data.append(line)
 
 path = os.path.join(pathCur, "output.txt")
-with open(path, "a") as file:
+with open(path, "w") as file:
+  for line in data:
+    file.write(line)
+    file.write("\n")
+
   start = 29
   end = 100
   index = 0

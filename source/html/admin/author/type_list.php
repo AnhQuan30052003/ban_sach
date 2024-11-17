@@ -2,52 +2,19 @@
     $productsPerPage = 10;
     if (!isset($_GET["page"])) $_GET["page"] = 1;
     $offset = ($_GET["page"] - 1) * $productsPerPage;
-
 	//cac bien luu tru tim kiem
-    $loaiSach = isset($_GET["loai-sach"]) ? $_GET["loai-sach"] : "";
-    $tacGia = isset($_GET["tac-gia"]) ? $_GET["tac-gia"] : "";
-    $nhaXuatBan = isset($_GET["nha-xuat-ban"]) ? $_GET["nha-xuat-ban"] : "";
     $search = isset($_GET["search"]) ? trim($_GET["search"]) : "";
 
-    $sql = "
-        select s.maSach, tenSach, s.maLS, tenLS, s.maTG, tenTG, s.maNXB, tenNXB, giaTien
-        from sach s join loai_sach ls on s.maLS = ls.maLS
-            join tac_gia tg on tg.maTG = s.maTG
-            join nha_xuat_ban nxb on nxb.maNXB = s.maNXB
-    ";
-
-    if ($search != "") {
-        $sql .= " where s.maSach like '%$search%' or tenSach like '%$search%'";
-    }
-    else {
-        $conditions = [];
-        if ($loaiSach != "") $conditions[] = "s.maLS = '$loaiSach'";
-        if ($tacGia != "") $conditions[] = "s.maTG = '$tacGia'";
-        if ($nhaXuatBan != "") $conditions[] = "s.maNXB = '$nhaXuatBan'";
-
-        if (count($conditions) > 0) $sql .= " WHERE " . implode("AND ", $conditions);
-    }
+    $sql = "select * from `tac_gia`";
     
-    $sql .= " GROUP BY s.maSach, tenSach, s.maLS, tenLS, s.maTG, tenTG, s.maNXB, tenNXB, giaTien LIMIT $offset, $productsPerPage";
+    if ($search != "") {
+        $sql .= "where maTG LIKE '%$search%' OR tenTG LIKE '%$search%'";
+    }
+
+    $sql .= " LIMIT $offset, $productsPerPage";
 
     $res = get_data_query($sql);
     save_or_to_index(true);
-
-    function build_group_box($name, $nameFake, $typeCur, $sql) {
-        $result = get_data_query($sql);
-    
-        echo "<select class='group-box' name='$name' id='$name' onchange='send()'>";
-    
-        if ($typeCur == "") echo "<option value='' selected>$nameFake</option>";
-        else echo "<option value=''>$nameFake</option>";
-    
-        foreach ($result as $line) {
-          if ($line[0] == $typeCur) echo "<option value='$line[0]' selected>$line[1]</option>";
-          else echo "<option value='$line[0]'>$line[1]</option>";
-        }
-        
-        echo "</select>";
-      }
 
     function build_body() {
         global $res;
@@ -56,33 +23,22 @@
         echo "
             <tr>
                 <th>STT</th>
-                <th>Mã sách</th>
-                <th width='350'>Tên sách</th>
-                <th>Loại sách</th>
-                <th>Tác giả</th>
-                <th>Nhà xuất bản</th>
-                <th>Giá tiền</th>
-                <th style='text-align: center; width: 300px;'>Thao tác</th>
+                <th>Mã tác giả</th>
+                <th>Tên tác giả</th>
+                <th style='text-align: center;'>Thao tác</th>
             </tr>
         ";
 
         $stt = 1;
         foreach ($res as $row) {
-            $money = number_format($row[8], 0, ',', '.');
-
             echo "<tr>";
             echo "<td>$stt</td>";
             echo "<td>$row[0]</td>";
-            echo "<td><a class='link-detail short-text-product-admin' title='Xem chi tiết' href='?action=detail&productId=$row[0]'>$row[1]</a></td>";
-            echo "<td>$row[3]</td>";
-            echo "<td>$row[5]</td>";
-            echo "<td>$row[7]</td>";
-            echo "<td>$money</td>";
+            echo "<td>$row[1]</td>";
             echo "
                 <td style='display: flex; justify-content: center; gap: 5px;'>
-                    <a class='btn btn-success mg-2 del-btn' href='?action=detail&productId=$row[0]' style='background-color: gray;'>Chi tiết</a> 
-                    <a class='btn btn-success mg-2 del-btn' href='?action=edit&productId=$row[0]'>Sửa</a> 
-                    <a class='btn btn-danger mg-2 del-btn' href='?action=delete&productId=$row[0]' onclick=\"return confirm('Bạn có chắc chắn muốn xóa?');\" >Xóa</a>
+                    <a class='size-btn btn btn-success mg-2 del-btn' href='?action=edit&typeId=$row[0]'>Sửa</a> 
+                    <a class='size-btn btn btn-danger mg-2 del-btn' href='?action=delete&typeId=$row[0]' onclick=\"return confirm('Bạn có chắc chắn muốn xóa?');\" >Xóa</a>
                 </td>
             ";
             echo "</tr>";
@@ -181,21 +137,13 @@
 </style>
 
 <section class='display-content'>
-    <h3 >QUẢN LÝ SÁCH</h3>
-    <hr>
-
+    <h3 >QUẢN LÝ TÁC GIẢ</h3><hr>
     <div class="wrapper-search-add">
         <a class="btn btn-add" href="?action=create">Tạo mới</a>
         <form action="" method="GET" id="form-search">
-            <input class="search-text" id="search-text" name="search" value="<?php echo $search ?? "" ?>" placeholder="Nhập mã/tên sách để tìm kiếm">
-            <div>
-                <?php build_group_box("loai-sach", "Loại sách", $loaiSach, "select * from loai_sach"); ?>
-                <?php build_group_box("tac-gia", "Tác giả", $tacGia, "select * from tac_gia"); ?>
-                <?php build_group_box("nha-xuat-ban", "Nhà xuất bản", $nhaXuatBan, "select * from nha_xuat_ban"); ?>
-            </div>
-
+            <input class="search-text" id="search-text" name="search" value="<?php echo $search ?? "" ?>" placeholder="Nhập mã/tên tác giả để tìm kiếm">
             <?php
-                if ($loaiSach != "" || $tacGia != "" || $search != "") {
+                if ($search != "") {
                     $sql_count = cutString($sql, "LIMIT");
                     $result_count = count(get_data_query($sql_count));
                     echo "<span id='description' style='color: red;'>Tìm thấy $result_count kết quả</span>";

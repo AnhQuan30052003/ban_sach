@@ -282,6 +282,8 @@
                             <div class="dropdown-menu ">
                                 <a href="../product/index.php" class="dropdown-item"><?php echo check_page("Sách", "product"); ?></a>
                                 <a href="../typeOfProduct/index.php" class="dropdown-item"><?php echo check_page("Loại sách", "typeOfProduct"); ?></a>
+                                <a href="../author/index.php" class="dropdown-item"><?php echo check_page("Tác giả", "author"); ?></a>
+                                <a href="../publishingHouse/index.php" class="dropdown-item"><?php echo check_page("Nhà xuất bản", "publishingHouse"); ?></a>
                                 <a href="../customer/index.php" class="dropdown-item"><?php echo check_page("Khách hàng", "customer"); ?></a>
                             </div>
                         </div>
