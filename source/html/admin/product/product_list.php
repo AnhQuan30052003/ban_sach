@@ -195,7 +195,7 @@
             </div>
 
             <?php
-                if ($loaiSach != "" || $tacGia != "" || $search != "") {
+                if ($loaiSach != "" || $tacGia != "" || $nhaXuatBan != "" || $search != "") {
                     $sql_count = cutString($sql, "LIMIT");
                     $result_count = count(get_data_query($sql_count));
                     echo "<span id='description' style='color: red;'>Tìm thấy $result_count kết quả</span>";

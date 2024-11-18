@@ -2,6 +2,8 @@
   $conn = new mysqli();
 
   $host = "localhost";
+  // $user = "tienquan";
+  // $password = "tienquan";
   $user = "root";
   $password = "";
   $database = "quanlybansach";
