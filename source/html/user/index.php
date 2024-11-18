@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php head("Book Shop"); ?>
+<?php head("Book Store"); ?>
 
 <body>
   <?php include_once $pathComponents . "/mod_login.php"; ?>
