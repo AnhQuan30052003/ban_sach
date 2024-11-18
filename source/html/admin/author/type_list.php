@@ -65,7 +65,7 @@
 
     table tr:not(:first-child):hover{
         color: var(--primary-color);
-        background-color: #ccc;
+        background-color: #cccccc42;
 
         .link-detail{
             color: var(--primary-color);

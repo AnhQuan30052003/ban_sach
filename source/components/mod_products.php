@@ -144,6 +144,7 @@
             justify-content: center;
             align-items: center;
             position: relative;
+            transition: 0.4s;
           }
 
           .info {
@@ -172,9 +173,14 @@
               margin-top: 5px;
               gap: 20px;
               font-size: 24px;
+              
+              i {
+                transition: 0.4s;
+              }
 
               i:hover {
                 cursor: pointer;
+                transform: translateY(-5px);
               }
             }
 
@@ -182,6 +188,10 @@
               font-weight: bold;
             }
           }
+        }
+
+        td:hover .image {
+          scale: 1.05;
         }
       }
     }
