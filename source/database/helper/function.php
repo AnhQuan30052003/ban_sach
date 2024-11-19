@@ -27,11 +27,11 @@
   }
 
   # Loại trang cho user
-  function type_page() {
+  function type_page(string $page) {
     $url = get_url_page();
 
-    if (strpos($url, "index.php")) return "index";
-    return "favorite";
+    if (strpos($url, $page)) return true;
+    return false;
   }
 
   # Lưu trang index

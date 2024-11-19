@@ -37,7 +37,7 @@
   if (!isset($_GET["page"])) $_GET["page"] = 1;
   $offset = ($_GET["page"] - 1) * $productsPerPage;
   
-  $sql = handle_sql($typePage == "index" ? false : true);
+  $sql = handle_sql(type_page("index") ? false : true);
   $sql .= " limit $offset, $productsPerPage";
   $result = get_data_query($sql);
 
@@ -116,7 +116,7 @@
 
 <style>
   .mod-san-pham {
-    margin-top: <?php echo ($typePage == "index" ? "130px" : "110px"); ?>;
+    margin-top: <?php echo (type_page("index") ? "130px" : "110px"); ?>;
     min-height: 525px;
 
     .table-products {

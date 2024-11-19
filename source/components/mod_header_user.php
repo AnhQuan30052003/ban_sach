@@ -1,14 +1,12 @@
 <?php
-  $typePage = type_page();
   // filter
   $loaiSach = isset($_GET["loai-sach"]) ? $_GET["loai-sach"] : "0000";
   $tacGia = isset($_GET["tac-gia"]) ? $_GET["tac-gia"] : "";
   $nhaXuatBan = isset($_GET["nha-xuat-ban"]) ? $_GET["nha-xuat-ban"] : "";
 
   function build_home_or_favorite() {
-    global $typePage;
 
-    if ($typePage == "index") {
+    if (type_page("index")) {
       save_or_to_index(true);
 
       return "
@@ -222,13 +220,13 @@
       <form action="" method='get' id='form-search'>
         <div class='frame-search'>
           <input type="text" id='search-text' name='txtTimKiem'
-            placeholder="<?php echo ($typePage == "index"  ? "Tìm gì đó..." : "Tìm sản phẩm yêu thích..."); ?>"
+            placeholder="<?php echo (type_page("index") ? "Tìm gì đó..." : "Tìm sản phẩm yêu thích..."); ?>"
             value='<?php if (isset($_GET["txtTimKiem"])) echo $_GET["txtTimKiem"]; ?>'
           >
           <button id="search"><i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
 
-        <div style='margin-top: 5px; <?php echo ($typePage == "index" ? "display: block;" : "display: none;"); ?>'>
+        <div style='margin-top: 5px; <?php echo (type_page("index") ? "display: block;" : "display: none;"); ?>'>
           <?php build_group_box("loai-sach", "Loại sách", $loaiSach, "select * from loai_sach"); ?>
           <?php build_group_box("tac-gia", "Tác giả", $tacGia, "select * from tac_gia"); ?>
           <?php build_group_box("nha-xuat-ban", "Nhà xuất bản", $nhaXuatBan, "select * from nha_xuat_ban"); ?>
