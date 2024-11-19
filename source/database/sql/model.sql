@@ -60,6 +60,13 @@ CREATE TABLE `sach_yeu_thich` (
   `maSach` varchar(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
+-- --------------------------------------------------------
+CREATE TABLE `gio_hang` (
+  `maGH` varchar(4) NOT NULL,
+  `maSach` varchar(4) NOT NULL,
+  `ma` varchar(4) NOT NULL,
+  `soLuong` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 
 ALTER TABLE `admin`
@@ -73,6 +80,9 @@ ALTER TABLE `loai_sach`
 
 ALTER TABLE `nha_xuat_ban`
   ADD PRIMARY KEY (`maNXB`);
+
+ALTER TABLE `gio_hang`
+  ADD PRIMARY KEY (`maGH`);
 
 ALTER TABLE `sach`
   ADD PRIMARY KEY (`maSach`),
@@ -96,6 +106,9 @@ ALTER TABLE `sach_yeu_thich`
   ADD CONSTRAINT `sach_yeu_thich_ibfk_1` FOREIGN KEY (`maSach`) REFERENCES `sach` (`maSach`),
   ADD CONSTRAINT `sach_yeu_thich_ibfk_2` FOREIGN KEY (`ma`) REFERENCES `khach_hang` (`ma`);
 
+ALTER TABLE `gio_hang`
+  ADD CONSTRAINT `gio_hang_ibfk_1` FOREIGN KEY (`maSach`) REFERENCES `sach` (`maSach`),
+  ADD CONSTRAINT `gio_hang_ibfk_2` FOREIGN KEY (`ma`) REFERENCES `khach_hang` (`ma`);
 
 
 INSERT INTO `admin` VALUES

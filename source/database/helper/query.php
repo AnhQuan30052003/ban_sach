@@ -7,13 +7,13 @@
     connect();
     $result = mysqli_query($conn, $sql);
     
-    if (!$result) {
-        $error = mysqli_error($conn); 
-        mysqli_close($conn);
-        return "Lỗi truy vấn: " . $error;
-    }
-
-    // mysqli_close($conn);
+    // if (!$result) {
+      // $error = mysqli_error($conn); 
+      // mysqli_close($conn);
+      // return "Lỗi truy vấn: " . $error;
+    // }
+      
+    disconnect();
     return $result;
 }
 

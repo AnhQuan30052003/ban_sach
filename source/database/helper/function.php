@@ -89,6 +89,8 @@
   function get_id_laster(string $sql) {
     $result = get_data_query($sql);
 
+    if (count($result) == 0) return "0000";
+
     $id = (int) $result[0][0] + 1;
     $id = (string) $id;
     $strId = "";

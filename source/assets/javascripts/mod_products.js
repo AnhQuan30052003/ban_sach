@@ -17,7 +17,13 @@ iconHeart.forEach(item => {
     xhr.send('id=' + id);
 
     xhr.onload = function() {
-      if (xhr.status === 200) location.reload();
+      if (xhr.status === 200) {
+        // localStorage.setItem('scrollPosition', window.scrollY);
+        location.reload();
+
+        // const scrollPosition = localStorage.getItem('scrollPosition');
+        // window.scrollTo(0, parseInt(scrollPosition));
+      }
     }
   })
 });

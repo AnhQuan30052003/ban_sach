@@ -22,6 +22,9 @@
         <a class='favorite' title='Page home' href='$index'>
           <i class='fa-solid fa-house'></i>
         </a>
+        <a class='favorite' title='Yêu thích' href='favorite.php'>
+          <i class='fa-regular fa-heart'></i>
+        </a>
       ";
     }    
   }
@@ -41,7 +44,7 @@
         <!-- Tuỳ chọn  -->
         <span class='user-login-true option'>
           " . build_home_or_favorite() . "
-          <a class='pass' title='Giỏ hàng' href='../system/change_password.php'>
+          <a class='pass' title='Giỏ hàng' href='./cart.php'>
             <i class='fa-solid fa-cart-shopping'></i>
           </a>
           <a class='pass' title='Đổi mật khẩu' href='../system/change_password.php'>
@@ -223,7 +226,7 @@
       <form action="" method='get' id='form-search'>
         <div class='frame-search'>
           <input type="text" id='search-text' name='txtTimKiem'
-            placeholder="<?php echo (type_page("index") ? "Tìm gì đó..." : "Tìm sản phẩm yêu thích..."); ?>"
+            placeholder="<?php echo (type_page("index") ? "Tìm gì đó..." : (type_page("favorite") ? "Tìm sản phẩm yêu thích..." : "Tìm sản phẩm trong giỏ hàng")); ?>"
             value='<?php if (isset($_GET["txtTimKiem"])) echo $_GET["txtTimKiem"]; ?>'
           >
           <button id="search"><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -237,5 +240,9 @@
         </div>
       </form>
     </div>
+  </div>
+
+  <div id="notification">
+    <p><i class="fa-solid fa-check"></i></p>
   </div>
 </section>

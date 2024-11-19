@@ -143,7 +143,6 @@
 </style>
 
 <div class="login-container" id='div-change-password'>
-  <div class='cancel' onclick="show_or_hidden(1);">X</div>
   <div class="login-header">
     <h2>ĐỔI MẬT KHẨU</h2>
     <p style='color: red;'> <?php echo $errorChangePassword; ?></p>

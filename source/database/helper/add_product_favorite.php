@@ -13,5 +13,5 @@
 
   if (count($result) == 0) $sql = "insert into `sach_yeu_thich` values ('$userId', '$id');";
   else $sql = "delete from `sach_yeu_thich` where ma = '$userId' and maSach = '$id'";
-  $result = quick_query($sql);
+  quick_query($sql);
 ?> 

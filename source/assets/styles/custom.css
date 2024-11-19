@@ -36,3 +36,37 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.hidden {
+  display: none !important;
+}
+
+.height-have-cart {
+  height: auto !important;
+}
+
+#notification {
+  position: absolute;
+  left: 50%;
+  top: -50%;
+  transform: translate(-50%, -50%);
+
+  background-color: green;
+  color: white;
+  padding: 5px 7px;
+  border-radius: 5px;
+}
+
+.show {
+  animation: _show 2s ease-in-out forwards;
+}
+
+@keyframes _show {
+  0%, 100% {
+    top: -50%;
+  }
+
+  30%, 80% {
+    top: 20%;
+  }
+}
