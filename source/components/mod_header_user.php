@@ -41,6 +41,9 @@
         <!-- Tuỳ chọn  -->
         <span class='user-login-true option'>
           " . build_home_or_favorite() . "
+          <a class='pass' title='Giỏ hàng' href='../system/change_password.php'>
+            <i class='fa-solid fa-cart-shopping'></i>
+          </a>
           <a class='pass' title='Đổi mật khẩu' href='../system/change_password.php'>
             <i class='fa-solid fa-key'></i>
           </a>
