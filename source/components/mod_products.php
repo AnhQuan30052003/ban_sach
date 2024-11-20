@@ -228,7 +228,7 @@
               width: 30px;
               text-align: center;
               background-color: white;
-              border: none;
+              border: solid 0.1px;
               outline: none;
             }
 

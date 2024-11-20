@@ -16,10 +16,6 @@ iconHeart.forEach(item => {
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xhr.send('id=' + id);
 
-    xhr.onload = function() {
-      if (xhr.status === 200) {
-        location.reload();
-      }
-    }
+    location.reload();
   })
 });

@@ -21,6 +21,53 @@
 <?php head("Detail book", "../../");?>
 
 <style>
+	.to-cart {
+		width: 100%;
+		height: 0;
+		display: flex;
+		overflow: hidden;
+		transition: 0.4s;
+		.space {
+			width: 30%;
+			background-color: white;
+		}
+
+		.number {
+			padding: 5px 7px;
+			width: 70%;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			gap: 10px;
+			input {
+				outline: none;
+				width: 50px;
+				text-align: center;
+			}
+
+			button.btn-in-de {
+				width: 30px;
+				text-align: center;
+				background-color: white;
+				border: solid 0.1px;
+				outline: none;
+			}
+
+			button.btn-to-cart {
+				padding: 7px 10px;
+				background-color: red;
+				color: white;
+				border: none;
+				outline: none;
+				cursor: pointer;
+				border-radius: 5px;
+
+				&:hover {
+					opacity: 0.7;
+				}
+			}
+		}
+	}
 	body {
 		background-color: #f7f7f7;
 	}
@@ -219,14 +266,55 @@
 					</tr>
 				</table>
 
+				<div class='to-cart'>
+            <div class='space'></div>
+
+            <div class='number'>
+              <span>Số lượng: </span> 
+              <span class='frame'>
+                <button class='btn-in-de btn-de' type='button'>-</button>
+                <input class='quantity-add' name='quantity-add' type='text' readonly value='1'>
+                <button class='btn-in-de btn-in' type='button'>+</button>
+              </span>
+              <button class='btn-to-cart' type='button' data-id='$line[0]'>Mua ngay</button>
+            </div>
+          </div>
+
 				<div class="btn-group" style="margin-top: 10px">
-					<a href="javascript:history.back(-1);" class="btn btn-back" style='color: black;'>
+					<a href="<?php echo save_or_to_index(false); ?>" class="btn btn-back" style='color: black;'>
 						<i class="fa-solid fa-arrow-left"></i>
 						<span>Quay lại</span>
 					</a>
-					<a class='btn btn-success m-2 del-btn' href="#">Mua</a>
+					<button class='btn btn-success m-2 del-btn' onclick='show_hidden_mua_ngay();' style='outline: none; border: none;'>Mua</button>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
+
+<script>
+	function show_hidden_mua_ngay() {
+		const toCart = document.querySelector(".to-cart");
+		toCart.classList.toggle("height-auto");
+	}
+
+	const btnDe = document.querySelectorAll(".btn-de");
+  btnDe.forEach((item) => {
+    item.addEventListener("click", function() {
+      const quantity = this.closest(".frame").querySelector(".quantity-add");
+      if (parseInt(quantity.value) > 1) {
+        quantity.value = parseInt(quantity.value) - 1;
+      }
+    });
+  });
+
+  const btnIn = document.querySelectorAll(".btn-in");
+  btnIn.forEach((item) => {
+    item.addEventListener("click", function() {
+      const quantity = this.closest(".frame").querySelector(".quantity-add");
+      if (parseInt(quantity.value) < <?php echo $product['soLuong']; ?>) {
+        quantity.value = parseInt(quantity.value) + 1;
+      }
+    });
+  });
+</script>
