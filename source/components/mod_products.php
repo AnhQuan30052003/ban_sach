@@ -1,4 +1,4 @@
-  <?php
+<?php
   function handle_sql(bool $pageFavorite = true) {
     global $tim, $loaiSach, $tacGia, $nhaXuatBan, $userId;
 
@@ -220,7 +220,7 @@
             gap: 10px;
             input {
               outline: none;
-              width: 40px;
+              width: 50px;
               text-align: center;
             }
 

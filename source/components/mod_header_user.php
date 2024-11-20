@@ -34,11 +34,16 @@
     // Hiển thị khi user đăng nhập
     if ($userId != "") {
       $name = $infoUser["ten"];
+      $namePage = type_page("index") ? "Trang chủ" : (type_page("favorite") ? "Yêu thích" : "Giỏ hàng");
 
       echo "
         <span class='user-login-true' style='font-weight: bold;'>
           <i class='fa-solid fa-user'></i>
-          <span style='margin: 0 10px;'>Xin chào <span style='text-decoration: underline; font-style: italic;'>$name</span></span>
+          <span style='margin: 0 10px;'>
+            Xin chào
+            <span style='text-decoration: underline; font-style: italic;'>$name</span>
+            | $namePage
+          </span>
         </span>
         
         <!-- Tuỳ chọn  -->
