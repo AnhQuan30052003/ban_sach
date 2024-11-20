@@ -14,15 +14,6 @@
 <body>
   <?php include_once $pathComponents . "/mod_header_user.php"; ?>
   <?php include_once $pathComponents . "/mod_products_cart.php"; ?>
-
-  <?php
-    include_once $pathComponents . "/mod_paginate.php";
-    
-    $sql = cutString($sql, "limit");
-    $result = quick_query($sql);
-    show_number_page($result, $productsPerPage);
-  ?>
-
   <?php include_once $pathComponents . "/mod_footer_user.php"; ?>
 
   <script src='../../assets/javascripts/mod_header.js'></script>

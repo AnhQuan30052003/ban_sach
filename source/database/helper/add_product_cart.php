@@ -19,7 +19,7 @@
   $sql = "insert into `gio_hang` values ('$productId', '$userId', $quantity);";
   quick_query($sql);
 
-  // $fileName = "a.txt";
-  // $text = $result . "\n";
-  // file_put_contents($fileName, $text, FILE_APPEND);
+  $fileName = "a.txt";
+  $text = $result . "\n";
+  file_put_contents($fileName, $text, FILE_APPEND);
 ?>

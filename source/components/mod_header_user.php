@@ -98,6 +98,11 @@
     top: 0;
     width: 100%;
     z-index: 1;
+
+    .container {
+      display: flex;
+      gap: 10px;
+    }
   }
 
   .group-box,
@@ -113,11 +118,6 @@
     background-color: #f95030;
   }
 
-  .container {
-    display: flex;
-    gap: 10px;
-  }
-  
   .logo {
     width: 150px;
     display: flex;
