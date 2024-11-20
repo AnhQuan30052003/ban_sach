@@ -44,7 +44,7 @@
             
             <span class='frame'>
               <button class='btn-in-de btn-de' type='button'>-</button>
-              <input class='quantity-add' name='quantity-add' type='text' readonly value='1'>
+              <input class='quantity-add' name='quantity-add' type='text' readonly value='{$line['soLuong']}'>
               <button class='btn-in-de btn-in' type='button'>+</button>
             </span>
             

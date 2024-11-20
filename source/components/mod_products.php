@@ -335,16 +335,16 @@
       let inputValue = this.closest(".number").querySelector("input").value;
       let data = `${id}-${inputValue}`;
 
-      this.closest(".number").querySelector("input").value = 1;
-      this.closest(".item").querySelector(".to-cart").classList.toggle("height-auto");
-      this.closest(".item").classList.toggle("height-have-cart");
-
       let xhr = new XMLHttpRequest();
       xhr.open('POST', '../../database/helper/add_product_cart.php', true);
       xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
       xhr.send('data=' + data);
 
       show_noti("Đã thêm vào giỏ hàng");
+
+      this.closest(".item").querySelector(".to-cart").classList.toggle("height-auto");
+      this.closest(".item").classList.toggle("height-have-cart");
+      this.closest(".number").querySelector("input").value = 1;
     });
   });
 </script>
