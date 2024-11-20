@@ -7,6 +7,7 @@
         <link rel='stylesheet' href='" . $exists . "assets/styles/main.css'>
         <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'>
         <script src='" . $exists . "assets/javascripts/validate.js'></script>
+        <script src='" . $exists . "assets/javascripts/mod_noti.js'></script>
         <title>$namePage</title>
       </head>
     ";

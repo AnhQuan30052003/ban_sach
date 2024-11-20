@@ -12,6 +12,5 @@
   login_to_link();
 
   # Huỷ sesstion
-  // echo "userId = $userId; role: $role;<br>"
   // $_SESSION = [];
 ?>

@@ -37,7 +37,7 @@
   if (!isset($_GET["page"])) $_GET["page"] = 1;
   $offset = ($_GET["page"] - 1) * $productsPerPage;
   
-  $sql = handle_sql($typePage == "index" ? false : true);
+  $sql = handle_sql(type_page("index") ? false : true);
   $sql .= " limit $offset, $productsPerPage";
   $result = get_data_query($sql);
 
@@ -61,7 +61,6 @@
 
     $soLuong = 1;
     foreach ($result as $line) {
-      if ($soLuong == 1) echo "<tr>";
       $tym = ""; 
 
       if (in_array($line[0], $array)) $tym = "style='color: red;'";
@@ -70,119 +69,188 @@
       $imgPath = "../../assets/images/products/$line[11]";
 
       echo "
-        <td>
-          <div class='image'>
-            <img src='$imgPath' alt='' style='width: 100%; height: 100%; object-fit: cover;'>
-            <div class= 'image-item__favor' $show >
-              <i class= 'fa-solid fa-check'></i>
-              <span>Yêu thích</span>
+        <div class='item'>
+          <div class='wrapper'>
+            <div class='image'>
+              <img src='$imgPath' alt='' style='width: 100%; height: 100%; object-fit: cover;'>
+              <div class= 'image-item__favor' $show >
+                <i class= 'fa-solid fa-check'></i>
+                <span>Yêu thích</span>
+              </div>
+            </div>
+
+            <div class='info'>
+              <div class='top'>
+                <p class='short-text-product'><span class='bold'>Tên sách:</span> $line[1]</p>
+                <p><span class='bold'>Thể loại:</span> $line[3]</p>
+                <p><span class='bold'>Tác giả:</span> $line[8]</p>
+                <p><span class='bold'>Nhà xuất bản:</span> $line[10]</p>
+                <p class='short-text-product'><span class='bold'>Mô tả:</span> $line[4]</p>
+                <p style='display: flex; justify-content: space-between;'>
+                  <span><span class='bold'>Giá:</span> " . "<span style='color: red;'>". number_format($line[5], 0, ',', '.') . " VNĐ</span></span>
+                  <span><span class='bold'>Còn:</span> <span class='quantity-remain'>$line[6]</span></span>
+                </p>
+              </div>
+
+              <div class='bottom'>
+                <p class='item-maSach'>                
+                  <a href='./detail.php?id=$line[0]'>
+                    <i class='icon-info fa-solid fa-circle-info'style='color: gray;'></i>
+                  </a>
+                  <i class='icon-heart fa-solid fa-heart' $tym id='$line[0]'></i>
+                  <i class='icon-cart fa-solid fa-cart-shopping'></i>
+                </p>
+              </div>
             </div>
           </div>
 
-          <div class='info'>
-            <div class='top'>
-              <p class='short-text-product'><span class='bold'>Tên sách:</span> $line[1]</p>
-              <p><span class='bold'>Thể loại:</span> $line[3]</p>
-              <p><span class='bold'>Tác giả:</span> $line[8]</p>
-              <p><span class='bold'>Nhà xuất bản:</span> $line[10]</p>
-              <p class='short-text-product'><span class='bold'>Mô tả:</span> $line[4]</p>
-              <p style='display: flex; justify-content: space-between;'>
-                <span><span class='bold'>Giá:</span> " . "<span style='color: red;'>". number_format($line[5], 0, ',', '.') . " VNĐ</span></span>
-                <span><span class='bold'>Còn:</span> $line[6]</span>
-              </p>
-            </div>
+          <div class='to-cart'>
+            <div class='space'></div>
 
-            <div class='bottom'>
-              <p class='item-maSach'>                
-                <a href='./detail.php?id=$line[0]'>
-                  <i class='icon-info fa-solid fa-circle-info'style='color: gray;'></i>
-                </a>
-                <i class='icon-heart fa-solid fa-heart' $tym id='$line[0]'></i>
-                <i class='icon-cart fa-solid fa-cart-shopping'></i>
-              </p>
+            <div class='number'>
+              <span>Số lượng: </span> 
+              <span class='frame'>
+                <button class='btn-in-de btn-de' type='button'>-</button>
+                <input class='quantity-add' name='quantity-add' type='text' readonly value='1'>
+                <button class='btn-in-de btn-in' type='button'>+</button>
+              </span>
+              <button class='btn-to-cart' type='button' data-id='$line[0]'>Thêm</button>
             </div>
           </div>
-        </td>
+        </div>
       ";
-
-      if ($soLuong == 2) {
-        $soLuong = 0;
-        echo "</tr>";
-      }
-      $soLuong += 1;
     }
   }
 ?>
 
 <style>
   .mod-san-pham {
-    margin-top: <?php echo ($typePage == "index" ? "130px" : "110px"); ?>;
+    margin-top: <?php echo (type_page("index") ? "130px" : "120px"); ?>;
     min-height: 525px;
 
     .table-products {
       width: 100%;
-
-      tr {
-        width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      
+      .item {
+        width: 49%;
         height: 250px;
-        margin: 5px 0;
-        display: flex;
-        align-items: stretch;
-        justify-content: space-between;
-
-        td {
-          width: 49%;
-          margin: 5px;
-          padding-right: 5px;
+        margin: 5px;
+        background-color: #f6f6f6;
+        transition: 0.4s;
+        
+        .wrapper {
+          width: 100%;
+          height: 250px;  
           display: flex;
           gap: 10px;
-          background-color: #f6f6f6;
+          padding-right: 5px;
+        }
 
-          .image {
-            width: 30%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-          }
+        .wrapper .image {
+          width: 30%;
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          position: relative;
+          transition: 0.4s;
+        }
 
-          .info {
-            width: 70%;
-            padding: 5px 5px 5px 0;
+        .wrapper .info {
+          width: 70%;
+          padding: 5px 5px 5px 0;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          font-size: 15px;
+
+          .top {
             display: flex;
             flex-direction: column;
+            justify-content: start;
+            gap: 10px;
+            flex-grow: 1;
+            padding-top: 10px;
+          }
+
+          .bottom {
+            height: 35px;
+          }
+
+          .item-maSach  {
+            display: flex;
+            margin-top: 5px;
+            gap: 20px;
+            font-size: 24px;
+            
+            i {
+              transition: 0.4s;
+            }
+
+            i:hover {
+              cursor: pointer;
+              transform: translateY(-5px);
+            }
+          }
+
+          .bold {
+            font-weight: bold;
+          }
+        }
+
+        .to-cart {
+          width: 100%;
+          height: 0;
+          display: flex;
+          overflow: hidden;
+          transition: 0.4s;
+          .space {
+            width: 30%;
+            background-color: white;
+          }
+
+          .number {
+            padding: 5px 7px;
+            width: 70%;
+            display: flex;
             justify-content: space-between;
-            font-size: 15px;
-
-            .top {
-              display: flex;
-              flex-direction: column;
-              justify-content: start;
-              gap: 10px;
-              flex-grow: 1;
-              padding-top: 10px;
+            align-items: center;
+            gap: 10px;
+            input {
+              outline: none;
+              width: 50px;
+              text-align: center;
             }
 
-            .bottom {
-              height: 35px;
+            button.btn-in-de {
+              width: 30px;
+              text-align: center;
+              background-color: white;
+              border: none;
+              outline: none;
             }
 
-            .item-maSach  {
-              display: flex;
-              margin-top: 5px;
-              gap: 20px;
-              font-size: 24px;
+            button.btn-to-cart {
+              padding: 7px 10px;
+              background-color: green;
+              color: white;
+              border: none;
+              outline: none;
+              cursor: pointer;
+              border-radius: 5px;
 
-              i:hover {
-                cursor: pointer;
+              &:hover {
+                opacity: 0.7;
               }
-            }
-
-            .bold {
-              font-weight: bold;
             }
           }
         }
+      }
+
+      .item:hover .wrapper .image {
+        scale: 1.05;
       }
     }
     .image-item__favor{
@@ -214,8 +282,69 @@
 
 <section class='mod-san-pham'>
   <div class="container">
-    <table class='table-products'>
+    <div class='table-products'>
       <?php build_data(); ?>
-    </table>
+    </div>
   </div>
 </section>
+
+<script>
+  // Xử lý việc nhấn icon cart
+  const iconCart = document.querySelectorAll(".icon-cart");
+
+  iconCart.forEach((item) => {
+    item.addEventListener("click", function () {
+      const item = this.closest(".item");
+      const toCart = item.querySelector(".to-cart");
+      item.classList.toggle("height-have-cart");
+      toCart.classList.toggle("height-auto");
+    });
+  });
+  
+  const btnDe = document.querySelectorAll(".btn-de");
+  btnDe.forEach((item) => {
+    item.addEventListener("click", function() {
+      const quantity = this.closest(".frame").querySelector(".quantity-add");
+      if (parseInt(quantity.value) > 1) {
+        quantity.value = parseInt(quantity.value) - 1;
+      }
+    });
+  });
+
+  const btnIn = document.querySelectorAll(".btn-in");
+  btnIn.forEach((item) => {
+    item.addEventListener("click", function() {
+      const quantity = this.closest(".frame").querySelector(".quantity-add");
+      const remain = this.closest(".item").querySelector(".quantity-remain").innerText;
+      if (parseInt(quantity.value) < parseInt(remain)) {
+        quantity.value = parseInt(quantity.value) + 1;
+      }
+    });
+  });
+
+  const btnThem = document.querySelectorAll(".btn-to-cart");
+  btnThem.forEach((item) => {
+    item.addEventListener("click", function() {
+      let userId = localStorage.getItem("userId")
+      if (userId == null) {
+        alert("Hãy đăng nhập để tiếp tục !");
+        return;
+      }
+      
+      let id = this.getAttribute("data-id");
+      let inputValue = this.closest(".number").querySelector("input").value;
+      let data = `${id}-${inputValue}`;
+
+      this.closest(".number").querySelector("input").value = 1;
+      this.closest(".item").querySelector(".to-cart").classList.toggle("height-auto");
+      this.closest(".item").classList.toggle("height-have-cart");
+
+      let xhr = new XMLHttpRequest();
+      xhr.open('POST', '../../database/helper/add_product_cart.php', true);
+      xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+      xhr.send('data=' + data);
+
+      show_noti("Đã thêm vào giỏ hàng");
+    });
+  });
+</script>

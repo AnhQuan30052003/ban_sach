@@ -28,7 +28,11 @@
 
     $userId = $_ma;
     get_data_user($userId, $role);
-    echo "<script>alert('Đăng ký tài khoản thành công');</script>";
+    echo "
+      <script>
+        alert('Đăng ký tài khoản thành công');
+      </script>
+    ";
   }
 
   if (isset($_REQUEST["btn-register"])) {

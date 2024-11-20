@@ -27,11 +27,11 @@
   }
 
   # Loại trang cho user
-  function type_page() {
+  function type_page(string $page) {
     $url = get_url_page();
 
-    if (strpos($url, "index.php")) return "index";
-    return "favorite";
+    if (strpos($url, $page)) return true;
+    return false;
   }
 
   # Lưu trang index
@@ -88,6 +88,8 @@
   # Lấy id của... cuối cùng
   function get_id_laster(string $sql) {
     $result = get_data_query($sql);
+
+    if (count($result) == 0) return "0000";
 
     $id = (int) $result[0][0] + 1;
     $id = (string) $id;

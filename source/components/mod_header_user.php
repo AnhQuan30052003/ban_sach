@@ -1,14 +1,12 @@
 <?php
-  $typePage = type_page();
   // filter
   $loaiSach = isset($_GET["loai-sach"]) ? $_GET["loai-sach"] : "0000";
   $tacGia = isset($_GET["tac-gia"]) ? $_GET["tac-gia"] : "";
   $nhaXuatBan = isset($_GET["nha-xuat-ban"]) ? $_GET["nha-xuat-ban"] : "";
 
   function build_home_or_favorite() {
-    global $typePage;
 
-    if ($typePage == "index") {
+    if (type_page("index")) {
       save_or_to_index(true);
 
       return "
@@ -24,6 +22,9 @@
         <a class='favorite' title='Page home' href='$index'>
           <i class='fa-solid fa-house'></i>
         </a>
+        <a class='favorite' title='Yêu thích' href='favorite.php'>
+          <i class='fa-regular fa-heart'></i>
+        </a>
       ";
     }    
   }
@@ -33,16 +34,24 @@
     // Hiển thị khi user đăng nhập
     if ($userId != "") {
       $name = $infoUser["ten"];
+      $namePage = type_page("index") ? "Trang chủ" : (type_page("favorite") ? "Yêu thích" : "Giỏ hàng");
 
       echo "
         <span class='user-login-true' style='font-weight: bold;'>
           <i class='fa-solid fa-user'></i>
-          <span style='margin: 0 10px;'>Xin chào <span style='text-decoration: underline; font-style: italic;'>$name</span></span>
+          <span style='margin: 0 10px;'>
+            Xin chào
+            <span style='text-decoration: underline; font-style: italic;'>$name</span>
+            | $namePage
+          </span>
         </span>
         
         <!-- Tuỳ chọn  -->
         <span class='user-login-true option'>
           " . build_home_or_favorite() . "
+          <a class='pass' title='Giỏ hàng' href='./cart.php'>
+            <i class='fa-solid fa-cart-shopping'></i>
+          </a>
           <a class='pass' title='Đổi mật khẩu' href='../system/change_password.php'>
             <i class='fa-solid fa-key'></i>
           </a>
@@ -222,13 +231,13 @@
       <form action="" method='get' id='form-search'>
         <div class='frame-search'>
           <input type="text" id='search-text' name='txtTimKiem'
-            placeholder="<?php echo ($typePage == "index"  ? "Tìm gì đó..." : "Tìm sản phẩm yêu thích..."); ?>"
+            placeholder="<?php echo (type_page("index") ? "Tìm gì đó..." : (type_page("favorite") ? "Tìm sản phẩm yêu thích..." : "Tìm sản phẩm trong giỏ hàng")); ?>"
             value='<?php if (isset($_GET["txtTimKiem"])) echo $_GET["txtTimKiem"]; ?>'
           >
           <button id="search"><i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
 
-        <div style='margin-top: 5px; <?php echo ($typePage == "index" ? "display: block;" : "display: none;"); ?>'>
+        <div style='margin-top: 5px; <?php echo (type_page("index") ? "display: block;" : "display: none;"); ?>'>
           <?php build_group_box("loai-sach", "Loại sách", $loaiSach, "select * from loai_sach"); ?>
           <?php build_group_box("tac-gia", "Tác giả", $tacGia, "select * from tac_gia"); ?>
           <?php build_group_box("nha-xuat-ban", "Nhà xuất bản", $nhaXuatBan, "select * from nha_xuat_ban"); ?>
@@ -236,5 +245,9 @@
         </div>
       </form>
     </div>
+  </div>
+
+  <div id="notification">
+    <p><i class="fa-solid fa-check"></i></p>
   </div>
 </section>

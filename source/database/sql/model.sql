@@ -56,10 +56,16 @@ CREATE TABLE `sach` (
 
 -- --------------------------------------------------------
 CREATE TABLE `sach_yeu_thich` (
-  `ma` varchar(4) NOT NULL,
-  `maSach` varchar(4) NOT NULL
+  `maSach` varchar(4) NOT NULL,
+  `ma` varchar(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
+-- --------------------------------------------------------
+CREATE TABLE `gio_hang` (
+  `maSach` varchar(4) NOT NULL,
+  `ma` varchar(4) NOT NULL,
+  `soLuong` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 
 ALTER TABLE `admin`
@@ -74,6 +80,9 @@ ALTER TABLE `loai_sach`
 ALTER TABLE `nha_xuat_ban`
   ADD PRIMARY KEY (`maNXB`);
 
+ALTER TABLE `tac_gia`
+  ADD PRIMARY KEY (`maTG`);
+
 ALTER TABLE `sach`
   ADD PRIMARY KEY (`maSach`),
   ADD KEY `maLS` (`maLS`),
@@ -81,11 +90,14 @@ ALTER TABLE `sach`
   ADD KEY `maNXB` (`maNXB`);
 
 ALTER TABLE `sach_yeu_thich`
-  ADD KEY `ma` (`ma`),
-  ADD KEY `maSach` (`maSach`);
+  ADD PRIMARY KEY (`maSach`, `ma`),
+  ADD KEY `maSach` (`maSach`),
+  ADD KEY `ma` (`ma`);
 
-ALTER TABLE `tac_gia`
-  ADD PRIMARY KEY (`maTG`);
+ALTER TABLE `gio_hang`
+  ADD PRIMARY KEY (`maSach`, `ma`),
+  ADD KEY `maSach` (`maSach`),
+  ADD KEY `ma` (`ma`);
 
 ALTER TABLE `sach`
   ADD CONSTRAINT `sach_ibfk_1` FOREIGN KEY (`maLS`) REFERENCES `loai_sach` (`maLS`),
@@ -96,6 +108,9 @@ ALTER TABLE `sach_yeu_thich`
   ADD CONSTRAINT `sach_yeu_thich_ibfk_1` FOREIGN KEY (`maSach`) REFERENCES `sach` (`maSach`),
   ADD CONSTRAINT `sach_yeu_thich_ibfk_2` FOREIGN KEY (`ma`) REFERENCES `khach_hang` (`ma`);
 
+ALTER TABLE `gio_hang`
+  ADD CONSTRAINT `gio_hang_ibfk_1` FOREIGN KEY (`maSach`) REFERENCES `sach` (`maSach`),
+  ADD CONSTRAINT `gio_hang_ibfk_2` FOREIGN KEY (`ma`) REFERENCES `khach_hang` (`ma`);
 
 
 INSERT INTO `admin` VALUES
@@ -251,6 +266,6 @@ INSERT INTO `sach` VALUES
 
 INSERT INTO `sach_yeu_thich` VALUES
 ('0000', '0000'),
-('0001', '0008');
+('0008', '0001');
 
 COMMIT;

@@ -212,6 +212,11 @@
 						<td class="text-dark">Mô tả</td>
 						<td><?php echo $product['moTa'] ?></td>
 					</tr>
+
+					<tr>
+						<td class="text-dark">Phi ship</td>
+						<td><?php echo number_format(7000, 0, ".", ".") . " VNĐ"; ?></td>
+					</tr>
 				</table>
 
 				<div class="btn-group" style="margin-top: 10px">
