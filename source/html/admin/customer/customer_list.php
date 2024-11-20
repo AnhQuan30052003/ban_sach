@@ -41,7 +41,7 @@
       echo "<tr>";
       echo "<td>$stt</td>";
       echo "<td>$row[0]</td>";
-      echo "<td><a class='link-detail' title='Xem chi tiết' href='?action=detail&productId=$row[0]'>$row[1]</a></td>";
+      echo "<td><a class='link-detail' title='Xem chi tiết' href='#'>$row[1]</a></td>";
       echo "<td>$row[2]</td>";
       echo "<td>$row[3]</td>";
       echo "<td>$row[4]</td>";
