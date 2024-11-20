@@ -53,7 +53,7 @@
               <button class='btn-in-de btn-in' type='button'>+</button>
             </span>
             
-            <span class='total' style='width: 15%; color: red;'>" . number_format($line['giaTien'], 0, ',', '.') . " VNĐ</span>
+            <span class='total' style='width: 15%; color: red;'>" . number_format($line['soLuong'] * $line['giaTien'], 0, ',', '.') . " VNĐ</span>
 
             <button class='btn-delete' data-id='{$line['maSach']}'>Xoá</button>
           </div>
