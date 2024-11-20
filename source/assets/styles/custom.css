@@ -41,8 +41,12 @@ body {
   display: none !important;
 }
 
+.height-auto {
+  height: 45px !important;
+}
+
 .height-have-cart {
-  height: auto !important;
+  height: 295px !important;
 }
 
 #notification {

@@ -104,7 +104,7 @@
             </div>
           </div>
 
-          <div class='to-cart hidden'>
+          <div class='to-cart'>
             <div class='space'></div>
 
             <div class='number'>
@@ -134,10 +134,11 @@
       flex-wrap: wrap;
       
       .item {
+        width: 49%;
         height: 250px;
         margin: 5px;
-        width: 49%;
         background-color: #f6f6f6;
+        transition: 0.4s;
         
         .wrapper {
           width: 100%;
@@ -201,7 +202,10 @@
 
         .to-cart {
           width: 100%;
+          height: 0;
           display: flex;
+          overflow: hidden;
+          transition: 0.4s;
           .space {
             width: 30%;
             background-color: white;
@@ -293,7 +297,7 @@
       const item = this.closest(".item");
       const toCart = item.querySelector(".to-cart");
       item.classList.toggle("height-have-cart");
-      toCart.classList.toggle("hidden");
+      toCart.classList.toggle("height-auto");
     });
   });
   
