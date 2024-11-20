@@ -31,7 +31,9 @@
   function build_data() {
     global $result, $sql, $userId;
     if (is_bool($result)) return;
+    
 
+    // * Cần sửa code dưới này 👇🏻 
     $soLuong = 1;
     foreach ($result as $line) {
       if ($soLuong == 1) echo "<tr>";
