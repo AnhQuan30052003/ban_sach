@@ -281,7 +281,7 @@
           </div>
 
 				<div class="btn-group" style="margin-top: 10px">
-					<a href="<?php echo save_or_to_index(false); ?>" class="btn btn-back" style='color: black;'>
+					<a href="javascript:history.back(-1);" class="btn btn-back" style='color: black;'>
 						<i class="fa-solid fa-arrow-left"></i>
 						<span>Quay lại</span>
 					</a>

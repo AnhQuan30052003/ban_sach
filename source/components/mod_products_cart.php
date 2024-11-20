@@ -9,9 +9,10 @@
     ";
 
     if (strlen($tim) > 0) {
-      $sql .= "s.tenSach = '%$tim%' and moTa = '%$tim%'";
+      $sql .= "and tenSach like '%$tim%' and moTa like '%$tim%'";
     }
 
+    echo $sql;
     return $sql;
   }
 
@@ -35,11 +36,15 @@
       echo "
         <div class='item'>
           <div class='image'>
-            <img src='$imgPath' alt='' style='width: 100%; height: 100%; object-fit: cover;'>
+            <a href='./detail.php?id={$line['maSach']}'>
+              <img src='$imgPath' alt='' style='width: 100%; height: 100%; object-fit: cover;'>
+            </a>
           </div>
 
           <div class='content'>
-            <span style='width: 40%;'>{$line['tenSach']}</span>
+            <span style='width: 40%;'>
+              <a href='./detail.php?id={$line['maSach']}'>{$line['tenSach']}</a>
+            </span>
             <span class='price' style='width: 15%'>" . number_format($line['giaTien'], 0, ',', '.') . " VNĐ</span>
             
             <span class='frame'>
@@ -60,9 +65,8 @@
 
 <style>
   .mod-san-pham-gioi-hang {
-    margin-top: 110px;
+    margin-top: 100px;
     min-height: 525px;
-    padding: 10px 0;
 
     .table-products-cart {
       width: 100%;
@@ -85,6 +89,10 @@
           align-items: center;
           justify-content: space-between;
           font-size: 16px;
+
+          a {
+            color: black;
+          }
 
 
           span:not(:first-child) {
