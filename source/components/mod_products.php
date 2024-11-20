@@ -330,14 +330,15 @@
         alert("Hãy đăng nhập để tiếp tục !");
         return;
       }
-
-      this.closest(".number").querySelector(".quantity-add").value = 1;
-      this.closest(".item").querySelector(".to-cart").classList.toggle("hidden");
-      this.closest(".item").classList.toggle("height-have-cart");
-
+      
       let id = this.getAttribute("data-id");
       let inputValue = this.closest(".number").querySelector("input").value;
       let data = `${id}-${inputValue}`;
+
+      this.closest(".number").querySelector("input").value = 1;
+      this.closest(".item").querySelector(".to-cart").classList.toggle("height-auto");
+      this.closest(".item").classList.toggle("height-have-cart");
+
       let xhr = new XMLHttpRequest();
       xhr.open('POST', '../../database/helper/add_product_cart.php', true);
       xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');

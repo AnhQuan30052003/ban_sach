@@ -3,7 +3,7 @@
     global $tim, $userId;
 
     $sql = "
-      select s.maSach, tenSach, s.maLS, tenLS, moTa, giaTien, soLuong, s.maTG, tenTG, s.maNXB, tenNXB, hinhAnh
+      select s.maSach, tenSach, s.maLS, tenLS, moTa, giaTien, gh.soLuong, s.maTG, tenTG, s.maNXB, tenNXB, hinhAnh
       from sach s join loai_sach ls on s.maLS = ls.maLS
         join nha_xuat_ban nxb on nxb.maNXB = s.maNXB
         join tac_gia tg on tg.maTG = s.maTG
@@ -24,18 +24,13 @@
   if (!isset($_GET["page"])) $_GET["page"] = 1;
   $offset = ($_GET["page"] - 1) * $productsPerPage;
   
-  $sql = handle_sql(type_page("index") ? false : true);
+  $sql = handle_sql();
   $sql .= " limit $offset, $productsPerPage";
   $result = get_data_query($sql);
 
   function build_data() {
     global $result, $sql, $userId;
     if (is_bool($result)) return;
-
-    # Hiển thị số đếm sản phẩm tìm thấy
-    $sqlTemp = cutString($sql, "limit");
-    $resultTemp = get_data_query($sqlTemp);
-    number_products_found(count($resultTemp));
 
     $soLuong = 1;
     foreach ($result as $line) {

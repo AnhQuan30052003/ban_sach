@@ -3,10 +3,21 @@
   
   $data = $_REQUEST["data"];
   $data = explode("-", $data);
+  $productId = $data[0];
+  $quantity = $data[1];
 
-  $id = get_id_laster("select * from `gio_hang`");
-  $sql = "insert into `gio_hang` values ('$id', '$data[0]', '$userId',$data[1]);";
-  $result = quick_query($sql);
+  // Kiểm tra xem người dùng hiện tại đã có sản phẩm đó trong giỏ hàng chưa ?
+  $sql = "select * from `gio_hang` where ma = '$userId' and maSach = '$productId'";
+  $result = get_data_query($sql);
+
+  if (count($result) > 0) {
+    $sql = "update `gio_hang` set soLuong = $quantity where maSach = '$productId' and ma = '$userId'";
+    quick_query($sql);
+    return;
+  }
+
+  $sql = "insert into `gio_hang` values ('$productId', '$userId', $quantity);";
+  quick_query($sql);
 
   // $fileName = "a.txt";
   // $text = $result . "\n";

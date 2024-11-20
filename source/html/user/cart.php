@@ -26,6 +26,5 @@
   <?php include_once $pathComponents . "/mod_footer_user.php"; ?>
 
   <script src='../../assets/javascripts/mod_header.js'></script>
-  <script src='../../assets/javascripts/mod_products.js'></script>
 </body>
 </html>
