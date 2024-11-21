@@ -1,7 +1,6 @@
 function send() {
   document.querySelector("#search-text").value = "";
   document.querySelector("#form-search").submit();
-  console.log(123);
 }
 
 function no_search() {
@@ -20,4 +19,11 @@ function logout(stringExits = 2) {
     let link = stringExits +  "database/helper/active_logout.php";
     window.location.href = link;
   } 
+}
+
+function send_data(data, toFile) {
+  let xhr = new XMLHttpRequest();
+  xhr.open('POST', toFile, true);
+  xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  xhr.send('id=' + data);
 }

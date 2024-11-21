@@ -1,24 +1,37 @@
-const iconHeart = document.querySelectorAll(".icon-heart");
+function tym() {
+  const iconHeart = document.querySelectorAll(".icon-heart");
+  
+  iconHeart.forEach((item) => {
+    item.addEventListener("click", function() {
 
-iconHeart.forEach(item => {
-  item.addEventListener("click", function() {
+      let userId = localStorage.getItem("userId")
+      if (userId == null) {
+        alert("Hãy đăng nhập để tiếp tục !");
+        return;
+      }
+      
+      let id = this.getAttribute("id");
+      let toFile = "../../database/helper/add_product_favorite.php";
+      send_data(id, toFile);
 
-    let userId = localStorage.getItem("userId")
-    if (userId == null) {
-      alert("Hãy đăng nhập để tiếp tục !");
-      return;
-    }
+      let pageIndex = localStorage.getItem("index");
+      if (pageIndex == 'index') {
+        let checkColor = this.style.color;
+        let color = "red";
+        let info = "Đã thêm vào yêu thích";
+        if (checkColor == "red") {
+          color = "black";
+          info = "Đã xoá khỏi yêu thích";
+        }
 
-    let id = this.getAttribute("id");
-
-    let xhr = new XMLHttpRequest();
-    xhr.open('POST', '../../database/helper/add_product_favorite.php', true);
-    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    xhr.send('id=' + id);
-
-
-    setTimeout(() => {
-      location.reload();
-    }, 100)
-  })
-});
+        this.style.color = color;
+        show_noti(info);
+      }
+      else {
+        this.closest(".item").style.display = "none";
+        show_noti("Đã xoá khỏi yêu thích");
+      }
+    })
+  });
+}
+tym();

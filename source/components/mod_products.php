@@ -36,7 +36,14 @@
   $productsPerPage = 10;
   if (!isset($_GET["page"])) $_GET["page"] = 1;
   $offset = ($_GET["page"] - 1) * $productsPerPage;
-  
+
+  if (type_page("index")) {
+    echo "<script>localStorage.setItem('index', 'index');</script>";
+  }
+  else {
+    echo "<script>localStorage.setItem('index', '');</script>";
+  }
+
   $sql = handle_sql(type_page("index") ? false : true);
   $sql .= " limit $offset, $productsPerPage";
   $result = get_data_query($sql);
@@ -59,7 +66,6 @@
       $array[] = $line[0];
     }
 
-    $soLuong = 1;
     foreach ($result as $line) {
       $tym = ""; 
 

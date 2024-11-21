@@ -198,7 +198,7 @@
     <div class="control" <?php echo $showControl; ?>>
       <div class='left'>
         <input type='checkbox' id='click-all'>
-        <span><span id='chon-hoac-bo-chon'>Chọn</span> tất cả (<?php echo count($result); ?>)</span>
+        <span><span id='chon-hoac-bo-chon'>Chọn</span> tất cả <span id='count-all'>(<?php echo count($result); ?>)</span></span>
         <span style='color: red; cursor: pointer;' id='delete-all' onclick='delete_all();'>Xoá</span>
       </div>
 
@@ -226,14 +226,29 @@
   // Tính tổng tiền sản phẩm
   function total_products() {
     let sum = 0;
+    let countItem = 0;
     const item = document.querySelectorAll(".item");
     item.forEach((i) => {
-      if (i.querySelector(".choose-products-cart").checked) {
+      if (i.querySelector(".choose-products-cart").checked && i.style.display != "none") {
         sum += get_number(i.querySelector(".total").innerHTML);
+        countItem += 1;
       }
     })
 
+    document.querySelector("#tong-san-pham").innerHTML = countItem;
     document.querySelector("#tong-tien-san-pham").innerHTML = number_to_string(sum);
+  }
+
+  // Tính lại số lượng sản phẩm có thể click
+  function total_can_click() {
+    let countItem = 0;
+    const item = document.querySelectorAll(".item");
+    item.forEach((i) => {
+      if (i.style.display != "none") {
+        countItem += 1;
+      }
+    })
+    document.querySelector("#count-all").innerHTML = countItem;
   }
 
   // Sự kiện khi click giảm số lượng
@@ -284,15 +299,13 @@
   btnDelete.forEach((item) => {
     item.addEventListener("click", function() {
       let id = this.getAttribute("data-id");
+      let toFile = "../../database/helper/remove_product_cart.php";
+      send_data(id, toFile);
 
-      let xhr = new XMLHttpRequest();
-      xhr.open('POST', '../../database/helper/remove_product_cart.php', true);
-      xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-      xhr.send('id=' + id);
-
-      setTimeout(() => {
-        location.reload();
-      }, 100)
+      this.closest(".item").style.display = "none";
+      show_noti("Đã xoá khỏi giỏ hàng");
+      total_can_click();
+      total_products();
     });
   });
 
@@ -313,27 +326,28 @@
     for (let i = 0; i < allCheck.length; i++) {
       allCheck[i].checked = this.checked;
     }
-    document.querySelector("#tong-san-pham").innerHTML = this.checked ? allCheck.length : 0;
     total_products();
   });
 
   // Xoá những sản phẩm được chọn
   function delete_all() {
-    let xhr = new XMLHttpRequest();
-    xhr.open('POST', '../../database/helper/remove_product_cart.php', true);
-    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    
+    let toFile = "../../database/helper/remove_product_cart.php";
     let data = "";
+    let countItemDelete = 0;
+
     document.querySelectorAll(".choose-products-cart").forEach((item) => {
       if (item.checked) {
-        let idSach = item.closest(".item").querySelector(".btn-delete").getAttribute("data-id");
+        countItemDelete += 1;
+        let itemCart = item.closest(".item");
+        let idSach = itemCart.querySelector(".btn-delete").getAttribute("data-id");
         data = data +  "," + idSach;
+        itemCart.style.display = "none";
       }
     });
     
-    xhr.send('id=' + data);
-    setTimeout(() => {
-      location.reload();
-    }, 100)
+    send_data(data, toFile);
+    show_noti("Đã xoá " + countItemDelete + " sản phẩm");
+    total_can_click();
+    total_products();
   }
 </script>
