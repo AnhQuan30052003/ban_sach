@@ -171,22 +171,3 @@
 		</div>
 	</form>
 </section>
-
-<script>
-	// validate
-	// Trường tên khách hàng
-	window.addEventListener("load", after_leave("customerName", "error-customerName", "Tên khách hàng"));
-	window.addEventListener("load", change_input("customerName", "error-customerName", "Tên khách hàng", 0, true));
-
-	// Trường email
-	window.addEventListener("load", after_leave("email", "error-email", "Email"));
-	window.addEventListener("load", change_input("email", "error-email", "Email"));
-
-	// Trường sdt
-	window.addEventListener("load", after_leave("phoneNumber", "error-phoneNumber", "Số điện thoại"));
-  window.addEventListener("load", change_input("phoneNumber", "error-phoneNumber", "Số điện thoại", 10, false, true));
-
-	// Trường địa chỉs
-	window.addEventListener("load", after_leave("address", "error-address", "Địa chỉ"));
-  window.addEventListener("load", change_input("address", "error-address", "Địa chỉ"));
-</script>

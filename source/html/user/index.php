@@ -32,6 +32,8 @@
   <script src='../../assets/javascripts/mod_products.js'></script>
   <script src='../../assets/javascripts/mod_login_or_register.js'></script>
   <script src='../../assets/javascripts/mod_handle_eyes_password.js'></script>
+  <script src='../../assets/javascripts/validate_class.js'></script>
+
 
   <?php
     if (strlen($errorLogin) > 0) echo "<script>show_or_hidden(1);</script>";

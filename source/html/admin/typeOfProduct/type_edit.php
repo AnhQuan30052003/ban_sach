@@ -142,9 +142,3 @@
 		</div>
 	</form>
 </section>
-
-<script>
-	// Trường typename
-	window.addEventListener("load", after_leave("typeName", "error-typeName", "Tên loại sách"));
-	window.addEventListener("load", change_input("typeName", "error-typeName", "Tên loại sách"));
-</script>

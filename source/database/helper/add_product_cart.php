@@ -1,7 +1,7 @@
 <?php
   include_once "db.php";
   
-  $data = $_REQUEST["data"];
+  $data = $_REQUEST["id"];
   $data = explode("-", $data);
   $productId = $data[0];
   $quantity = $data[1];

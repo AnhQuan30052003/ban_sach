@@ -305,28 +305,4 @@
 			console.log(inputFile);
 		}
 	});
-
-	// Trường tên sách
-	window.addEventListener("load", after_leave("productName", "error-productName", "Tên sách"));
-	window.addEventListener("load", change_input("productName", "error-productName", "Tên sách", 0, true));
-
-	// Trường số lượng
-	window.addEventListener("load", after_leave("quantity", "error-quantity", "Số lượng"));
-	window.addEventListener("load", change_input("quantity", "error-quantity", "Số lượng"));
-
-	// Trường số trang
-	window.addEventListener("load", after_leave("pageNumber", "error-pageNumber", "Số trang"));
-	window.addEventListener("load", change_input("pageNumber", "error-pageNumber", "Số trang"));
-
-	// Trường giá
-	window.addEventListener("load", after_leave("price", "error-price", "Giá"));
-	window.addEventListener("load", change_input("price", "error-price", "Giá"));
-
-	// Trường mô tả
-	window.addEventListener("load", after_leave("des", "error-des", "Mô tả"));
-	window.addEventListener("load", change_input("des", "error-des", "Mô tả"));
-
-	// Trường ảnh
-	window.addEventListener("load", after_leave("productImg", "error-productImg", "Hình ảnh"));
-	window.addEventListener("load", change_input("productImg", "error-productImg", "Hình ảnh"));
 </script>

@@ -340,11 +340,8 @@
       let id = this.getAttribute("data-id");
       let inputValue = this.closest(".number").querySelector("input").value;
       let data = `${id}-${inputValue}`;
-
-      let xhr = new XMLHttpRequest();
-      xhr.open('POST', '../../database/helper/add_product_cart.php', true);
-      xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-      xhr.send('data=' + data);
+      let toFile = "../../database/helper/add_product_cart.php";
+      send_data(data, toFile);
 
       show_noti("Đã thêm vào giỏ hàng");
 

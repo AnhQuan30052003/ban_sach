@@ -1,6 +1,6 @@
 <?php
-  $_username = isset($_REQUEST["username"]) ? $_REQUEST["username"] : "";
-  $_password = isset($_REQUEST["password"]) ? $_REQUEST["password"] : "";
+  $_username =  $_REQUEST["username"] ?? "";
+  $_password = $_REQUEST["password-login"] ?? "";
 
   trim($_username);
   trim($_password);
@@ -163,19 +163,19 @@
     <p style='color: red;'> <?php echo $errorLogin; ?></p>
   </div>
 
-  <div class="login-form">
+  <div class="login-form form-validate">
     <form action="" method="POST">
-      <div class="form-group">
-        <input type="text" id="username" name="username" placeholder="Email" required value='<?php if (isset($_REQUEST["username"])) echo $_REQUEST["username"]; ?>'>
-        <span id='error-username' class='error'></span>
+      <div class="form-group validate">
+        <input class='is-email is-empty' card='Email' type="text" id="username" name="username" placeholder="Email" required value='<?php echo $_REQUEST["username"] ?? ""; ?>'>
+        <span class='error'></span>
       </div>
       
-      <div class="form-group" style='position: relative;'>
-        <input type="password" id='password-login' name="password" placeholder="Mật khẩu" required value='<?php if (isset($_REQUEST["password"])) echo $_REQUEST["password"]; ?>' >
+      <div class="form-group validate" style='position: relative;'>
+        <input type="password" id='password-login' name="password-login" placeholder="Mật khẩu" required maxlength="32" value='<?php echo $_REQUEST["password-login"] ?? ""; ?>' >
         <span class='frame-eyes'>
           <i class="fa-solid fa-eye-slash"></i>
         </span>
-        <span id='error-password-login' class='error'></span>
+        <span class='error'></span>
       </div>
 
       <div class="save-pass" style='display: flex; gap: 10px; align-items: center;'>
@@ -183,7 +183,7 @@
         <span>Ghi nhớ đăng nhập</span>
       </div>
 
-      <button type="submit" class="btn" name='btn-login'>Đăng nhập</button>
+      <button type="submit" class="btn btn-validate" disabled name='btn-login'>Đăng nhập</button>
     </form>
   </div>
 
@@ -197,13 +197,3 @@
     </div>
   </div>
 </div>
-
-<script>
-  // Trường username
-  window.addEventListener("load", after_leave("username", "error-username", "Tài khoản"));
-  window.addEventListener("load", change_input("username", "error-username", "Tài khoản"));
-
-  // Trường mật khẩu
-  window.addEventListener("load", after_leave("password-login", "error-password-login", "Mật khẩu"));
-  window.addEventListener("load", change_input("password-login", "error-password-login", "Mật khẩu"));
-</script>

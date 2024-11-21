@@ -4,7 +4,10 @@ function send() {
 }
 
 function no_search() {
-  document.getElementById("search-text").addEventListener("input", function() {
+  const search = document.getElementById("search-text");
+  if (!search) return;
+
+  search.addEventListener("input", function() {
     if (this.value === "") document.getElementById("form-search").submit();
   });
 }

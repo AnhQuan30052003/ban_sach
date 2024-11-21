@@ -17,12 +17,21 @@
 
     $_password = md5($_password);
 
+    $sql = "select * from `khach_hang` where email = '$_email'";
+    $result = get_data_query($sql);
+    if (count($result) > 0) {
+      $errorRegister = "Email đã được đăng ký !";
+      $_password = "";
+      return;
+    }
+
     $_ma = get_id_laster("select ma from khach_hang group by ma order by ma desc limit 1");
     $sql = "insert into `khach_hang` values ('$_ma', '$_ten', '$_email', '$_sdt', '$_password', '$_diaChi');";
     $result = quick_query($sql);
     
     if (!$result) {
       $errorRegister = "Thông tin đăng ký không đúng định dạng !";
+      $_REQUEST["password"] = "";
       return;
     }
 
@@ -179,26 +188,3 @@
     </div>
   </div>
 </div>
-
-<script>
-  // Trường tên
-  window.addEventListener("load", after_leave("ten", "error-ten", "Họ và tên"));
-  window.addEventListener("load", change_input("ten", "error-ten", "Họ và tên", 0, true));
-
-  // Trường sdt
-  window.addEventListener("load", after_leave("sdt", "error-sdt", "Số điện thoại"));
-  window.addEventListener("load", change_input("sdt", "error-sdt", "Số điện thoại", 10, false, true));
-
-  // Trường email
-  window.addEventListener("load", after_leave("email", "error-email", "Email"));
-  window.addEventListener("load", change_input("email", "error-email", "Email"));
-
-  // Trường mật khẩu
-  window.addEventListener("load", after_leave("password-register", "error-password-register", "Mật khẩu"));
-  window.addEventListener("load", change_input("password-register", "error-password-register", "Mật khẩu"));
-
-  // Trường địa chỉ
-  window.addEventListener("load", after_leave("diaChi", "error-diaChi", "Địa chỉ"));
-  window.addEventListener("load", change_input("diaChi", "error-diaChi", "Địa chỉ"));
-
-</script>
