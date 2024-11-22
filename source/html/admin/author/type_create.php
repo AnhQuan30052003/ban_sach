@@ -85,24 +85,16 @@
 		$typeId = $id;
 		$typeName = $_POST["typeName"] ?? "";
 		
-		$sql = "
-			INSERT INTO `tac_gia`
-			VALUES ('$typeId', '$typeName')
+		$sql = "INSERT INTO `tac_gia`VALUES ('$typeId', '$typeName')";
+		quick_query($sql);
+
+		$link = save_or_to_index(false);
+		echo "
+			<script>
+				alert('Thêm tác giả thành công');
+				window.location.href = '$link';
+			</script>
 		";
-
-		$result = quick_query($sql);
-
-		if ($result) {
-			$link = save_or_to_index(false);
-			echo "
-				<script>
-					alert('Thêm tác giả thành công');
-					window.location.href = '$link';
-				</script>
-			";
-		} else {
-			echo "<script>alert('Thêm tác giả thất bại' . $result)</script>";
-		}
 	}
 
 	if (isset($_POST['submit'])) save($idBook);
@@ -112,16 +104,16 @@
 	<h3>THÊM TÁC GIẢ</h3>
 	<hr>
 
-	<form action="?action=create" method="post" class="form-container" enctype="multipart/form-data">
+	<form action="?action=create" method="post" class="form-container form-validate form-author-create" quantity='1'>
 		<div>
 			<label for="typeId" class="form-label">Mã tác giả</label>
 			<input required type="text" id="typeId" name="typeId" class="form-input" value="<?php echo $idBook; ?>" disabled>
 		</div>
 
-		<div>
+		<div class='validate'>
 			<label for="typeName" class="form-label">Tên tác giả</label>
-			<input required id='typeName' type="text" name="typeName" class="form-input" value="<?php echo $_POST['typeName'] ?? ''; ?>">
-			<span id='error-typeName' class='error'></span>
+			<input required class='listener is-empty is-character form-input' card='Tên tác giả' status='false' id='typeName' type="text" name="typeName" value="<?php echo $_POST['typeName'] ?? ''; ?>">
+			<span class='error'></span>
 		</div>
 
 
@@ -132,8 +124,9 @@
 					<span>Quay lại</span>
 				</a>
 			</div>
+
 			<div>
-				<input required type="submit" name="submit" value="Thêm" class="btn btn-success" />
+				<input required type="submit" class='btn btn-success btn-validate not-allowed' disabled name="submit" value="Thêm">
 			</div>
 		</div>
 	</form>

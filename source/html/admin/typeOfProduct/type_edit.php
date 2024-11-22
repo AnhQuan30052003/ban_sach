@@ -81,7 +81,6 @@
 	$type = $res[0];
 
 	function update() {
-		global $type;
 		$typeId = $_POST["typeId"];
 		$typeName = $_POST["typeName"];
 
@@ -94,20 +93,16 @@
 			WHERE maLS='$typeId'
 			";
 
-		$result = quick_query($sql);
+		quick_query($sql);
 
-		if ($result) {
-			$link = save_or_to_index(false);
-			echo "
-				<script>
-					alert('Cập nhật sách thành công');
-					window.location.href = '$link';
-				</script>
-			";
-		}
-		else {
-			echo "<script>alert('Cập nhật sách thất bại' . $result)</script>";
-		}
+		$link = save_or_to_index(false);
+		echo "
+			<script>
+				localStorage.removeItem('form-typeOfProduct-create');
+				alert('Cập nhật loại sách thành công');
+				window.location.href = '$link';
+			</script>
+		";
 	}
 
 	if (isset($_POST['submit'])) update();
@@ -116,16 +111,16 @@
 <section class="display-content" >
 	<h3>CẬP NHẬT LOẠI SÁCH</h3>
 	<hr>
-	<form action="" method="post" class="form-container" enctype="multipart/form-data">
+	<form action="" method="post" class="form-container form-validate form-typeOfProduct-create" quantity='1'>
 		<div>
 			<label for="typeId" class="form-label">Mã loại sách</label>
 			<input type="text" readonly style="background-color: #ccc;" id="typeId" name="typeId" value="<?php echo $id; ?>" class="form-input">
 		</div>
 
-		<div>
+		<div class='validate'>
 			<label for="typeName" class="form-label">Tên loại sách</label>
-			<input required id='typeName' type="text" id="typeName" name="typeName" value="<?php echo $type['tenLS'] ?? "" ?>" class="form-input">
-			<span id='error-typeName' class='error'></span>
+			<input required id='typeName' type="text" id="typeName" name="typeName" class="form-input is-empty is-character listener" card='Tên loại sách' status='true' value="<?php echo $type['tenLS'] ?? "" ?>" class="form-input">
+			<span class='error'></span>
 		</div>
 
 		<div class="btn-group" style="margin-top: 10px">
@@ -137,7 +132,7 @@
 			</div>
 			
 			<div class="col-md-offset-2 col-md-10">
-				<input required type="submit" name="submit" value="Cập nhật" class="btn btn-success" />
+				<input required type="submit" name="submit" value="Cập nhật" class="btn btn-success btn-validate" />
 			</div>
 		</div>
 	</form>

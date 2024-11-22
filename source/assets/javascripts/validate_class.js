@@ -71,23 +71,36 @@ phoneNumber.forEach((item) => {
   });
 });
 
+// Chỉ nhập số dương
+const positiveNumber = document.querySelectorAll(".positive-number");
+positiveNumber.forEach((item) => {
+  let card = item.getAttribute("card");
+  item.addEventListener("keyup", function() {
+    if (this.value.length == 0) return;
+    if (this.value < 0) show_error(this, card + " phải là số dương");
+    else show_error(this);
+  });
+});
 
-// ---
-// Nếu không có lỗi thì được phép 
+
+// ---------- Nếu không có lỗi thì được phép -----------
 const listener = document.querySelectorAll(".listener");
 listener.forEach((item) => {
   item.addEventListener("keyup", function() {
+    let card = this.getAttribute("card");
+    if (this.value.length == 0) show_error(this, card + " không được bỏ trống");
+
     let formValidate = this.closest(".form-validate");
     let countStatus = 0;
-
+  
     let quantity = formValidate.getAttribute("quantity");
     let listeners = formValidate.querySelectorAll(".listener");
     let btnValidate = formValidate.querySelector(".btn-validate");
-
+  
     listeners.forEach((item) => {
       if (item.getAttribute("status") == "true") countStatus += 1;
     });
-
+  
     if (countStatus == quantity) {
       btnValidate.classList.remove("not-allowed");
       btnValidate.removeAttribute("disabled");
@@ -99,6 +112,7 @@ listener.forEach((item) => {
   });
 });
 
+// Sau khi load web
 window.addEventListener("load", function() {
   const listener = document.querySelectorAll(".listener");
   const failData = localStorage.getItem("failData");

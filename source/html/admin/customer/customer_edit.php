@@ -99,21 +99,17 @@
 			WHERE ma ='$customerId'
 			";
 
-		$result = quick_query($sql);
+		quick_query($sql);
 
-		if ($result) {
-			$link = save_or_to_index(false);
+		$link = save_or_to_index(false);
 
-			echo "
-				<script>
-					alert('Cập nhật khách hàng thành công');
-					window.location.href = '$link';
-				</script>
-			";
-		}
-		else {
-			echo "<script>alert('Cập nhật khách hàng thất bại' . $result)</script>";
-		}
+		echo "
+			<script>
+				alert('Cập nhật khách hàng thành công');
+				window.location.href = '$link';
+			</script>
+		";
+
 	}
 
 	if (isset($_POST['submit'])) update();
@@ -122,28 +118,29 @@
 <section>
 	<h3>CẬP NHẬT KHÁCH HÀNG</h3>
 	<hr>
-	<form action="" method="post" class="form-container" enctype="multipart/form-data">
+
+	<form action="" method="post" class="form-container form-validate" quantity='4'>
 		<div>
 			<label for="customerId" class="form-label">Mã khách hàng</label>
 			<input type="text" readonly style="background-color: #ccc;" id="customerId" name="customerId" value="<?php echo $id; ?>" class="form-input">
 		</div>
 
-		<div>
+		<div class='validate'>
 			<label for="customerName" class="form-label">Tên khách hàng</label>
-			<input required type="text" id="customerName" name="customerName" value="<?php echo $customer['ten']; ?>" class="form-input">
-			<span id='error-customerName' class='error'></span>
+			<input required type="text" id="customerName" name="customerName" value="<?php echo $customer['ten']; ?>" class="form-input listener is-empty is-character" card='Tên khách hàng' status='true'>
+			<span class='error'></span>
 		</div>
 
-		<div>
+		<div class='validate'>
 			<label for="email" class="form-label">Email</label>
-			<input required type="email" name="email" id="email" value="<?php echo $customer['email']; ?>" class="form-input">
-			<span id='error-email' class='error'></span>
+			<input required type="email" name="email" id="email" value="<?php echo $customer['email']; ?>" class="form-input listener is-email is-empty" card='Email' status='true'>
+			<span class='error'></span>
 		</div>
 
-		<div>
+		<div class='validate'>
 			<label for="phoneNumber" class="form-label">Số điện thoại</label>
-			<input required type="number" id="phoneNumber" name="phoneNumber" value="<?php echo $customer['sdt']; ?>" class="form-input">
-			<span id='error-phoneNumber' class='error'></span>
+			<input required type="text" id="phoneNumber" name="phoneNumber" value="<?php echo $customer['sdt']; ?>" class="form-input listener is-empty is-phone-number" card='Số điện thoại' status='true'>
+			<span class='error'></span>
 		</div>
 
 		<div>
@@ -151,10 +148,10 @@
 			<input readonly style='background-color: #ccc;' type="text" id="password" name="password" value="<?php echo $customer['matKhau'];  ?>" class="form-input">
 		</div>
 
-		<div>
+		<div class='validate'>
 			<label for="address" class="form-label">Địa chỉ</label>
-			<input required type="text" id="address" name="address" value="<?php echo $customer['diaChi']; ?>" class="form-input">
-			<span id='error-address' class='error'></span>
+			<input required type="text" id="address" name="address" value="<?php echo $customer['diaChi']; ?>" class="form-input is-empty listener" card='Địa chỉ' status='true'>
+			<span class='error'></span>
 		</div>
 
 		<div class="btn-group" style="margin-top: 10px">
@@ -166,7 +163,7 @@
 			</div>
 			
 			<div class="col-md-offset-2 col-md-10">
-				<input required type="submit" name="submit" value="Cập nhật" class="btn btn-success" />
+				<input required type="submit" name="submit" value="Cập nhật" class="btn btn-success btn-validate" />
 			</div>
 		</div>
 	</form>

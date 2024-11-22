@@ -17,7 +17,9 @@
 
 <!DOCTYPE html>
 <html lang="en">
+    <?php if (type_page("index")) echo "<script>localStorage.removeItem('failData');</script>"; ?>
     <?php head("Page Admin", "../../../");?>
+
     <style>
         :root{
             --primary-color: #f95030;
@@ -345,5 +347,6 @@
         </div>
         
         <script src='../../../assets/javascripts/mod_header.js'></script>
+        <script src='../../../assets/javascripts/validate_class.js'></script>
     </body>
 </html>

@@ -85,7 +85,6 @@
 		$typeId = $_POST["typeId"];
 		$typeName = $_POST["typeName"];
 
-
 		// truy van them sp
 		$sql = "
 			UPDATE `tac_gia` 	
@@ -93,20 +92,15 @@
 			WHERE maTG='$typeId'
 			";
 
-		$result = quick_query($sql);
+		quick_query($sql);
 
-		if ($result) {
-			$link = save_or_to_index(false);
-			echo "
-				<script>
-					alert('Cập nhật tác giả thành công');
-					window.location.href = '$link';
-				</script>
-			";
-		}
-		else {
-			echo "<script>alert('Cập nhật tác giả thất bại' . $result)</script>";
-		}
+		$link = save_or_to_index(false);
+		echo "
+			<script>
+				alert('Cập nhật tác giả thành công');
+				window.location.href = '$link';
+			</script>
+		";
 	}
 
 	if (isset($_POST['submit'])) update();
@@ -115,16 +109,17 @@
 <section class="display-content" >
 	<h3>CẬP NHẬT TÁC GIẢ</h3>
 	<hr>
-	<form action="" method="post" class="form-container" enctype="multipart/form-data">
+
+	<form action="" method="post" class="form-container form-validate" quantity='1'>
 		<div>
 			<label for="typeId" class="form-label">Mã tác giả</label>
 			<input type="text" readonly style="background-color: #ccc;" id="typeId" name="typeId" value="<?php echo $id; ?>" class="form-input">
 		</div>
 
-		<div>
+		<div class='validate'>
 			<label for="typeName" class="form-label">Tên tác giả</label>
-			<input required id='typeName' type="text" id="typeName" name="typeName" value="<?php echo $type['tenTG'] ?? "" ?>" class="form-input">
-			<span id='error-typeName' class='error'></span>
+			<input required id='typeName' type="text" id="typeName" name="typeName" value="<?php echo $type['tenTG'] ?? "" ?>" class="form-input listener is-empty is-character" card='Tên tác giả' status='true'>
+			<span class='error'></span>
 		</div>
 
 		<div class="btn-group" style="margin-top: 10px">
@@ -136,7 +131,7 @@
 			</div>
 			
 			<div class="col-md-offset-2 col-md-10">
-				<input required type="submit" name="submit" value="Cập nhật" class="btn btn-success" />
+				<input required type="submit" name="submit" value="Cập nhật" class="btn btn-success btn-validate" />
 			</div>
 		</div>
 	</form>

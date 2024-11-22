@@ -93,20 +93,15 @@
 			WHERE maNXB='$typeId'
 			";
 
-		$result = quick_query($sql);
+		quick_query($sql);
 
-		if ($result) {
-			$link = save_or_to_index(false);
-			echo "
-				<script>
-					alert('Cập nhật nhà xuất bản thành công');
-					window.location.href = '$link';
-				</script>
-			";
-		}
-		else {
-			echo "<script>alert('Cập nhật nhà xuất bản thất bại' . $result)</script>";
-		}
+		$link = save_or_to_index(false);
+		echo "
+			<script>
+				alert('Cập nhật nhà xuất bản thành công');
+				window.location.href = '$link';
+			</script>
+		";
 	}
 
 	if (isset($_POST['submit'])) update();
@@ -115,15 +110,16 @@
 <section class="display-content" >
 	<h3>CẬP NHẬT NHÀ XUẤT BẢN</h3>
 	<hr>
-	<form action="" method="post" class="form-container" enctype="multipart/form-data">
+
+	<form action="" method="post" class="form-container form-validate" quantity='1'>
 		<div>
 			<label for="typeId" class="form-label">Mã nhà xuất bản</label>
 			<input type="text" readonly style="background-color: #ccc;" id="typeId" name="typeId" value="<?php echo $id; ?>" class="form-input">
 		</div>
 
-		<div>
+		<div class='validate'>
 			<label for="typeName" class="form-label">Tên nhà xuất bản</label>
-			<input required id='typeName' type="text" id="typeName" name="typeName" value="<?php echo $type['tenNXB'] ?? "" ?>" class="form-input">
+			<input required id='typeName' type="text" id="typeName" name="typeName" value="<?php echo $type['tenNXB'] ?? "" ?>" class="form-input is-empty is-character listener" card='Tên nhà xuất bản' status='true'>
 			<span id='error-typeName' class='error'></span>
 		</div>
 
@@ -136,7 +132,7 @@
 			</div>
 			
 			<div class="col-md-offset-2 col-md-10">
-				<input required type="submit" name="submit" value="Cập nhật" class="btn btn-success" />
+				<input required type="submit" name="submit" value="Cập nhật" class="btn btn-success btn-validate" />
 			</div>
 		</div>
 	</form>

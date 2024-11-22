@@ -87,14 +87,19 @@
 		$categoryId = $_POST["category"] ?? "";
 		$nhaXuatBan = $_POST["nhaXuatBan"] ?? "";
 		$author = $_POST["author"] ?? "";
-		$quantity = $_POST["quantity"] ?? 1;
-		$pageNumber = $_POST["pageNumber"] ?? 1;
+		$quantity = $_POST["quantity"] ?? "";
+		$pageNumber = $_POST["pageNumber"] ?? "";
 		$productDes = $_POST["productDes"] ?? "";
-		$price = $_POST["price"] ?? 0;
+		$price = $_POST["price"] ?? "";
 		$img = $_FILES["get-file"];
 		
 		if ($img["name"] == "") {
-			echo "<script>alert('Bạn chưa chọn ảnh !')</script>";
+			echo "
+				<script>
+					localStorage.setItem('failData', 'form-product-create');
+					alert('Bạn chưa chọn ảnh !')
+				</script>
+			";
 			return;
 		}
 		
@@ -102,7 +107,12 @@
 		$result = check_image($img);
 		
 		if (strlen($result) > 0) {
-			echo "<script>alert('$result')</script>";
+			echo "
+				<script>
+					localStorage.setItem('failData', 'form-product-create');
+					alert('$result');
+				</script>
+			";
 			return;
 		}
 
@@ -120,6 +130,7 @@
 			$link = save_or_to_index(false);
 			echo "
 				<script>
+					localStorage.removeItem('failData');
 					alert('Thêm sách thành công');
 					window.location.href = '$link';
 				</script>
@@ -136,16 +147,16 @@
 	<h3>THÊM SÁCH</h3>
 	<hr>
 
-	<form action="?action=create" method="post" class="form-container" enctype="multipart/form-data">
+	<form action="?action=create" method="post" class="form-container form-validate form-product-create" quantity='6' enctype="multipart/form-data">
 		<div>
 			<label for="productId" class="form-label">Mã sách</label>
 			<input required type="text" id="productId" name="productId" class="form-input" value="<?php echo $idBook; ?>" readonly style='background-color: #ccc'>
 		</div>
 
-		<div>
+		<div class='validate'>
 			<label for="productName" class="form-label">Tên sách</label>
-			<input required type="text" name="productName" id="productName" class="form-input" value="<?php echo $_POST['productName'] ?? ''; ?>">
-			<span class="error" id="error-productName"></span>
+			<input required type="text" name="productName" id="productName" class="form-input listener is-empty is-character" card='Tên sách' status='false' value="<?php echo $_POST['productName'] ?? ''; ?>">
+			<span class="error"></span>
 		</div>
 
 		<div>
@@ -193,36 +204,36 @@
 			</select>
 		</div>
 
-		<div>
+		<div class='validate'>
 			<label for="quantity" class="form-label">Số lượng</label>
-			<input required type="number" min="1" name="quantity" id="quantity" class="form-input" value="<?php echo $_POST['quantity'] ?? '1'; ?>">
-			<span class="error" id="error-quantity"></span>
+			<input required type="number" min="1" name="quantity" id="quantity" class="form-input listener is-empty positive-number" card='Số lượng' status='false' value="<?php echo $_POST['quantity'] ?? ''; ?>">
+			<span class="error"></span>
 		</div>
 
-		<div>
+		<div class='validate'>
 			<label for="pageNumber" class="form-label">Số trang</label>
-			<input required type="number" id="pageNumber" min="1" name="pageNumber" value="<?php echo $product['pageNumber'] ?? '1' ?>" class="form-input">
-			<span class="error" id="error-pageNumber"></span>
+			<input required type="number" id="pageNumber" min="1" name="pageNumber" class="form-input listener is-empty positive-number" card='Số trang' status='false' value="<?php echo $_POST['pageNumber'] ?? '' ?>">
+			<span class="error"></span>
 		</div>
 
-		<div>
+		<div class='validate'>
 			<label for="price" class="form-label">Giá</label>
-			<input required type="number" min="0" name="price" id="price" class="form-input" value="<?php echo $_POST['price'] ?? ''; ?>">
-			<span class="error" id="error-price"></span>
+			<input required type="number" min="0" name="price" id="price" class="form-input listener is-empty positive-number" card='Giá' status='false' value="<?php echo $_POST['price'] ?? ''; ?>">
+			<span class="error"></span>
 		</div>
 
-		<div>
+		<div class='validate'>
 			<label for="description" class="form-label">Mô tả</label>
 			<div class="editor-container">
-				<textarea rows="5" name="productDes" id="des" style='padding: 3px 5px;'><?php echo $_POST['productDes'] ?? ""; ?></textarea>
+				<textarea class='listener is-empty is-character' card='Mô tả' status='false' rows="5" name="productDes" id="des" style='padding: 3px 5px;'><?php echo $_POST['productDes'] ?? ""; ?></textarea>
 			</div>
-			<span class="error" id="error-des"></span>
+			<span class="error"></span>
 		</div>
 
-		<div>
+		<div class='validate'>
 			<label for="" class="form-label">Hình ảnh</label>
-			<input type="text" name="productImg" id="productImg" class="form-input" readonly style='background-color: #ccc'>
-			<span class="error" id="error-productImg"></span>
+			<input card='Hình ảnh' status='false' type="text" name="productImg" id="productImg" class="form-input is-empty listener" readonly style='background-color: #ccc'>
+			<span class="error"></span>
 			<div style="margin-top: 12px" >
 				<button id='choose' type="button">
 					<svg
@@ -261,7 +272,7 @@
 				</a>
 			</div>
 			<div>
-				<input required type="submit" name="submit" value="Thêm" class="btn btn-success" />
+				<input required type="submit" name="submit" value="Thêm" class="btn btn-success btn-validate not-allowed"  disabled/>
 			</div>
 		</div>
 	</form>
@@ -279,6 +290,7 @@
 	inputFile.addEventListener("change", function() {
 		if (inputFile.value != "") {
 			inputText.value = inputFile.files[0].name;
+			inputText.dispatchEvent(new Event("keyup"));
 		}
 	});
 </script>

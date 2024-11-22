@@ -104,7 +104,12 @@
 			$result = check_image($img);
 
 			if (strlen($result) > 0) {
-				echo "<script>alert('$result')</script>";
+				echo "
+					<script>
+						localStorage.setItem('failData', 'form-product-edit');
+						alert('$result');
+					</script>
+				";
 				return;
 			}
 
@@ -130,7 +135,7 @@
 			WHERE maSach='$productId'
 		";
 		
-			$result = quick_query($sql);
+		$result = quick_query($sql);
 
 		if ($result) {
 			if ($imgSave != null) {
@@ -141,6 +146,7 @@
 			
 			echo "
 				<script>
+					localStorage.removeItem('failData');
 					alert('Cập nhật sách thành công');
 					window.location.href = '$link';
 				</script>
@@ -157,16 +163,16 @@
 <section class='display-content'>
 	<h3>CẬP NHẬT SÁCH</h3>
 	<hr>
-	<form action="" method="post" class="form-container" enctype="multipart/form-data">
+	<form action="" method="post" class="form-container form-validate form-product-edit" quantity='6' enctype="multipart/form-data">
 		<div>
 			<label for="productId" class="form-label">Mã sách</label>
 			<input type="text" readonly style="background-color: #ccc;" id="productId" name="productId" value="<?php echo $id; ?>" class="form-input">
 		</div>
 
-		<div>
+		<div class='validate'>
 			<label for="productName" class="form-label">Tên sách</label>
-			<input required type="text" id="productName" name="productName" value="<?php echo $product['tenSach'] ?? "" ?>" class="form-input">
-			<span class="error" id="error-productName"></span>
+			<input required type="text" id="productName" name="productName" value="<?php echo $product['tenSach'] ?? "" ?>" class="form-input listener is-empty is-character" card='Tên sách' status='true'>
+			<span class="error"></span>
 		</div>
 
 		<div>
@@ -214,36 +220,36 @@
 			</select>
 		</div>
 
-		<div>
+		<div class='validate'>
 			<label for="quantity" class="form-label">Số lượng</label>
-			<input required type="number" id="quantity" name="quantity" value="<?php echo $product['soLuong'] ?? $quantity ?>" class="form-input">
+			<input required type="number" id="quantity" name="quantity" class="form-input listener is-empty positive-number" card='Số lượng' status='true' value="<?php echo $product['soLuong'] ?? $quantity ?>" class="form-input">
 			<span class="error" id="error-quantity"></span>
 		</div>
 
-		<div>
+		<div class='validate'>
 			<label for="pageNumber" class="form-label">Số trang</label>
-			<input required type="number" id="pageNumber" name="pageNumber" value="<?php echo $product['soTrang'] ?? "" ?>" class="form-input">
+			<input required type="number" id="pageNumber" name="pageNumber" class="form-input listener is-empty positive-number" card='Số trang' status='true' value="<?php echo $product['soTrang'] ?? "" ?>" class="form-input">
 			<span class="error" id="error-pageNumber"></span>
 		</div>
 
-		<div>
+		<div class='validate'>
 			<label for="price" class="form-label">Giá</label>
-			<input required type="number" id="price" min="0" name="price" value="<?php echo $product['giaTien'] ?>" class="form-input">
-			<span class="error" id="error-price"></span>
+			<input required type="number" id="price" class="form-input listener is-empty positive-number" card='Giá' status='true' min="0" name="price" value="<?php echo $product['giaTien'] ?>" class="form-input">
+			<span class="error"></span>
 		</div>
 
-		<div>
+		<div class='validate'>
 			<label for="description" class="form-label">Mô tả</label>
 			<div class="editor-container">
-				<textarea rows="5" name="productDes" id="des" style='padding: 3px 5px;'><?php echo $product['moTa'] ?? ""; ?></textarea>
+				<textarea class='listener is-empty is-character' card='Mô tả' status='true' rows="5" name="productDes" id="des" style='padding: 3px 5px;'><?php echo $product['moTa'] ?? ""; ?></textarea>
 			</div>
-			<span class="error" id="error-des"></span>
+			<span class="error"></span>
 		</div>
 
-		<div>
+		<div class='validate'>
 			<label for="productImg" class="form-label">Hình ảnh</label>
-			<input type="text" name="productImg" value="<?php echo $product['hinhAnh'] ?>" id="productImg" class="form-input" readonly style='background-color: #ccc'>
-			<span class="error" id="error-productImg"></span>
+			<input type="text" name="productImg" value="<?php echo $product['hinhAnh'] ?>" id="productImg" class="form-input is-empty listener" card='Hình ảnh' status='true' readonly style='background-color: #ccc'>
+			<span class="error"></span>
 			<div style="margin-top: 12px" >
 				<button id='choose' type="button">
 					<svg
@@ -283,7 +289,7 @@
 			</div>
 			
 			<div class="col-md-offset-2 col-md-10">
-				<input required type="submit" name="submit" value="Cập nhật" class="btn btn-success" />
+				<input required type="submit" name="submit" value="Cập nhật" class="btn btn-success btn-validate" />
 			</div>
 		</div>
 	</form>
@@ -301,8 +307,8 @@
 
 	inputFile.addEventListener("change", function() {
 		if (inputFile.value != "") {
+			inputText.dispatchEvent(new Event("keyup"));
 			inputText.value = inputFile.files[0].name;
-			console.log(inputFile);
 		}
 	});
 </script>
