@@ -29,7 +29,7 @@
 
     if ($role == "") {
       $errorLogin = "Tài khoản hoặc mật khẩu không chính xác !";
-      echo "<script>localStorage.setItem('failData', 'true');</script>";
+      echo "<script>localStorage.setItem('failData', 'form-login');</script>";
       return;
     }
 
@@ -83,7 +83,7 @@
 
   }
 
-  .login-form {
+  .form-login {
     max-width: 360px;
     margin: 0 40px;
     text-align: left;
@@ -92,11 +92,11 @@
   .login-header{
     margin-bottom: 20px;
   }
-  .login-form label {
+  .form-login label {
     display: block;
   }
 
-  .login-form input[type='text'],
+  .form-login input[type='text'],
   input[type='password'] {
     width: 100%;
     border-radius: 30px;
@@ -104,25 +104,25 @@
     border: none;
   }
 
-  .login-form .form-group {
+  .form-login .form-group {
     margin-top: 10px;
   }
 
-  .login-form .uname {
+  .form-login .uname {
     margin: 10px;
     font-weight: 600;
     font-size: 16px;
     color: #292929;
   }
 
-  .login-form .save-pass {
+  .form-login .save-pass {
     display: flex;
     flex-direction: row;
     align-items: start;
     margin-top: 20px;
   }
 
-  .login-form .btn {
+  .form-login .btn {
     display: block;
     width: 100%;
     font-size: 16px;
@@ -165,8 +165,8 @@
     <p style='color: red;'> <?php echo $errorLogin; ?></p>
   </div>
 
-  <div class="login-form form-validate" quantity='2'>
-    <form action="" method="POST">
+  <div class="form-login">
+    <form action="" method="POST" class='form-validate' quantity='2'>
       <div class="form-group validate">
         <input class='is-email is-empty listener' card='Email' status='false' type="text" id="username" name="username" placeholder="Email" required value='<?php echo $_REQUEST["username"] ?? ""; ?>'>
         <span class='error'></span>

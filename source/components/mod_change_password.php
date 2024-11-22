@@ -1,7 +1,7 @@
 <?php
-  $_password_old = isset($_REQUEST["password-old"]) ? $_REQUEST["password-old"] : "";
-  $_password_new = isset($_REQUEST["password-new"]) ? $_REQUEST["password-new"] : "";
-  $_password_new_confirm = isset($_REQUEST["password-new-confirm"]) ? $_REQUEST["password-new-confirm"] : "";
+  $_password_old = $_REQUEST["password-old"] ?? "";
+  $_password_new = $_REQUEST["password-new"] ?? "";
+  $_password_new_confirm = $_REQUEST["password-new-confirm"] ?? "";
 
   trim($_password_old);
   trim($_password_new);
@@ -16,16 +16,19 @@
 
     if (md5($_password_old) != $infoUser["matKhau"]) {
       $errorChangePassword = "Mật khẩu cũ không chính xác !";
+      echo "<script>localStorage.setItem('failData', 'form-change-password')</script>";
       return;
     }
 
     if ($_password_old == $_password_new) {
       $errorChangePassword = "Mật khẩu mới không được trùng với mật khẩu cũ !";
+      echo "<script>localStorage.setItem('failData', 'form-change-password')</script>";
       return;
     }
 
     if ($_password_new != $_password_new_confirm) {
       $errorChangePassword = "Mật khẩu xác nhận không chính xác !";
+      echo "<script>localStorage.setItem('failData', 'form-change-password')</script>";
       return;
     }
 
@@ -44,6 +47,7 @@
     echo "
       <script>
         alert('Đổi mật khẩu thành công');
+        localStorage.removeItem('failData');
         window.location.href = '$linkBack';
       </script>
     ";
@@ -149,33 +153,36 @@
   </div>
 
   <div class="login-form">
-    <form action="" method="POST">
+    <form action="" method="POST" class='form-validate form-change-password' quantity='3'>
       <div class="form-group">
         <input type="text" id="username" name="username" disabled value='<?php echo $username; ?>'>
       </div>
 
-      <div class="form-group" style='position: relative;'>
-        <input type="password" id="password-old" name="password-old" placeholder="Nhập mật khẩu cũ" required value='<?php if (isset($_REQUEST["password-old"])) echo $_REQUEST["password-old"]; ?>' >
+      <div class="form-group validate" style='position: relative;'>
+        <input class='is-empty correct-password listener' card='Mật khẩu' status='false' type="password" id="password-old" name="password-old" placeholder="Nhập mật khẩu cũ" required value='<?php echo $_REQUEST["password-old"] ?? ""; ?>' >
         <span class='frame-eyes'>
           <i class="fa-solid fa-eye-slash"></i>
         </span>
+        <span class='error'></span>
       </div>
 
-      <div class="form-group"  style='position: relative;'>
-        <input type="password" id="password-new" name="password-new" placeholder="Nhập mật khẩu mới" required value='<?php if (isset($_REQUEST["password-new"])) echo $_REQUEST["password-new"]; ?>' >
+      <div class="form-group validate"  style='position: relative;'>
+        <input class='is-empty correct-password listener' card='Mật khẩu' status='false' type="password" id="password-new" name="password-new" placeholder="Nhập mật khẩu mới" required value='<?php echo $_REQUEST["password-new"] ?? ""; ?>' >
         <span class='frame-eyes'>
           <i class="fa-solid fa-eye-slash"></i>
         </span>
+        <span class='error'></span>
       </div>
 
-      <div class="form-group"  style='position: relative;'>
-        <input type="password" id="password-new-confirm" name="password-new-confirm" placeholder="Xác nhận mật khẩu mới" required value='<?php if (isset($_REQUEST["password-new-confirm"])) echo $_REQUEST["password-new-confirm"]; ?>' >
+      <div class="form-group validate"  style='position: relative;'>
+        <input class='is-empty correct-password listener' card='Mật khẩu' status='false' type="password" id="password-new-confirm" name="password-new-confirm" placeholder="Xác nhận mật khẩu mới" required value='<?php echo $_REQUEST["password-new-confirm"] ?? ""; ?>' >
         <span class='frame-eyes'>
           <i class="fa-solid fa-eye-slash"></i>
         </span>
+        <span class='error'></span>
       </div>
 
-      <button type="submit" class="btn" name='btn-change-password'>Đổi</button>
+      <button type="submit" class="btn btn-validate not-allowed" disabled name='btn-change-password'>Đổi</button>
     </form>
   </div>
 

@@ -1,9 +1,9 @@
 <?php
-  $_ten = isset($_REQUEST["ten"]) ? $_REQUEST["ten"] : "";
-  $_sdt = isset($_REQUEST["sdt"]) ? $_REQUEST["sdt"] : "";
-  $_email = isset($_REQUEST["email"]) ? $_REQUEST["email"] : "";
-  $_password = isset($_REQUEST["password"]) ? $_REQUEST["password"] : "";
-  $_diaChi = isset($_REQUEST["diaChi"]) ? $_REQUEST["diaChi"] : "";
+  $_ten = $_REQUEST["ten"] ?? "";
+  $_sdt = $_REQUEST["sdt"] ?? "";
+  $_email = $_REQUEST["email"] ?? "";
+  $_password = $_REQUEST["password-register"] ?? "";
+  $_diaChi = $_REQUEST["diaChi"] ?? "";
 
   trim($_ten);
   trim($_sdt);
@@ -12,30 +12,23 @@
   trim($_diaChi);
   $errorRegister = "";
 
-  function check_register() {
-    global $errorRegister, $userId, $role, $_ma, $_ten, $_email, $_sdt, $_password, $_diaChi;
+  function check_register($_ten, $_email, $_sdt, $_password, $_diaChi) {
+    global $errorRegister, $userId, $role;
 
-    $_password = md5($_password);
-
+    
     $sql = "select * from `khach_hang` where email = '$_email'";
     $result = get_data_query($sql);
     if (count($result) > 0) {
       $errorRegister = "Email đã được đăng ký !";
-      $_password = "";
+      echo "<script>localStorage.setItem('failData', 'form-register');</script>";
       return;
     }
-
+    
+    $_password = md5($_password);
     $_ma = get_id_laster("select ma from khach_hang group by ma order by ma desc limit 1");
     $sql = "insert into `khach_hang` values ('$_ma', '$_ten', '$_email', '$_sdt', '$_password', '$_diaChi');";
-    $result = quick_query($sql);
+    quick_query($sql);
     
-    if (!$result) {
-      $errorRegister = "Thông tin đăng ký không đúng định dạng !";
-      echo "<script>localStorage.setItem('failData', 'true');</script>";
-      $_REQUEST["password"] = "";
-      return;
-    }
-
     $userId = $_ma;
     get_data_user($userId, $role);
     echo "
@@ -46,25 +39,7 @@
     ";
   }
 
-  if (isset($_REQUEST["btn-register"])) {
-    # Kiểm tra dữ liệu lấy vào
-    $data_correct = true;
-
-    # _ten phải toàn là ký tự, không có số
-    if ($data_correct) $data_correct = run_check("check_is_string", $_ten, "Họ và tên không chứa số !");
-
-    # _sdt là chuỗi toàn số
-    if ($data_correct) $data_correct = run_check("check_is_numeric", $_sdt, "Số điện thoại phải là chuỗi toàn số !");
-
-    # _email phải đúng định dạng
-    if ($data_correct) $data_correct = run_check("check_is_email", $_email, "Email không đúng định dạng !");
-
-    if ($data_correct) {
-      check_register();
-      return;
-    }
-    $errorRegister = " ";
-  }
+  if (isset($_REQUEST["btn-register"])) check_register($_ten, $_email, $_sdt, $_password, $_diaChi);
 ?>
 
 <style>
@@ -148,14 +123,14 @@
   </div>
 
   <div class="register-form">
-    <form action="" method="POST" class='form-validate' quantity='5'>
+    <form action="" method="POST" class='form-validate form-register' quantity='5'>
       <div class="form-group validate">
         <input card='Họ và tên' status='false' class='listener is-empty is-character' type="text" id="ten" name="ten" placeholder="Họ và tên" required value='<?php echo $_REQUEST["ten"] ?? "" ?>'>
         <span class='error'></span>
       </div>
 
-      <div class="form-group">
-        <input type="text" id="sdt" name="sdt" placeholder="Số điện thoại" required value='<?php echo $_REQUEST["sdt"] ?? "" ?>'>
+      <div class="form-group validate">
+        <input class='listener is-empty is-phone-number' card='Số điện thoại' status='false' type="text" id="sdt" name="sdt" placeholder="Số điện thoại" required value='<?php echo $_REQUEST["sdt"] ?? "" ?>'>
         <span class='error'></span>
       </div>
 
@@ -165,7 +140,7 @@
       </div>
       
       <div class="form-group validate" style='position: relative;'>
-        <input class='is-empty correct-password listener' card='Mật khẩu' status='false' type="password" id='password-register' name="password" placeholder="Mật khẩu" required value='<?php echo $_REQUEST["password"] ?? "" ?>'>
+        <input class='is-empty correct-password listener' card='Mật khẩu' status='false' type="password" id='password-register' name="password-register" placeholder="Mật khẩu" required value='<?php echo $_REQUEST["password-register"] ?? "" ?>'>
         <span class='frame-eyes'>
           <i class="fa-solid fa-eye-slash"></i>
         </span>

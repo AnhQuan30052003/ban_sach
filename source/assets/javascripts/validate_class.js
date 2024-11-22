@@ -54,7 +54,22 @@ isCharacter.forEach((item) => {
   });
 });
 
-
+// Kiểm tra số điện thoại
+const phoneNumber = document.querySelectorAll(".is-phone-number");
+phoneNumber.forEach((item) => {
+  let card = item.getAttribute("card");
+  item.addEventListener("keyup", function() {
+    let value = this.value;
+    for (let i = 0; i < value.length; i++) {
+      if (value[i] < '0' || value[i] > '9') {
+        show_error(this, card + " chỉ được nhập số từ 0-9");
+        return;
+      }
+    }
+    if (value.length > 10) show_error(this, card + " chỉ được nhập 10 số");
+    else show_error(this);
+  });
+});
 
 
 // ---
@@ -90,6 +105,10 @@ window.addEventListener("load", function() {
   if (failData == null) return;
 
   listener.forEach((item) => {
-    item.dispatchEvent(new Event("keyup"));
+    if (item.closest(`.${failData}`)) {
+      item.dispatchEvent(new Event("keyup"));
+    }
   })
 });
+
+// localStorage.clear();

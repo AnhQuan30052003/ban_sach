@@ -15,5 +15,6 @@
   <?php include_once $pathComponents . "/mod_change_password.php"; ?>
 
   <script src='../../assets/javascripts/mod_handle_eyes_password.js'></script>
+  <script src='../../assets/javascripts/validate_class.js'></script>
 </body>
 </html>
