@@ -213,7 +213,7 @@
 			<div class="col-4">
 				<h6 class="text-center text-primary">Ảnh sách</h6>
 				<hr />
-				<img class="w-100 h-auto" src=<?php echo '../../assets/images/products/' . $product['hinhAnh'] ?> />
+				<img class="w-100 h-auto" src='<?php echo '../../assets/images/products/' . $product['hinhAnh'] ?>' />
 			</div>
 
 			<div class="col-8">
