@@ -127,6 +127,7 @@
 
 		if ($result) {
 			save_file($img);
+
 			$link = save_or_to_index(false);
 			echo "
 				<script>
