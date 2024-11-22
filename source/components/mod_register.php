@@ -31,6 +31,7 @@
     
     if (!$result) {
       $errorRegister = "Thông tin đăng ký không đúng định dạng !";
+      echo "<script>localStorage.setItem('failData', 'true');</script>";
       $_REQUEST["password"] = "";
       return;
     }
@@ -39,6 +40,7 @@
     get_data_user($userId, $role);
     echo "
       <script>
+        localStorage.removeItem('failData');
         alert('Đăng ký tài khoản thành công');
       </script>
     ";
@@ -146,36 +148,36 @@
   </div>
 
   <div class="register-form">
-    <form action="" method="POST">
-      <div class="form-group">
-        <input type="text" id="ten" name="ten" placeholder="Họ và tên" required value='<?php echo $_REQUEST["ten"] ?? "" ?>'>
-        <span id='error-ten' class='error'></span>
+    <form action="" method="POST" class='form-validate' quantity='5'>
+      <div class="form-group validate">
+        <input card='Họ và tên' status='false' class='listener is-empty is-character' type="text" id="ten" name="ten" placeholder="Họ và tên" required value='<?php echo $_REQUEST["ten"] ?? "" ?>'>
+        <span class='error'></span>
       </div>
 
       <div class="form-group">
         <input type="text" id="sdt" name="sdt" placeholder="Số điện thoại" required value='<?php echo $_REQUEST["sdt"] ?? "" ?>'>
-        <span id='error-sdt' class='error'></span>
+        <span class='error'></span>
       </div>
 
-      <div class="form-group">
-        <input type="email" id="email" name="email" placeholder="Email" required value='<?php echo $_REQUEST["email"] ?? "" ?>'>
-        <span id='error-email' class='error'></span>
+      <div class="form-group validate">
+        <input class='is-email is-empty listener' card='Email' status='false' type="email" id="email" name="email" placeholder="Email" required value='<?php echo $_REQUEST["email"] ?? "" ?>'>
+        <span class='error'></span>
       </div>
       
-      <div class="form-group" style='position: relative;'>
-        <input type="password" id='password-register' name="password" placeholder="Mật khẩu" required value='<?php echo $_REQUEST["password"] ?? "" ?>'>
+      <div class="form-group validate" style='position: relative;'>
+        <input class='is-empty correct-password listener' card='Mật khẩu' status='false' type="password" id='password-register' name="password" placeholder="Mật khẩu" required value='<?php echo $_REQUEST["password"] ?? "" ?>'>
         <span class='frame-eyes'>
           <i class="fa-solid fa-eye-slash"></i>
         </span>
-        <span id='error-password-register' class='error'></span>
+        <span class='error'></span>
       </div>
 
-      <div class="form-group">
-        <input type="text" id="diaChi" name="diaChi" placeholder="Địa chỉ" required value='<?php echo $_REQUEST["diaChi"] ?? "" ?>'>
-        <span id='error-diaChi' class='error'></span>
+      <div class="form-group validate">
+        <input class='listener is-empty' card='Địa chỉ' status='false' type="text" id="diaChi" name="diaChi" placeholder="Địa chỉ" required value='<?php echo $_REQUEST["diaChi"] ?? "" ?>'>
+        <span class='error'></span>
       </div>
 
-      <button type="submit" class="btn" name='btn-register'>Đăng ký</button>
+      <button type="submit" class="btn btn-validate not-allowed" disabled name='btn-register'>Đăng ký</button>
     </form>
   </div>
 

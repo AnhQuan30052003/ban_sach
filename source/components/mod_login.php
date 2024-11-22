@@ -29,6 +29,7 @@
 
     if ($role == "") {
       $errorLogin = "Tài khoản hoặc mật khẩu không chính xác !";
+      echo "<script>localStorage.setItem('failData', 'true');</script>";
       return;
     }
 
@@ -38,6 +39,7 @@
     echo "
       <script>
         localStorage.setItem('userId', '$userId');
+        localStorage.removeItem('failData');
         alert('Đăng nhập thành công');
       </script>
     ";
@@ -163,15 +165,15 @@
     <p style='color: red;'> <?php echo $errorLogin; ?></p>
   </div>
 
-  <div class="login-form form-validate">
+  <div class="login-form form-validate" quantity='2'>
     <form action="" method="POST">
       <div class="form-group validate">
-        <input class='is-email is-empty' card='Email' type="text" id="username" name="username" placeholder="Email" required value='<?php echo $_REQUEST["username"] ?? ""; ?>'>
+        <input class='is-email is-empty listener' card='Email' status='false' type="text" id="username" name="username" placeholder="Email" required value='<?php echo $_REQUEST["username"] ?? ""; ?>'>
         <span class='error'></span>
       </div>
       
       <div class="form-group validate" style='position: relative;'>
-        <input type="password" id='password-login' name="password-login" placeholder="Mật khẩu" required maxlength="32" value='<?php echo $_REQUEST["password-login"] ?? ""; ?>' >
+        <input class='is-empty correct-password listener' type="password" id='password-login' card='Mật khẩu' status='false' name="password-login" placeholder="Mật khẩu" required maxlength="32" value='<?php echo $_REQUEST["password-login"] ?? ""; ?>' >
         <span class='frame-eyes'>
           <i class="fa-solid fa-eye-slash"></i>
         </span>
@@ -183,7 +185,7 @@
         <span>Ghi nhớ đăng nhập</span>
       </div>
 
-      <button type="submit" class="btn btn-validate" disabled name='btn-login'>Đăng nhập</button>
+      <button type="submit" class="btn btn-validate not-allowed" disabled name='btn-login'>Đăng nhập</button>
     </form>
   </div>
 
