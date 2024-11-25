@@ -14,7 +14,6 @@
 
   function check_register($_ten, $_email, $_sdt, $_password, $_diaChi) {
     global $errorRegister, $userId, $role;
-
     
     $sql = "select * from `khach_hang` where email = '$_email'";
     $result = get_data_query($sql);

@@ -152,6 +152,7 @@
   <h3>QUẢN LÝ KHÁCH HÀNG</h3>
   <hr>
   <div class="wrapper-search-add">
+    <a class="btn btn-add" href="?action=create">Tạo mới</a>
     <form action="" method="GET" id="form-search">
       <input class="search-text" id="search-text" name="search" value="<?php echo $search ?? "" ?>" placeholder="Nhập mã/tên khách hàng để tìm kiếm">
       <?php

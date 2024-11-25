@@ -81,12 +81,29 @@
 	$customer = $res[0];
 
 	function update() {
+		global $id;
+
 		$customerId = $_POST["customerId"];
 		$customerName = $_POST["customerName"];
 		$email = $_POST["email"];
 		$phoneNumber = $_POST["phoneNumber"];
 		$password = $_POST["password"];
 		$address = $_POST["address"];
+
+		// Kiểm tra email có hay chưa ?
+		$sql = "select ma from `khach_hang` where email = '$email'";
+    $result = get_data_query($sql);
+    if (count($result) > 0) {
+			if ($result[0]["ma"] != $customerId) {
+				echo "
+				<script>
+				localStorage.setItem('failData', 'form-customer-edit');
+				alert('Email đã được đăng ký !');
+				</script>
+				";
+				return;
+			}
+    }
 
 		// truy van them sp
 		$sql = "
@@ -105,6 +122,7 @@
 
 		echo "
 			<script>
+				localStorage.removeItem('failData');
 				alert('Cập nhật khách hàng thành công');
 				window.location.href = '$link';
 			</script>
@@ -119,7 +137,7 @@
 	<h3>CẬP NHẬT KHÁCH HÀNG</h3>
 	<hr>
 
-	<form action="" method="post" class="form-container form-validate" quantity='4'>
+	<form action="" method="post" class="form-container form-validate form-customer-edit" quantity='4'>
 		<div>
 			<label for="customerId" class="form-label">Mã khách hàng</label>
 			<input type="text" readonly style="background-color: #ccc;" id="customerId" name="customerId" value="<?php echo $id; ?>" class="form-input">

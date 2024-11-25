@@ -348,5 +348,6 @@
         
         <script src='../../../assets/javascripts/mod_header.js'></script>
         <script src='../../../assets/javascripts/validate_class.js'></script>
+        <script src='../../../assets/javascripts/mod_handle_eyes_password.js'></script>
     </body>
 </html>
